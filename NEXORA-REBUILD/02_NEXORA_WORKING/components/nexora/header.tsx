@@ -25,7 +25,7 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-40 text-white mix-blend-difference">
         <div className="flex items-center justify-between px-4 py-4 md:px-8 md:py-6">
-          <a href="#top" className="flex items-baseline gap-2" aria-label="NEXORA, retour en haut">
+          <a href="#top" className="flex items-baseline gap-2">
             <span className="text-lg font-extrabold tracking-tight [font-variation-settings:'wdth'_112]">
               NEXORA
             </span>

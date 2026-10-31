@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: '/' },
-  openGraph: { type: 'website', locale: 'fr_FR', siteName: 'NEXORA', title: TITLE, description: DESCRIPTION, url: '/' },
-  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
+  openGraph: { type: 'website', locale: 'fr_FR', siteName: 'NEXORA', title: TITLE, description: DESCRIPTION, url: '/', images: [{ url: '/og.png', width: 1200, height: 630, alt: 'NEXORA — Studio créatif en mouvement' }] },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/og.png'] },
   icons: { icon: '/icon.svg', apple: '/apple-icon.png' },
 }
 

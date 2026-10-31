@@ -272,7 +272,7 @@
 
 /* Manifesto scroll-scrubbed words */
 .mf-word {
-  opacity: clamp(0.14, calc((var(--p, 0) - var(--w)) * 18 + 0.14), 1);
+  opacity: clamp(0.4, calc((var(--p, 0) - var(--w)) * 18 + 0.4), 1);
   transition: opacity 0.2s linear;
 }
 
