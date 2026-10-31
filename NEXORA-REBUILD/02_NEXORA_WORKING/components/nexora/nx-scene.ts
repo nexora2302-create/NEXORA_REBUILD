@@ -78,7 +78,7 @@ function shapeRibbon(rb: Ribbon, time: number, unfold: number) {
     const y = L * s * (0.35 + 0.65 * unfold)
     const cx = bend * Math.sin(Math.PI * t * 1.1 + phase) * unfold + Math.sin(time * 0.7 + t * 5 + phase) * 4
     const cz = 18 * Math.sin(Math.PI * 2 * t + phase + time * 0.5)
-    const theta = (twist * s + 0.35 * Math.sin(time * 0.9 + t * 4.2 + phase)) * unfold
+    const theta = (twist * s + 0.5 * Math.sin(time * 0.9 + t * 4.2 + phase)) * unfold
     const cos = Math.cos(theta)
     const sin = Math.sin(theta)
     const taper = 0.1 + 0.9 * Math.pow(Math.sin(Math.PI * t), 0.4)
@@ -223,7 +223,12 @@ export function mountNxScene(canvas: HTMLCanvasElement, opts: { reduced: boolean
     look.x += (target.x - look.x) * 0.045
     look.y += (target.y - look.y) * 0.045
     sScroll += (scrollP - sScroll) * 0.1
-    rig.rotation.y = Math.sin(t * 0.32) * 0.28 + look.x * 0.35 + sScroll * Math.PI * 0.5
+    // Geste signature : toutes les 9 s, le X fait un tour complet sur lui-même, puis revient au calme.
+    // Le premier tour part 0,6 s après l'apparition de la 3D.
+    const cyc = ((t - 0.6) % 9 + 9) % 9
+    const k = t < 0.6 ? 0 : clamp01(cyc / 1.9)
+    const spin = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2
+    rig.rotation.y = Math.sin(t * 0.32) * 0.28 + look.x * 0.35 + sScroll * Math.PI * 0.5 + spin * Math.PI * 2
     rig.rotation.x = Math.sin(t * 0.45) * 0.08 + look.y * 0.25 - sScroll * 0.2
     rig.rotation.z = Math.sin(t * 0.25) * 0.05
     rig.scale.setScalar(0.35 + 0.65 * unfold)
