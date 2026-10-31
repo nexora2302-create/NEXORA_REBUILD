@@ -62,75 +62,61 @@ export function Hero() {
     }
   }, [])
 
-  // Les lettres s'élargissent près du pointeur (souris uniquement).
-  const lettersRef = useRef<(HTMLSpanElement | null)[]>([])
-  const handleMove = (e: React.PointerEvent) => {
-    if (e.pointerType !== 'mouse') return
-    const range = window.innerWidth * 0.28
-    lettersRef.current.forEach((letter) => {
-      if (!letter) return
-      const r = letter.getBoundingClientRect()
-      const k = Math.max(0, 1 - Math.abs(e.clientX - (r.left + r.width / 2)) / range)
-      const eased = k * k * (3 - 2 * k)
-      letter.style.setProperty('--wdth', String(100 + eased * 10))
-      letter.style.setProperty('--wght', String(800 + eased * 80))
-    })
-  }
-  const handleLeave = () =>
-    lettersRef.current.forEach((l) => {
-      l?.style.removeProperty('--wdth')
-      l?.style.removeProperty('--wght')
-    })
-
   return (
     <section
       id="top"
       ref={sectionRef}
-      onPointerMove={handleMove}
-      onPointerLeave={handleLeave}
       className="relative isolate flex min-h-svh flex-col overflow-hidden"
       style={{ '--p': 0 } as React.CSSProperties}
     >
       {/* Chaleur sous la sculpture */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_42%_50%_at_50%_86%,rgb(122_36_16/0.55),transparent_70%)] max-md:bg-[radial-gradient(ellipse_75%_30%_at_50%_45%,rgb(122_36_16/0.5),transparent_70%)]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_38%_48%_at_41%_58%,rgb(122_36_16/0.55),transparent_70%)] max-md:bg-[radial-gradient(ellipse_70%_32%_at_44%_42%,rgb(122_36_16/0.5),transparent_70%)]"
       />
 
-      {/* Le mot, derrière la sculpture ; il s'écarte au scroll */}
+      {/* Le mot, serré comme le logo ; la sculpture 3D tient la place du X. Il s'écarte au scroll. */}
       <h1
         aria-label="NEXORA"
-        className="absolute inset-x-0 top-[27svh] z-0 flex -translate-y-1/2 justify-between px-4 text-[20.5vw] uppercase leading-none tracking-[-0.02em] md:top-[47%] md:px-8 md:text-[19vw] [@media(max-height:560px)]:top-[30%] [@media(max-height:560px)]:text-[13vw]"
+        className="t-wordmark absolute inset-x-0 top-[34svh] z-0 flex -translate-y-1/2 justify-center px-4 md:top-[40%] md:px-8 [@media(max-height:560px)]:top-[34%]"
       >
-        {LETTERS.map((l, i) => (
-          <span
-            key={l}
-            aria-hidden
-            className="block overflow-hidden"
-            style={{ transform: `translate3d(calc(var(--p) * ${i < 3 ? -1 : 1} * ${12 + Math.abs(i - 2.5) * 4}vw), 0, 0)` }}
-          >
-            <span
-              ref={(node) => {
-                lettersRef.current[i] = node
-              }}
-              className={`hero-line hero-glyph block ${l === 'X' ? 'text-accent' : ''}`}
-              style={{ '--i': i } as React.CSSProperties}
-            >
-              {l}
+        {LETTERS.map((l, i) =>
+          l === 'X' ? (
+            <span key={l} aria-hidden className="relative z-10 block">
+              <span className="invisible block">X</span>
+              <span
+                className="hero-sculpt pointer-events-none absolute left-1/2 top-[-0.75em] aspect-[4/5] h-[2.9em] md:top-[-0.32em] md:h-[2.05em]"
+                style={{ transform: 'translate3d(-50%, calc(var(--p) * -14vh), 0)' }}
+              >
+                {!ready && (
+                <img
+                  src="/hero/x-sculpt.webp"
+                  srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w"
+                  sizes="(min-width: 768px) 44vw, 60vw"
+                  alt=""
+                  fetchPriority="high"
+                  width={633}
+                  height={792}
+                  className="sculpt-poster absolute inset-0 h-full w-full object-contain"
+                />
+                )}
+                <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} />
+              </span>
             </span>
-          </span>
-        ))}
+          ) : (
+            <span
+              key={l}
+              aria-hidden
+              className="block overflow-hidden"
+              style={{ transform: `translate3d(calc(var(--p) * ${i < 2 ? -1 : 1} * ${10 + Math.abs(i - 2) * 3}vw), 0, 0)` }}
+            >
+              <span className="hero-line block" style={{ '--i': i } as React.CSSProperties}>
+                {l}
+              </span>
+            </span>
+          ),
+        )}
       </h1>
-
-      {/* La sculpture X, devant le mot */}
-      <div
-        aria-hidden
-        className="hero-sculpt pointer-events-none absolute left-1/2 top-[25svh] z-10 aspect-[4/5] h-[min(42svh,100vw)] md:bottom-[-6svh] md:top-auto md:h-[68svh]"
-        style={{ transform: 'translate3d(-50%, calc(var(--p) * -18vh), 0)' }}
-      >
-        <img src="/hero/x-sculpt.webp" srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w" sizes="(min-width: 768px) 72vh, 42vh" alt="" fetchPriority="high" width={633} height={792} className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`} />
-        <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} />
-      </div>
 
       <div
         className="relative z-20 mt-auto grid grid-cols-1 gap-8 px-4 pb-6 md:grid-cols-12 md:items-end md:px-8 md:pb-8"

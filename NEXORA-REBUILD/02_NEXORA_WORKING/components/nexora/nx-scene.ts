@@ -222,7 +222,7 @@ export function mountNxScene(canvas: HTMLCanvasElement, opts: { reduced: boolean
     look.x += (target.x - look.x) * 0.045
     look.y += (target.y - look.y) * 0.045
     sScroll += (scrollP - sScroll) * 0.1
-    rig.rotation.y = Math.sin(t * 0.32) * 0.45 + look.x * 0.5 + sScroll * Math.PI * 0.5
+    rig.rotation.y = Math.sin(t * 0.32) * 0.28 + look.x * 0.35 + sScroll * Math.PI * 0.5
     rig.rotation.x = Math.sin(t * 0.45) * 0.08 + look.y * 0.25 - sScroll * 0.2
     rig.rotation.z = Math.sin(t * 0.25) * 0.05
     rig.scale.setScalar(0.35 + 0.65 * unfold)
