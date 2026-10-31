@@ -113,7 +113,7 @@ export function Header({ base = '' }: { base?: string }) {
       >
         <div className="grid h-16 grid-cols-12 items-center gap-4 px-4 md:px-8">
           <a href={base || '#top'} className="col-span-6 inline-flex min-h-11 items-center md:col-span-3" aria-label="NEXORA, accueil">
-            <Logo className="text-[1.15rem]" />
+            <Logo className="text-[1.3rem]" />
           </a>
 
           <nav aria-label="Navigation principale" className="hidden md:col-span-6 md:block">
@@ -178,7 +178,7 @@ export function Header({ base = '' }: { base?: string }) {
         style={{ '--logo-x': '#0d0c0b' } as React.CSSProperties}
       >
         <div className="flex h-16 items-center justify-between">
-          <Logo className="text-[1.15rem]" />
+          <Logo className="text-[1.3rem]" />
           <button ref={closeRef} type="button" onClick={() => setOpen(false)} className="inline-flex min-h-11 min-w-11 items-center justify-end text-[15px] font-medium">
             Fermer
           </button>

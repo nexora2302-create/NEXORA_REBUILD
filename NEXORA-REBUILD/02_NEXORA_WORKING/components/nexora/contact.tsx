@@ -63,7 +63,7 @@ export function Footer({ base = '' }: { base?: string }) {
     <footer className="px-4 pb-8 pt-10 md:px-8">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <a href={base || '#top'} className="inline-flex min-h-11 items-center" aria-label="NEXORA, accueil">
-          <Logo className="text-[1.15rem]" />
+          <Logo className="text-[1.3rem]" />
         </a>
         <nav aria-label="Pied de page">
           <ul className="flex flex-wrap gap-x-6 text-[14px] text-foreground/80">
