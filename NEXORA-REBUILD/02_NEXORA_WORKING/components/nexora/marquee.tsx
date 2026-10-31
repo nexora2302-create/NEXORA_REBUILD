@@ -1,4 +1,4 @@
-const WORDS = ['Communication visuelle', 'Motion design', 'Sites web', 'Cotonou', 'Bénin']
+const WORDS = ['Identité visuelle', 'Motion design', 'Sites web', 'Cotonou', 'Bénin']
 
 export function Marquee() {
   return (

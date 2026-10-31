@@ -8,7 +8,7 @@ type Token = { t: 'w'; v: string; tail: string; style?: Style } | { t: 'img'; sr
 
 // *mot* = serif italique · ^mot^ = serif orange · =mot= = contour
 const RAW =
-  'NEXORA est un studio créatif né à ^Cotonou^. Nous dessinons des *identités* qui se lisent [poster] des *images* qui bougent [motion] et des *sites* qui se vivent [interface] — pour les marques qui refusent de rester =immobiles=.'
+  'NEXORA est un studio créatif né à ^Cotonou^. Nous dessinons des *identités* qui se lisent [poster] des *images* qui bougent [motion] et des *sites* qui se vivent [interface] pour les marques qui refusent de rester =immobiles=.'
 
 const IMAGES: Record<string, { src: string; alt: string }> = {
   poster: { src: '/work/poster.webp', alt: 'Affiche' },
@@ -37,12 +37,6 @@ const STYLE_CLASS: Record<Style, string> = {
   accent: 'font-serif font-normal italic tracking-normal text-accent',
   outline: 'outline-text',
 }
-
-const STATS = [
-  ['03', 'expertises intégrées, un seul regard'],
-  ['01', 'studio, ancré à Cotonou'],
-  ['FR·EN', 'langues de travail'],
-]
 
 export function Manifesto() {
   const ref = useRef<HTMLElement>(null)
@@ -76,12 +70,7 @@ export function Manifesto() {
   return (
     <section id="studio" ref={ref} aria-labelledby="studio-title" className="relative px-4 py-28 md:px-8 md:py-40">
       <h2 id="studio-title" className="sr-only">Le studio</h2>
-      <div className="flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-        <span aria-hidden>(01) — Le studio</span>
-        <span>001 / Manifeste</span>
-      </div>
-
-      <p className="font-wide mt-10 text-[8vw] font-extrabold leading-[1] tracking-[-0.03em] md:text-[4.6vw]">
+      <p className="font-wide text-[8vw] font-extrabold leading-[1] tracking-[-0.03em] md:text-[4.6vw]">
         {TOKENS.map((tok, i) => {
           const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
           if (tok.t === 'img') {
@@ -100,13 +89,11 @@ export function Manifesto() {
         })}
       </p>
 
-      <div className="mt-20 grid grid-cols-2 gap-px border-t border-line md:grid-cols-3">
-        {STATS.map(([n, label]) => (
-          <div key={label} className="min-w-0 pr-4 pt-6">
-            <p className="font-wide text-4xl font-black leading-none sm:text-5xl lg:text-7xl">{n}</p>
-            <p className="mt-3 max-w-[22ch] font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
-          </div>
-        ))}
+      <div className="mt-16 grid gap-6 border-t border-line pt-8 md:mt-24 md:grid-cols-12">
+        <p className="font-serif text-2xl italic md:col-span-4">Cotonou, pour le monde.</p>
+        <p className="max-w-xl text-[17px] leading-relaxed text-foreground/75 md:col-span-6 md:col-start-6">
+          Entreprises, marques, institutions et créateurs : nous construisons leur image et leur présence numérique au Bénin, en Afrique et à l’international. Chaque prestation se commande seule ou se combine avec les autres.
+        </p>
       </div>
     </section>
   )

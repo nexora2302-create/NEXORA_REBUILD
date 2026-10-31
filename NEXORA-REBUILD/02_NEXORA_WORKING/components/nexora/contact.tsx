@@ -1,82 +1,91 @@
 import { ContactForm } from './contact-form'
+import { UpIcon } from './icons'
 import { LocalTime } from './local-time'
 import { Reveal, SplitWords } from './reveal'
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="theme-paper relative overflow-hidden px-4 pb-24 pt-24 md:px-8 md:pb-32 md:pt-32">
-      <Reveal>
-        <p className="font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">(06) — Contact</p>
-        <h2 id="contact-title" className="font-wide mt-8 text-[11.5vw] font-black leading-[0.85] tracking-[-0.05em] md:text-[9vw]">
-          <SplitWords text="Un" />
-          <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
-            <span className="rv-word" style={{ '--i': 1 } as React.CSSProperties}>
-              projet<span className="text-accent">?</span>
-            </span>
-          </span>
-          <br />
-          <span className="font-serif font-normal italic tracking-normal">
-            <SplitWords text="Mettons-le" offset={2} />
-          </span>
-          <SplitWords text="en mouvement." offset={3} />
-        </h2>
-
-        <div className="rv-fade mt-12 flex flex-wrap items-center justify-between gap-6 border-t border-line pt-8">
-          <a href="mailto:bonjour@nexora.bj" className="font-serif text-3xl italic transition-colors hover:text-accent md:text-5xl">
-            bonjour@nexora.bj <span aria-hidden>↗</span>
+    <section id="contact" aria-labelledby="contact-title" className="theme-signal relative px-4 py-24 md:px-8 md:py-32">
+      <div className="grid gap-14 md:grid-cols-12">
+        <div className="md:col-span-6">
+          <Reveal>
+            <h2 id="contact-title" className="font-wide text-[12vw] font-black leading-[0.9] tracking-[-0.045em] md:text-[clamp(3.2rem,6.2vw,6.6rem)]">
+              <SplitWords text="Un" />
+              <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
+                <span className="rv-word" style={{ '--i': 1 } as React.CSSProperties}>
+                  {'projet\u00A0?'}
+                </span>
+              </span>
+              <br />
+              <span className="font-serif font-normal italic tracking-normal">
+                <SplitWords text="Mettons-le en mouvement." offset={2} />
+              </span>
+            </h2>
+          </Reveal>
+          <a href="mailto:bonjour@nexora.bj" className="link-line mt-10 inline-block font-serif text-3xl italic md:text-4xl">
+            bonjour@nexora.bj
           </a>
+          <dl className="mt-10 grid max-w-md grid-cols-2 gap-6 text-[15px]">
+            <div>
+              <dt className="font-medium">Studio</dt>
+              <dd className="mt-1 text-muted-foreground">
+                Cotonou, Bénin
+                <br />
+                <span className="font-mono text-[14px]">
+                  <LocalTime /> heure locale
+                </span>
+              </dd>
+            </div>
+            <div>
+              <dt className="font-medium">Langues</dt>
+              <dd className="mt-1 text-muted-foreground">Français et anglais</dd>
+            </div>
+          </dl>
         </div>
-
-        <div className="rv-fade mt-14 max-w-4xl md:mt-20">
+        <div className="md:col-span-6 md:pt-4">
           <ContactForm />
         </div>
-
-        <div className="rv-fade mt-20 grid gap-10 border-t border-line pt-8 md:grid-cols-3">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">Studio</p>
-            <p className="mt-3 font-serif text-2xl italic">Cotonou, Bénin</p>
-            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">
-              <LocalTime /> — heure locale
-            </p>
-          </div>
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">Nouveaux projets</p>
-            <p className="mt-3 font-serif text-2xl italic">Réponse sous 48 h</p>
-            <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">Français · English</p>
-          </div>
-        </div>
-      </Reveal>
+      </div>
     </section>
   )
 }
 
+const LINKS: [string, string][] = [
+  ['Expertises', '#expertises'],
+  ['Réalisations', '#travaux'],
+  ['Méthode', '#methode'],
+  ['FAQ', '#faq'],
+]
+
 export function Footer() {
   return (
-    <footer className="theme-paper relative overflow-hidden border-t border-line px-4 pt-10 md:px-8">
-      <div className="grid grid-cols-2 gap-8 font-mono text-[11px] uppercase tracking-[0.16em] md:grid-cols-12">
-        <p className="col-span-2 opacity-70 md:col-span-4">
-          NEXORA — Studio créatif en mouvement
-          <br />
-          Communication visuelle · Motion design · Web
-        </p>
-        <nav aria-label="Pied de page" className="md:col-span-4 md:col-start-6">
-          <ul className="space-y-2">
-            {[['Expertises', '#expertises'], ['Travaux', '#travaux'], ['Méthode', '#methode'], ['FAQ', '#faq'], ['Contact', '#contact']].map(([l, h]) => (
-              <li key={h}><a href={h} className="link-line">{l}</a></li>
+    <footer className="px-4 pb-8 pt-10 md:px-8">
+      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+        <a href="#top" className="font-wide inline-flex min-h-11 items-center text-lg font-black tracking-tight" aria-label="NX® NEXORA, retour en haut">
+          NX<sup className="text-[0.55em] font-bold">®</sup>
+        </a>
+        <nav aria-label="Pied de page">
+          <ul className="flex flex-wrap gap-x-6 text-[14px] text-foreground/80">
+            {LINKS.map(([l, h]) => (
+              <li key={h}>
+                <a href={h} className="link-line inline-flex min-h-11 items-center">
+                  {l}
+                </a>
+              </li>
             ))}
           </ul>
         </nav>
-        <div className="md:col-span-3 md:text-right">
-          <a href="mailto:bonjour@nexora.bj" className="link-line">bonjour@nexora.bj</a>
-          <p className="mt-2 opacity-70">Cotonou, Bénin</p>
-        </div>
+        <a href="#top" className="group inline-flex min-h-11 items-center gap-2 self-start text-[14px] text-foreground/80 md:self-auto">
+          Retour en haut
+          <span className="grid size-9 place-items-center rounded-full border border-line transition-colors group-hover:border-accent group-hover:text-accent">
+            <UpIcon className="size-3.5" />
+          </span>
+        </a>
       </div>
-      <div className="mt-10 flex flex-col justify-between gap-2 border-t border-line pt-4 font-mono text-[11px] uppercase tracking-[0.16em] opacity-70 md:flex-row">
-        <p>© 2026 NEXORA</p>
-        <p>Conçu et animé au Bénin</p>
-        <a href="#top" className="link-line self-start">Retour en haut ↑</a>
+      <div className="mt-6 flex flex-col gap-1 border-t border-line pt-6 text-[13px] text-muted-foreground sm:flex-row sm:justify-between">
+        <p>© 2026 NEXORA, studio créatif à Cotonou</p>
+        <a href="mailto:bonjour@nexora.bj" className="link-line self-start">bonjour@nexora.bj</a>
       </div>
-      <p aria-hidden className="ghost-word font-wide mt-6 translate-y-[12%] select-none text-center text-[17vw] font-black leading-[0.8] tracking-[-0.05em] opacity-10" />
     </footer>
   )
 }

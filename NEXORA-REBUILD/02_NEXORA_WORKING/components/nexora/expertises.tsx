@@ -1,103 +1,227 @@
-import Image from 'next/image'
 import { Reveal, SplitWords } from './reveal'
+import { SpotGrid } from './spot-grid'
 
-const EXPERTISES = [
-  {
-    n: '01',
-    word: 'Voir',
-    title: 'Communication visuelle',
-    line: 'Des identités qui se reconnaissent au premier regard.',
-    items: ['Identité de marque', 'Direction artistique', 'Affiches & campagnes', 'Packaging', 'Contenus réseaux sociaux'],
-    img: '/work/poster.webp',
-  },
-  {
-    n: '02',
-    word: 'Bouger',
-    title: 'Motion design',
-    line: 'Des images qui respirent, des marques qui prennent vie.',
-    items: ['Logos animés', 'Films de marque', 'Génériques & titrages', 'Formats sociaux animés', 'Habillage vidéo'],
-    img: '/work/motion.webp',
-  },
-  {
-    n: '03',
-    word: 'Habiter',
-    title: 'Sites web',
-    line: 'Des interfaces rapides, sensibles et mémorables.',
-    items: ['Sites vitrines', 'E-commerce', 'Design d’interface', 'Expériences interactives', 'Développement & maintenance'],
-    img: '/work/interface.webp',
-  },
-]
+type Expertise = {
+  word: string
+  title: string
+  line: string
+  items: string[]
+}
+
+const VOIR: Expertise = {
+  word: 'Voir',
+  title: 'Communication visuelle',
+  line: 'Des identités qui se reconnaissent au premier regard, déclinées sur chaque support.',
+  items: ['Identité de marque', 'Direction artistique', 'Supports de communication', 'Campagnes'],
+}
+const BOUGER: Expertise = {
+  word: 'Bouger',
+  title: 'Motion design et audiovisuel',
+  line: 'Des images qui respirent et des marques qui prennent vie à l’écran.',
+  items: ['Logos animés', 'Motion design', 'Vidéos promotionnelles', 'Contenus audiovisuels'],
+}
+const HABITER: Expertise = {
+  word: 'Habiter',
+  title: 'Création web',
+  line: 'Des sites rapides, sensibles et mémorables, du premier écran à la maintenance.',
+  items: ['Sites vitrines', 'Landing pages', 'E-commerce', 'UI/UX design', 'Développement et maintenance'],
+}
+
+function Copy({ x }: { x: Expertise }) {
+  return (
+    <div>
+      <h3 className="font-wide text-[13vw] font-black leading-[0.9] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+        <span aria-hidden>
+          {x.word}
+          <span className="text-accent">.</span>
+        </span>
+        <span className="sr-only">
+          {x.word}. {x.title}
+        </span>
+      </h3>
+      <p className="mt-4 font-serif text-2xl italic md:text-[1.7rem]">{x.title}</p>
+      <p className="mt-2 max-w-md text-[17px] leading-relaxed text-foreground/75">{x.line}</p>
+      <ul className="mt-6 flex flex-wrap gap-2">
+        {x.items.map((it) => (
+          <li key={it} className="rounded-full border border-line px-3.5 py-1.5 text-[13px] text-foreground/85">
+            {it}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+/* Voir : une marque se construit (tracé, formes, palette) */
+function VizVoir() {
+  const swatches = ['#0d0c0b', '#ece5d8', '#ff4a1c', '#7a2410']
+  return (
+    <svg viewBox="0 0 400 240" className="viz h-full w-full" aria-hidden>
+      <g stroke="rgb(236 229 216 / 0.08)" strokeWidth="1">
+        {Array.from({ length: 9 }).map((_, i) => (
+          <line key={`v${i}`} x1={40 + i * 40} y1="0" x2={40 + i * 40} y2="240" />
+        ))}
+        {Array.from({ length: 5 }).map((_, i) => (
+          <line key={`h${i}`} x1="0" y1={40 + i * 40} x2="400" y2={40 + i * 40} />
+        ))}
+      </g>
+      <g fill="none" stroke="#ece5d8" strokeWidth="1.5">
+        <circle className="viz-draw" pathLength={1} cx="140" cy="110" r="70" />
+        <rect className="viz-draw" pathLength={1} x="140" y="40" width="140" height="140" style={{ animationDelay: '0.3s' }} />
+        <path className="viz-draw" pathLength={1} d="M70 180 L280 40" style={{ animationDelay: '0.6s' }} />
+      </g>
+      <circle className="viz-pop" cx="140" cy="110" r="22" fill="#ff4a1c" />
+      <rect className="viz-pop" x="210" y="110" width="70" height="70" fill="#ece5d8" style={{ animationDelay: '0.2s' }} />
+      {swatches.map((c, i) => (
+        <rect
+          key={c}
+          className="viz-pop"
+          x={300 + (i % 2) * 44}
+          y={60 + Math.floor(i / 2) * 44}
+          width="36"
+          height="36"
+          rx="6"
+          fill={c}
+          stroke="rgb(236 229 216 / 0.25)"
+          style={{ animationDelay: `${0.35 + i * 0.12}s` }}
+        />
+      ))}
+    </svg>
+  )
+}
+
+/* Bouger : une timeline, ses images clés et la tête de lecture */
+function VizBouger() {
+  const tracks = [
+    [0.08, 0.42, 0.78],
+    [0.2, 0.6],
+    [0.12, 0.34, 0.66, 0.9],
+  ]
+  const x0 = 24
+  const w = 352
+  return (
+    <svg viewBox="0 0 400 240" className="viz h-full w-full" aria-hidden>
+      <g>
+        <circle className="viz-ball" cx="44" cy="56" r="14" fill="#ff4a1c" style={{ '--travel': '300px' } as React.CSSProperties} />
+        <path d="M24 92 C 140 92, 220 20, 376 20" fill="none" stroke="rgb(236 229 216 / 0.25)" strokeDasharray="3 5" />
+      </g>
+      {tracks.map((keys, t) => {
+        const y = 128 + t * 34
+        return (
+          <g key={t}>
+            <rect x={x0} y={y - 11} width={w} height="22" rx="6" fill="rgb(236 229 216 / 0.05)" />
+            {keys.map((k) => (
+              <rect
+                key={k}
+                className="viz-key"
+                x={x0 + k * w - 6}
+                y={y - 6}
+                width="12"
+                height="12"
+                transform={`rotate(45 ${x0 + k * w} ${y})`}
+                stroke="#ece5d8"
+                strokeWidth="1.5"
+                fill="transparent"
+                style={{ '--at': `${k * 5}s` } as React.CSSProperties}
+              />
+            ))}
+          </g>
+        )
+      })}
+      <g className="viz-playhead" style={{ '--track': `${w}px` } as React.CSSProperties}>
+        <line x1={x0} y1="108" x2={x0} y2="232" stroke="#ff4a1c" strokeWidth="1.5" />
+        <path d={`M${x0 - 6} 104 h12 l-6 7 z`} fill="#ff4a1c" />
+      </g>
+    </svg>
+  )
+}
+
+/* Habiter : une page qui se compose puis défile */
+function VizHabiter() {
+  const blocks: [number, number, number, number, string, number][] = [
+    [32, 28, 120, 10, '#ece5d8', 0.1],
+    [380, 26, 96, 14, 'rgb(236 229 216 / 0.2)', 0.2],
+    [32, 74, 300, 30, '#ece5d8', 0.35],
+    [32, 112, 220, 30, '#ece5d8', 0.45],
+    [32, 160, 110, 32, '#ff4a1c', 0.6],
+    [300, 150, 176, 150, '#7a2410', 0.7],
+    [32, 230, 240, 8, 'rgb(236 229 216 / 0.3)', 0.85],
+    [32, 248, 200, 8, 'rgb(236 229 216 / 0.3)', 0.9],
+    [32, 320, 444, 120, 'rgb(236 229 216 / 0.08)', 1],
+    [32, 460, 210, 90, 'rgb(236 229 216 / 0.08)', 1.1],
+    [266, 460, 210, 90, 'rgb(236 229 216 / 0.08)', 1.15],
+  ]
+  return (
+    <svg viewBox="0 0 520 320" className="viz h-full w-full" aria-hidden>
+      <rect x="1" y="1" width="518" height="318" rx="14" fill="#0d0c0b" stroke="rgb(236 229 216 / 0.18)" />
+      <g fill="rgb(236 229 216 / 0.3)">
+        <circle cx="20" cy="18" r="4" />
+        <circle cx="34" cy="18" r="4" />
+        <circle cx="48" cy="18" r="4" fill="#ff4a1c" />
+      </g>
+      <line x1="1" y1="36" x2="519" y2="36" stroke="rgb(236 229 216 / 0.12)" />
+      <svg x="0" y="37" width="520" height="282" viewBox="0 0 520 282">
+        <g className="viz-scroll">
+          {blocks.map(([x, y, w, h, fill, at], i) => (
+            <rect
+              key={i}
+              className="viz-block"
+              x={x}
+              y={y}
+              width={w}
+              height={h}
+              rx={h > 28 ? 8 : h / 2}
+              fill={fill}
+              style={{ '--at': `${at * 0.6}s` } as React.CSSProperties}
+            />
+          ))}
+        </g>
+      </svg>
+    </svg>
+  )
+}
 
 export function Expertises() {
+  const tile = 'spot relative overflow-hidden rounded-[1.75rem] p-6 md:p-9'
   return (
-    <section id="expertises" aria-labelledby="expertises-title" className="relative border-t border-line px-4 py-28 md:px-8 md:py-40">
-      <div className="mb-6 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-        <span aria-hidden>(02) — Expertises</span>
-        <span className="hidden sm:inline">Un seul mouvement</span>
-      </div>
-      <Reveal>
-        <h2 id="expertises-title" className="font-wide text-[11vw] font-black leading-[0.9] tracking-[-0.04em] md:text-[6vw]">
+    <section id="expertises" aria-labelledby="expertises-title" className="relative px-4 py-28 md:px-8 md:py-36">
+      <Reveal className="mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:items-end">
+        <h2 id="expertises-title" className="font-wide text-[11vw] font-black leading-[0.92] tracking-[-0.04em] md:col-span-8 md:text-[clamp(3rem,6vw,6.5rem)]">
           <SplitWords text="Trois métiers," />
           <span className="font-serif font-normal italic tracking-normal">
             <SplitWords text="un seul" offset={2} />
           </span>
           <SplitWords text="mouvement." offset={4} />
         </h2>
-        <p className="rv-fade mb-16 mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:mb-20">
-          Chaque projet traverse nos trois disciplines : l’identité donne le ton, le mouvement donne le rythme, le web donne la scène.
+        <p className="max-w-sm text-[17px] leading-relaxed text-foreground/75 md:col-span-4">
+          L’identité donne le ton, le mouvement donne le rythme, le web donne la scène. Séparément ou ensemble.
         </p>
       </Reveal>
 
-      <ul>
-        {EXPERTISES.map((x) => (
-          <Reveal as="li" key={x.n} className="group relative border-t border-line">
-            <div className="grid grid-cols-12 items-start gap-4 py-8 md:py-12">
-              <span className="col-span-2 pt-3 font-mono text-[11px] tracking-[0.18em] text-muted-foreground md:col-span-1">{x.n}</span>
+      <SpotGrid className="grid gap-4 md:grid-cols-12">
+        <Reveal as="article" className={`${tile} flex flex-col gap-8 md:col-span-7`}>
+          <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
+            <VizVoir />
+          </div>
+          <Copy x={VOIR} />
+        </Reveal>
 
-              <h3 className="col-span-10 overflow-hidden pb-[0.12em] md:col-span-6">
-                <span className="rv-word block" style={{ '--i': 0 } as React.CSSProperties}>
-                  <span
-                    aria-hidden
-                    className="font-wide block text-[16vw] font-black leading-[0.9] tracking-[-0.04em] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-4 md:text-[8vw]"
-                  >
-                    {x.word}
-                    <span className="text-accent">.</span>
-                  </span>
-                </span>
-                <span className="sr-only">{x.word}. {x.title}</span>
-              </h3>
+        <Reveal as="article" className={`${tile} flex flex-col gap-8 md:col-span-5`}>
+          <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
+            <VizBouger />
+          </div>
+          <Copy x={BOUGER} />
+        </Reveal>
 
-              <div className="rv-fade col-span-12 md:col-span-4 md:col-start-9">
-                <p className="font-serif text-2xl italic">{x.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{x.line}</p>
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {x.items.map((it) => (
-                    <li key={it} className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">
-                      <span aria-hidden className="text-accent">/</span>
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="relative col-span-12 aspect-[16/9] overflow-hidden md:hidden">
-                <div className="rv-clip absolute inset-0">
-                  <Image src={x.img} alt="" fill sizes="100vw" className="art-img object-cover" />
-                </div>
-              </div>
-            </div>
-
-            {/* Aperçu desktop : fixe, sans recouvrir le titre */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute right-[36%] top-1/2 z-10 hidden aspect-[4/5] w-56 -translate-y-1/2 overflow-hidden transition-[clip-path,rotate] duration-700 ease-[cubic-bezier(0.77,0,0.18,1)] [clip-path:inset(50%)] group-hover:-rotate-[4deg] group-hover:[clip-path:inset(0)] md:block"
-            >
-              <Image src={x.img} alt="" fill sizes="224px" className="object-cover" />
-            </div>
-          </Reveal>
-        ))}
-        <li aria-hidden className="border-t border-line" />
-      </ul>
+        <Reveal as="article" className={`${tile} grid items-center gap-8 md:col-span-12 md:grid-cols-12`}>
+          <div className="md:col-span-5">
+            <Copy x={HABITER} />
+          </div>
+          <div className="overflow-hidden rounded-2xl md:col-span-7">
+            <VizHabiter />
+          </div>
+        </Reveal>
+      </SpotGrid>
     </section>
   )
 }

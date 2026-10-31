@@ -1,18 +1,31 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { ArrowIcon } from './icons'
 import { LocalTime } from './local-time'
 
 const NAV = [
-  { href: '#studio', label: 'Studio', n: '01' },
-  { href: '#expertises', label: 'Expertises', n: '02' },
-  { href: '#travaux', label: 'Travaux', n: '03' },
-  { href: '#methode', label: 'Méthode', n: '04' },
-  { href: '#contact', label: 'Contact', n: '05' },
+  { href: '#studio', label: 'Studio' },
+  { href: '#expertises', label: 'Expertises' },
+  { href: '#travaux', label: 'Réalisations' },
+  { href: '#methode', label: 'Méthode' },
+  { href: '#contact', label: 'Contact' },
 ]
 
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
+
+  useEffect(() => {
+    const on = () => {
+      setScrolled(window.scrollY > 24)
+      setPastHero(window.scrollY > window.innerHeight * 0.75)
+    }
+    on()
+    window.addEventListener('scroll', on, { passive: true })
+    return () => window.removeEventListener('scroll', on)
+  }, [])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -24,17 +37,21 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-40 bg-background/70 backdrop-blur">
-        <div className="flex items-center justify-between px-4 py-3.5 md:px-8">
-          <a href="#top" className="font-wide text-lg font-black tracking-tight" aria-label="NX® — NEXORA, retour en haut">
+      <header
+        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,backdrop-filter] duration-500 ${
+          scrolled ? 'bg-background/75 backdrop-blur-md' : 'bg-transparent'
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between px-4 md:px-8">
+          <a href="#top" className="font-wide inline-flex min-h-11 items-center text-lg font-black tracking-tight" aria-label="NX® NEXORA, retour en haut">
             NX<sup className="text-[0.55em] font-bold">®</sup>
           </a>
 
           <nav aria-label="Navigation principale" className="hidden md:block">
-            <ul className="flex items-center gap-8">
+            <ul className="flex items-center gap-7 text-[14px]">
               {NAV.map((item) => (
                 <li key={item.href}>
-                  <a href={item.href} className="link-line font-mono text-[11px] uppercase tracking-[0.18em]">
+                  <a href={item.href} className="link-line py-2 text-foreground/85 transition-colors hover:text-foreground">
                     {item.label}
                   </a>
                 </li>
@@ -43,21 +60,28 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-6 md:flex">
-            <p className="hidden items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] lg:flex">
-              <span aria-hidden className="blink text-accent">●</span>
-              REC · <LocalTime /> WAT
+            <p className="hidden items-center gap-2 font-mono text-xs text-foreground/70 lg:flex">
+              <svg viewBox="0 0 8 8" className="live-dot size-2 text-accent" aria-hidden>
+                <circle cx="4" cy="4" r="4" fill="currentColor" />
+              </svg>
+              Cotonou <LocalTime />
             </p>
             <a
               href="#contact"
-              className="rounded-full border border-foreground/50 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] transition-colors hover:bg-foreground hover:text-background"
+              tabIndex={pastHero ? undefined : -1}
+              aria-hidden={!pastHero}
+              className={`group inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 text-[14px] font-semibold text-accent-foreground transition-[transform,opacity] duration-500 hover:scale-[1.03] ${
+                pastHero ? 'opacity-100' : 'pointer-events-none translate-y-1 opacity-0'
+              }`}
             >
               Démarrer un projet
+              <ArrowIcon className="size-3.5" />
             </a>
           </div>
 
           <button
             type="button"
-            className="font-mono text-[11px] uppercase tracking-[0.2em] md:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-end text-[15px] font-medium md:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen(true)}
@@ -73,32 +97,33 @@ export function Header() {
         aria-modal="true"
         aria-label="Menu"
         hidden={!open}
-        className="fixed inset-0 z-[60] flex flex-col bg-accent px-4 py-4 text-accent-foreground md:hidden"
+        className="theme-signal fixed inset-0 z-[60] flex flex-col px-4 pb-8 md:hidden"
       >
-        <div className="flex items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
           <span className="font-wide text-lg font-black tracking-tight">NX®</span>
-          <button type="button" onClick={() => setOpen(false)} className="font-mono text-[11px] uppercase tracking-[0.2em]">
+          <button type="button" onClick={() => setOpen(false)} className="inline-flex min-h-11 min-w-11 items-center justify-end text-[15px] font-medium">
             Fermer
           </button>
         </div>
         <nav aria-label="Navigation mobile" className="mt-auto">
           <ul className="flex flex-col">
             {NAV.map((item, i) => (
-              <li key={item.href} className="overflow-hidden border-b border-current/20">
+              <li key={item.href} className="overflow-hidden border-b border-line">
                 <a
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-baseline justify-between py-3"
-                  style={open ? { animation: `word-swap 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 70}ms both` } : undefined}
+                  className="block py-3"
+                  style={open ? { animation: `word-swap 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 60}ms both` } : undefined}
                 >
-                  <span className="font-wide text-[11vw] font-black leading-[0.9] tracking-tight">{item.label}</span>
-                  <span className="font-serif text-xl italic">{item.n}</span>
+                  <span className="font-wide text-[10.5vw] font-black leading-[0.95] tracking-[-0.03em]">{item.label}</span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.16em]">Cotonou, Bénin — bonjour@nexora.bj</p>
+        <a href="mailto:bonjour@nexora.bj" className="mt-8 font-serif text-2xl italic">
+          bonjour@nexora.bj
+        </a>
       </div>
     </>
   )

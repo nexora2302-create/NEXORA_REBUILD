@@ -1,5 +1,4 @@
 import { Contact, Footer } from '@/components/nexora/contact'
-import { Cursor } from '@/components/nexora/cursor'
 import { Expertises } from '@/components/nexora/expertises'
 import { Faq } from '@/components/nexora/faq'
 import { Header } from '@/components/nexora/header'
@@ -27,7 +26,6 @@ export default function Page() {
         <Contact />
       </main>
       <Footer />
-      <Cursor />
     </>
   )
 }

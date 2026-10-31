@@ -10,7 +10,7 @@ const archivo = Archivo({ subsets: ['latin'], axes: ['wdth'], variable: '--font-
 const instrument = Instrument_Serif({ subsets: ['latin'], weight: '400', style: ['normal', 'italic'], variable: '--font-instrument', display: 'swap' })
 const jetbrains = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains', display: 'swap' })
 
-const TITLE = 'NEXORA — Studio créatif en mouvement · Cotonou, Bénin'
+const TITLE = 'NEXORA, studio créatif en mouvement à Cotonou, Bénin'
 const DESCRIPTION =
   'NEXORA est un studio créatif et digital basé à Cotonou : communication visuelle, motion design et création de sites web pour les marques au Bénin, en Afrique et à l’international.'
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
   alternates: { canonical: '/' },
-  openGraph: { type: 'website', locale: 'fr_FR', siteName: 'NEXORA', title: TITLE, description: DESCRIPTION, url: '/', images: [{ url: '/og.png', width: 1200, height: 630, alt: 'NEXORA — Studio créatif en mouvement' }] },
+  openGraph: { type: 'website', locale: 'fr_FR', siteName: 'NEXORA', title: TITLE, description: DESCRIPTION, url: '/', images: [{ url: '/og.png', width: 1200, height: 630, alt: 'NEXORA, studio créatif en mouvement' }] },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION, images: ['/og.png'] },
   icons: { icon: '/icon.svg', apple: '/apple-icon.png' },
 }
