@@ -3,10 +3,12 @@
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 
-type Token = { t: 'w'; v: string; serif?: boolean } | { t: 'img'; src: string; alt: string }
+type Style = 'serif' | 'accent' | 'outline'
+type Token = { t: 'w'; v: string; tail: string; style?: Style } | { t: 'img'; src: string; alt: string }
 
+// *mot* = serif italique · ^mot^ = serif orange · =mot= = contour
 const RAW =
-  'NEXORA est un studio créatif né à Cotonou. Nous dessinons des *identités* qui se lisent [poster] des *images* qui bougent [motion] et des *sites* qui se vivent [interface] — pour les marques qui refusent de rester immobiles.'
+  'NEXORA est un studio créatif né à ^Cotonou^. Nous dessinons des *identités* qui se lisent [poster] des *images* qui bougent [motion] et des *sites* qui se vivent [interface] — pour les marques qui refusent de rester =immobiles=.'
 
 const IMAGES: Record<string, { src: string; alt: string }> = {
   poster: { src: '/work/poster.webp', alt: 'Affiche' },
@@ -14,12 +16,33 @@ const IMAGES: Record<string, { src: string; alt: string }> = {
   interface: { src: '/work/interface.webp', alt: 'Interface web' },
 }
 
+const MARKS: [RegExp, Style][] = [
+  [/^\*(.+)\*(\W*)$/, 'serif'],
+  [/^\^(.+)\^(\W*)$/, 'accent'],
+  [/^=(.+)=(\W*)$/, 'outline'],
+]
+
 const TOKENS: Token[] = RAW.split(' ').map((part) => {
   const img = part.match(/^\[(\w+)\]$/)
   if (img) return { t: 'img', ...IMAGES[img[1]] }
-  const serif = part.match(/^\*(.+)\*$/)
-  return serif ? { t: 'w', v: serif[1], serif: true } : { t: 'w', v: part }
+  for (const [re, style] of MARKS) {
+    const m = part.match(re)
+    if (m) return { t: 'w', v: m[1], tail: m[2], style }
+  }
+  return { t: 'w', v: part, tail: '' }
 })
+
+const STYLE_CLASS: Record<Style, string> = {
+  serif: 'font-serif font-normal italic tracking-normal',
+  accent: 'font-serif font-normal italic tracking-normal text-accent',
+  outline: 'outline-text',
+}
+
+const STATS = [
+  ['03', 'expertises intégrées, un seul regard'],
+  ['01', 'studio, ancré à Cotonou'],
+  ['FR·EN', 'langues de travail'],
+]
 
 export function Manifesto() {
   const ref = useRef<HTMLElement>(null)
@@ -51,41 +74,37 @@ export function Manifesto() {
   const total = TOKENS.length
 
   return (
-    <section id="studio" ref={ref} aria-labelledby="studio-title" className="manifesto relative px-4 py-28 md:px-8 md:py-44">
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-        <div className="flex items-start justify-between font-mono text-[11px] uppercase tracking-[0.16em] opacity-70 md:col-span-2 md:flex-col md:gap-4">
-          <h2 id="studio-title">(Le studio)</h2>
-          <span>001 / Manifeste</span>
-        </div>
-
-        <p className="text-[9.5vw] font-semibold leading-[0.98] tracking-[-0.02em] [font-variation-settings:'wdth'_88] md:col-span-10 md:text-[5.6vw]">
-          {TOKENS.map((tok, i) => {
-            const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
-            if (tok.t === 'img') {
-              return (
-                <span key={i} className="mf-word relative mx-[0.1em] inline-block h-[0.78em] w-[1.7em] translate-y-[0.08em] overflow-hidden rounded-full align-baseline" style={style}>
-                  <Image src={tok.src} alt={tok.alt} fill sizes="12vw" className="object-cover" />
-                </span>
-              )
-            }
-            return (
-              <span key={i} className={`mf-word ${tok.serif ? 'font-serif font-normal italic' : ''}`} style={style}>
-                {tok.v}{' '}
-              </span>
-            )
-          })}
-        </p>
+    <section id="studio" ref={ref} aria-labelledby="studio-title" className="relative px-4 py-28 md:px-8 md:py-40">
+      <h2 id="studio-title" className="sr-only">Le studio</h2>
+      <div className="flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+        <span aria-hidden>(01) — Le studio</span>
+        <span>001 / Manifeste</span>
       </div>
 
-      <div className="mt-20 grid grid-cols-2 gap-8 border-t border-current/20 pt-8 md:mt-32 md:grid-cols-12">
-        {[
-          ['03', 'expertises intégrées, un seul regard'],
-          ['01', 'studio, ancré au Bénin'],
-          ['FR·EN', 'langues de travail'],
-        ].map(([n, label]) => (
-          <div key={label} className="md:col-span-4">
-            <p className="font-serif text-6xl italic leading-none md:text-7xl">{n}</p>
-            <p className="mt-3 max-w-[16ch] text-sm opacity-80">{label}</p>
+      <p className="font-wide mt-10 text-[8vw] font-extrabold leading-[1] tracking-[-0.03em] md:text-[4.6vw]">
+        {TOKENS.map((tok, i) => {
+          const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
+          if (tok.t === 'img') {
+            return (
+              <span key={i} className="mf-word relative mx-[0.1em] inline-block h-[0.8em] w-[1.6em] translate-y-[0.06em] overflow-hidden rounded-full align-baseline" style={style}>
+                <Image src={tok.src} alt={tok.alt} fill sizes="12vw" className="object-cover" />
+              </span>
+            )
+          }
+          return (
+            <span key={i} className={tok.style === 'accent' ? '' : 'mf-word'} style={style}>
+              <span className={tok.style ? STYLE_CLASS[tok.style] : ''}>{tok.v}</span>
+              {tok.tail}{' '}
+            </span>
+          )
+        })}
+      </p>
+
+      <div className="mt-20 grid grid-cols-2 gap-px border-t border-line md:grid-cols-3">
+        {STATS.map(([n, label]) => (
+          <div key={label} className="min-w-0 pr-4 pt-6">
+            <p className="font-wide text-4xl font-black leading-none sm:text-5xl lg:text-7xl">{n}</p>
+            <p className="mt-3 max-w-[22ch] font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{label}</p>
           </div>
         ))}
       </div>

@@ -40,12 +40,12 @@ export function ContactForm() {
       <div>
         <label htmlFor="name" className={label}>Nom</label>
         <input id="name" name="name" autoComplete="name" required aria-invalid={!!errors.name} aria-describedby={errors.name ? 'err-name' : undefined} className={field} placeholder="Votre nom" />
-        {errors.name && <p id="err-name" className="mt-2 text-sm text-accent">{errors.name}</p>}
+        {errors.name && <p id="err-name" className="mt-2 text-sm font-medium text-danger">{errors.name}</p>}
       </div>
       <div>
         <label htmlFor="email" className={label}>E-mail</label>
         <input id="email" name="email" type="email" autoComplete="email" required aria-invalid={!!errors.email} aria-describedby={errors.email ? 'err-email' : undefined} className={field} placeholder="vous@exemple.com" />
-        {errors.email && <p id="err-email" className="mt-2 text-sm text-accent">{errors.email}</p>}
+        {errors.email && <p id="err-email" className="mt-2 text-sm font-medium text-danger">{errors.email}</p>}
       </div>
       <div className="md:col-span-2">
         <label htmlFor="service" className={label}>Besoin</label>
@@ -58,7 +58,7 @@ export function ContactForm() {
       <div className="md:col-span-2">
         <label htmlFor="message" className={label}>Votre projet</label>
         <textarea id="message" name="message" rows={4} required aria-invalid={!!errors.message} aria-describedby={errors.message ? 'err-message' : undefined} className={`${field} resize-y`} placeholder="Contexte, objectifs, délais…" />
-        {errors.message && <p id="err-message" className="mt-2 text-sm text-accent">{errors.message}</p>}
+        {errors.message && <p id="err-message" className="mt-2 text-sm font-medium text-danger">{errors.message}</p>}
       </div>
       {/* Honeypot anti-spam */}
       <input name="website" tabIndex={-1} autoComplete="off" aria-hidden className="absolute left-[-9999px] h-0 w-0 opacity-0" />

@@ -13,8 +13,8 @@ export function Faq() {
     <section id="faq" aria-labelledby="faq-title" className="relative px-4 py-28 md:px-8 md:py-40">
       <Reveal className="grid grid-cols-1 gap-10 md:grid-cols-12">
         <div className="md:col-span-4">
-          <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">(FAQ)</p>
-          <h2 id="faq-title" className="text-[13vw] font-extrabold uppercase leading-[0.85] tracking-[-0.03em] [font-variation-settings:'wdth'_72] md:text-[5vw]">
+          <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">(05) — FAQ</p>
+          <h2 id="faq-title" className="font-wide text-[11vw] font-black leading-[0.9] tracking-[-0.04em] md:text-[3.4vw]">
             <SplitWords text="Questions" />
             <br />
             <span className="font-serif font-normal normal-case italic tracking-normal text-accent [font-variation-settings:normal]">

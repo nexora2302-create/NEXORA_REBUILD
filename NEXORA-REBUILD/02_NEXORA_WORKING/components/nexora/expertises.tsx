@@ -1,30 +1,27 @@
-'use client'
-
 import Image from 'next/image'
-import { useRef, useState } from 'react'
 import { Reveal, SplitWords } from './reveal'
 
 const EXPERTISES = [
   {
     n: '01',
+    word: 'Voir',
     title: 'Communication visuelle',
-    short: 'Visuel',
     line: 'Des identités qui se reconnaissent au premier regard.',
     items: ['Identité de marque', 'Direction artistique', 'Affiches & campagnes', 'Packaging', 'Contenus réseaux sociaux'],
     img: '/work/poster.webp',
   },
   {
     n: '02',
+    word: 'Bouger',
     title: 'Motion design',
-    short: 'Motion',
     line: 'Des images qui respirent, des marques qui prennent vie.',
     items: ['Logos animés', 'Films de marque', 'Génériques & titrages', 'Formats sociaux animés', 'Habillage vidéo'],
     img: '/work/motion.webp',
   },
   {
     n: '03',
+    word: 'Habiter',
     title: 'Sites web',
-    short: 'Web',
     line: 'Des interfaces rapides, sensibles et mémorables.',
     items: ['Sites vitrines', 'E-commerce', 'Design d’interface', 'Expériences interactives', 'Développement & maintenance'],
     img: '/work/interface.webp',
@@ -32,86 +29,74 @@ const EXPERTISES = [
 ]
 
 export function Expertises() {
-  const [active, setActive] = useState<number | null>(null)
-  const previewRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
-
-  const onMove = (e: React.PointerEvent) => {
-    const list = listRef.current
-    const preview = previewRef.current
-    if (!list || !preview || e.pointerType !== 'mouse') return
-    const r = list.getBoundingClientRect()
-    preview.style.transform = `translate3d(${e.clientX - r.left}px, ${e.clientY - r.top}px, 0) translate(-50%, -50%)`
-  }
-
   return (
-    <section id="expertises" aria-labelledby="expertises-title" className="relative px-4 py-28 md:px-8 md:py-40">
-      <Reveal className="mb-16 grid grid-cols-1 items-end gap-6 md:mb-24 md:grid-cols-12">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground md:col-span-2">(Expertises)</p>
-        <h2 id="expertises-title" className="text-[13vw] font-extrabold uppercase leading-[0.85] tracking-[-0.03em] [font-variation-settings:'wdth'_72] md:col-span-7 md:text-[8vw]">
+    <section id="expertises" aria-labelledby="expertises-title" className="relative border-t border-line px-4 py-28 md:px-8 md:py-40">
+      <div className="mb-6 flex items-baseline justify-between font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+        <span aria-hidden>(02) — Expertises</span>
+        <span className="hidden sm:inline">Un seul mouvement</span>
+      </div>
+      <Reveal>
+        <h2 id="expertises-title" className="font-wide text-[11vw] font-black leading-[0.9] tracking-[-0.04em] md:text-[6vw]">
           <SplitWords text="Trois métiers," />
-          <br />
-          <span className="font-serif font-normal normal-case italic tracking-normal [font-variation-settings:normal]">
-            <SplitWords text="un seul mouvement." offset={2} />
+          <span className="font-serif font-normal italic tracking-normal">
+            <SplitWords text="un seul" offset={2} />
           </span>
+          <SplitWords text="mouvement." offset={4} />
         </h2>
-        <p className="rv-fade max-w-xs text-sm leading-relaxed text-muted-foreground md:col-span-3">
+        <p className="rv-fade mb-16 mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:mb-20">
           Chaque projet traverse nos trois disciplines : l’identité donne le ton, le mouvement donne le rythme, le web donne la scène.
         </p>
       </Reveal>
 
-      <ul ref={listRef} onPointerMove={onMove} onPointerLeave={() => setActive(null)} className="relative border-t border-line">
-        {/* Cursor-following preview (desktop) */}
-        <div
-          ref={previewRef}
-          aria-hidden
-          className="pointer-events-none absolute left-0 top-0 z-20 hidden h-[22vw] w-[17vw] md:block"
-        >
-          {EXPERTISES.map((x, i) => (
-            <div
-              key={x.n}
-              className="absolute inset-0 overflow-hidden transition-[clip-path] duration-700 ease-[cubic-bezier(0.77,0,0.18,1)]"
-              style={{ clipPath: active === i ? 'inset(0 0 0 0)' : 'inset(50% 50% 50% 50%)' }}
-            >
-              <Image src={x.img} alt="" fill sizes="17vw" className="object-cover" />
-            </div>
-          ))}
-        </div>
+      <ul>
+        {EXPERTISES.map((x) => (
+          <Reveal as="li" key={x.n} className="group relative border-t border-line">
+            <div className="grid grid-cols-12 items-start gap-4 py-8 md:py-12">
+              <span className="col-span-2 pt-3 font-mono text-[11px] tracking-[0.18em] text-muted-foreground md:col-span-1">{x.n}</span>
 
-        {EXPERTISES.map((x, i) => (
-          <Reveal as="li" key={x.n} className="group relative border-b border-line" onPointerEnter={() => setActive(i)}>
-            <div className="rv-line absolute inset-x-0 bottom-0 h-px bg-foreground" aria-hidden />
-            <div className="grid grid-cols-12 gap-x-4 gap-y-6 py-8 md:py-12">
-              <span className="col-span-2 font-serif text-2xl italic text-accent md:col-span-1 md:text-3xl">{x.n}</span>
-
-              <h3 className="col-span-10 overflow-hidden md:col-span-6">
+              <h3 className="col-span-10 overflow-hidden pb-[0.12em] md:col-span-6">
                 <span className="rv-word block" style={{ '--i': 0 } as React.CSSProperties}>
-                  <span className="block text-[11vw] font-extrabold uppercase leading-[0.88] tracking-[-0.03em] transition-[font-variation-settings,color,transform] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] [font-variation-settings:'wdth'_70] group-hover:translate-x-4 group-hover:text-accent group-hover:[font-variation-settings:'wdth'_110] md:text-[5.2vw]">
-                    {x.title}
+                  <span
+                    aria-hidden
+                    className="font-wide block text-[16vw] font-black leading-[0.9] tracking-[-0.04em] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-4 md:text-[8vw]"
+                  >
+                    {x.word}
+                    <span className="text-accent">.</span>
                   </span>
                 </span>
+                <span className="sr-only">{x.word}. {x.title}</span>
               </h3>
 
-              <div className="relative col-span-12 aspect-[16/9] overflow-hidden md:hidden">
-                <div className="rv-clip absolute inset-0">
-                  <Image src={x.img} alt="" fill sizes="100vw" className="art-img object-cover" />
-                </div>
-              </div>
-
-              <div className="rv-fade col-span-12 grid grid-cols-2 gap-4 md:col-span-5 md:grid-cols-5">
-                <p className="col-span-2 font-serif text-2xl italic leading-tight md:col-span-3 md:text-3xl">{x.line}</p>
-                <ul className="col-span-2 space-y-1 text-sm text-muted-foreground md:col-span-2">
+              <div className="rv-fade col-span-12 md:col-span-4 md:col-start-9">
+                <p className="font-serif text-2xl italic">{x.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{x.line}</p>
+                <ul className="mt-5 flex flex-wrap gap-2">
                   {x.items.map((it) => (
-                    <li key={it} className="flex gap-2">
+                    <li key={it} className="rounded-full border border-line px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em]">
                       <span aria-hidden className="text-accent">/</span>
                       {it}
                     </li>
                   ))}
                 </ul>
               </div>
+
+              <div className="relative col-span-12 aspect-[16/9] overflow-hidden md:hidden">
+                <div className="rv-clip absolute inset-0">
+                  <Image src={x.img} alt="" fill sizes="100vw" className="art-img object-cover" />
+                </div>
+              </div>
+            </div>
+
+            {/* Aperçu desktop : fixe, sans recouvrir le titre */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute right-[36%] top-1/2 z-10 hidden aspect-[4/5] w-56 -translate-y-1/2 overflow-hidden transition-[clip-path,rotate] duration-700 ease-[cubic-bezier(0.77,0,0.18,1)] [clip-path:inset(50%)] group-hover:-rotate-[4deg] group-hover:[clip-path:inset(0)] md:block"
+            >
+              <Image src={x.img} alt="" fill sizes="224px" className="object-cover" />
             </div>
           </Reveal>
         ))}
+        <li aria-hidden className="border-t border-line" />
       </ul>
     </section>
   )

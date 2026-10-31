@@ -36,6 +36,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-line: var(--line);
+  --color-danger: var(--danger);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -65,7 +66,25 @@
   --input: rgb(236 229 216 / 0.14);
   --ring: #ff4a1c;
   --line: rgb(236 229 216 / 0.14);
+  --danger: #ff7a59;
   --radius: 0.25rem;
+}
+
+/* Bloc inversé (contact + pied de page) : crème, encre, même orange */
+.theme-paper {
+  --background: #efe8da;
+  --foreground: #0d0c0b;
+  --muted-foreground: #5f5a50;
+  --border: rgb(13 12 11 / 0.18);
+  --line: rgb(13 12 11 / 0.18);
+  --danger: #b42a06;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+@utility font-wide {
+  font-variation-settings: 'wdth' 125;
+  font-stretch: 125%;
 }
 
 @layer base {
@@ -76,6 +95,7 @@
     scroll-behavior: smooth;
   }
   body {
+    overflow-x: clip;
     @apply bg-background text-foreground font-sans;
     transition:
       background-color 0.7s cubic-bezier(0.65, 0, 0.35, 1),
@@ -98,18 +118,51 @@
   filter: none;
 }
 
+.ghost-word::before {
+  content: 'NEXORA';
+}
+
 .outline-text {
   color: transparent;
-  -webkit-text-stroke: 1.5px currentColor;
+  -webkit-text-stroke: 1.5px var(--foreground);
 }
 .outline-text-fg {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--foreground);
 }
 
-.grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Hero : cadre qui s'ouvre au scroll ---------- */
+.clip-reveal {
+  clip-path: inset(100% 0 0 0);
+  animation: clip-up 1.4s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+.hero-frame {
+  --iy: 20%;
+  --ix: 16%;
+  clip-path: inset(
+    calc(var(--iy) * (1 - var(--e, 0))) calc(var(--ix) * (1 - var(--e, 0)))
+  );
+}
+@media (min-width: 768px) {
+  .hero-frame {
+    --iy: 17%;
+    --ix: 34%;
+  }
+}
+.hero-img {
+  transform: scale(calc(1.15 - 0.15 * var(--e, 0)));
+  transform-origin: 50% 40%;
 }
 
 /* ---------- Hero kinetic type ---------- */
@@ -155,16 +208,6 @@
   }
 }
 
-.fragment-reveal {
-  clip-path: inset(100% 0 0 0);
-  animation: clip-up 1.4s cubic-bezier(0.77, 0, 0.18, 1) forwards;
-  animation-delay: var(--delay, 0ms);
-}
-.fragment-reveal img {
-  transform: scale(1.35);
-  animation: img-settle 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: var(--delay, 0ms);
-}
 @keyframes clip-up {
   to {
     clip-path: inset(0 0 0 0);
@@ -208,17 +251,6 @@
   }
 }
 
-.scrub {
-  animation: scrub 4s linear infinite;
-}
-@keyframes scrub {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
 
 /* ---------- Scroll reveals ---------- */
 [data-reveal] .rv-word {
@@ -315,6 +347,12 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero-section {
+    height: 100svh !important;
+  }
+  .clip-reveal {
+    clip-path: none;
+  }
   *,
   *::before,
   *::after {

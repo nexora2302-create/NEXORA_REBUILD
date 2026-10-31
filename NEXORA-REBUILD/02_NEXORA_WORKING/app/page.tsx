@@ -18,10 +18,10 @@ export default function Page() {
       <Header />
       <main id="contenu">
         <Hero />
+        <Marquee />
         <Manifesto />
         <Expertises />
         <Work />
-        <Marquee />
         <Method />
         <Faq />
         <Contact />
