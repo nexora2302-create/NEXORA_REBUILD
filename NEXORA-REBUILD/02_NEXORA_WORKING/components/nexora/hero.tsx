@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { ArrowIcon } from './icons'
+import { LocalTime } from './local-time'
 
+const LETTERS = ['N', 'E', 'X', 'O', 'R', 'A']
 const VERBS = ['les marques', 'les images', 'le web', 'les idées']
 
 export function Hero() {
@@ -38,12 +40,14 @@ export function Hero() {
     let dispose: (() => void) | undefined
     let cancelled = false
     // Mouvement réduit ou rendu logiciel (pas de carte graphique) : l'affiche suffit.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !hasHardwareGL()) return
+    // ?scene force le rendu (fabrication de l'affiche).
+    const force = new URLSearchParams(window.location.search).has('scene')
+    if (!force && (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !hasHardwareGL())) return
     const start = () =>
       import('./nx-scene').then(({ mountNxScene }) => {
         if (cancelled) return
         try {
-          dispose = mountNxScene(canvas, { reduced: false })
+          dispose = mountNxScene(canvas, { reduced: false, force })
           setReady(true)
         } catch {
           /* WebGL indisponible : le hero reste lisible sans la pièce */
@@ -58,77 +62,109 @@ export function Hero() {
     }
   }, [])
 
+  // Les lettres s'élargissent près du pointeur (souris uniquement).
+  const lettersRef = useRef<(HTMLSpanElement | null)[]>([])
+  const handleMove = (e: React.PointerEvent) => {
+    if (e.pointerType !== 'mouse') return
+    const range = window.innerWidth * 0.28
+    lettersRef.current.forEach((letter) => {
+      if (!letter) return
+      const r = letter.getBoundingClientRect()
+      const k = Math.max(0, 1 - Math.abs(e.clientX - (r.left + r.width / 2)) / range)
+      const eased = k * k * (3 - 2 * k)
+      letter.style.setProperty('--wdth', String(100 + eased * 10))
+      letter.style.setProperty('--wght', String(800 + eased * 80))
+    })
+  }
+  const handleLeave = () =>
+    lettersRef.current.forEach((l) => {
+      l?.style.removeProperty('--wdth')
+      l?.style.removeProperty('--wght')
+    })
+
   return (
     <section
       id="top"
       ref={sectionRef}
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
       className="relative isolate flex min-h-svh flex-col overflow-hidden"
       style={{ '--p': 0 } as React.CSSProperties}
     >
-      {/* Scène 3D plein cadre : la braise qui monte vers le NX */}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-background">
-        <picture>
-          <source media="(max-aspect-ratio: 1/1)" srcSet="/hero/scene-mobile.webp" />
-          <img src="/hero/scene-desktop.webp" alt="" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
-        </picture>
-        <canvas
-          ref={canvasRef}
-          className={`absolute inset-0 h-full w-full transition-opacity duration-[1.8s] ease-[var(--ease-out-expo)] ${ready ? 'opacity-100' : 'opacity-0'}`}
-        />
-        {/* Voile neutre côté texte, pour la lisibilité */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgb(13_12_11/0.95),rgb(13_12_11/0.55)_40%,transparent_70%)] md:bg-[linear-gradient(to_right,rgb(13_12_11/0.9),rgb(13_12_11/0.55)_38%,transparent_62%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background to-transparent" />
+      {/* Chaleur sous la sculpture */}
+      <div
+        aria-hidden
+        className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_45%_55%_at_56%_88%,rgb(122_36_16/0.55),transparent_70%)] max-md:bg-[radial-gradient(ellipse_70%_35%_at_50%_42%,rgb(122_36_16/0.5),transparent_70%)]"
+      />
+
+      {/* Le mot, derrière la sculpture ; il s'écarte au scroll */}
+      <h1
+        aria-label="NEXORA"
+        className="relative z-0 mt-24 flex justify-between px-4 text-[20.5vw] uppercase leading-none tracking-[-0.02em] md:mt-28 md:px-8 md:text-[20vw] [@media(max-height:560px)]:mt-16 [@media(max-height:560px)]:text-[13vw]"
+      >
+        {LETTERS.map((l, i) => (
+          <span
+            key={l}
+            aria-hidden
+            className="block overflow-hidden"
+            style={{ transform: `translate3d(calc(var(--p) * ${i < 3 ? -1 : 1} * ${12 + Math.abs(i - 2.5) * 4}vw), 0, 0)` }}
+          >
+            <span
+              ref={(node) => {
+                lettersRef.current[i] = node
+              }}
+              className={`hero-line hero-glyph block ${l === 'X' ? 'text-accent' : ''}`}
+              style={{ '--i': i } as React.CSSProperties}
+            >
+              {l}
+            </span>
+          </span>
+        ))}
+      </h1>
+
+      {/* La sculpture X, devant le mot */}
+      <div
+        aria-hidden
+        className="hero-sculpt pointer-events-none absolute left-1/2 top-[6.5rem] z-10 aspect-[4/5] h-[min(52svh,120vw)] md:bottom-[-2svh] md:left-[53%] md:top-auto md:h-[90svh]"
+        style={{ transform: 'translate3d(-50%, calc(var(--p) * -18vh), 0)' }}
+      >
+        <img src="/hero/x-sculpt.webp" srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w" sizes="(min-width: 768px) 72vh, 42vh" alt="" fetchPriority="high" width={633} height={792} className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`} />
+        <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} />
       </div>
 
       <div
-        className="flex flex-1 flex-col justify-end px-4 pb-12 pt-[42svh] md:justify-center md:px-8 md:pb-16 md:pt-28"
-        style={{ transform: 'translate3d(0, calc(var(--p) * -8vh), 0)', opacity: 'calc(1 - var(--p) * 1.1)' }}
+        className="relative z-20 mt-auto grid grid-cols-1 gap-8 px-4 pb-6 md:grid-cols-12 md:items-end md:px-8 md:pb-8"
+        style={{ transform: 'translate3d(0, calc(var(--p) * -6vh), 0)', opacity: 'calc(1 - var(--p) * 1.2)' }}
       >
-        <div className="max-w-[46rem] md:max-w-[58%]">
-          <p
-            className="fade-in inline-flex min-h-10 items-center gap-3 rounded-full border border-line bg-background/50 px-4 text-[14px] text-foreground/85 md:text-[15px]"
-            style={{ '--delay': '150ms' } as React.CSSProperties}
-          >
-            <span aria-hidden className="live-dot size-2 rounded-full bg-accent" />
-            Studio créatif
-            <span aria-hidden className="size-1 rounded-full bg-foreground/40" />
-            <span className="text-foreground/70">Cotonou, Bénin</span>
+        <div className="md:col-span-5">
+          <p className="fade-in t-lead-hero" style={{ '--delay': '900ms' } as React.CSSProperties}>
+            Nous faisons bouger <KineticVerb />
           </p>
-
-          <h1 className="t-hero mt-7 md:mt-9">
-            <span className="block overflow-hidden pb-[0.06em]">
-              <span className="hero-line block" style={{ '--i': 0 } as React.CSSProperties}>Nous faisons</span>
-            </span>
-            <span className="block overflow-hidden pb-[0.14em]">
-              <span className="hero-line block" style={{ '--i': 1 } as React.CSSProperties}>
-                bouger <KineticVerb />
-              </span>
-            </span>
-          </h1>
-
-          <p
-            className="fade-in mt-6 max-w-xl text-[17px] leading-relaxed text-foreground/80 md:mt-8 md:text-[19px]"
-            style={{ '--delay': '550ms' } as React.CSSProperties}
-          >
-            Identité, motion design et sites web, pensés ensemble par un studio de Cotonou pour les marques du Bénin, d’Afrique et d’ailleurs.
-          </p>
-
-          <div className="fade-in mt-8 flex flex-wrap items-center gap-3 md:mt-10 md:gap-4" style={{ '--delay': '680ms' } as React.CSSProperties}>
+          <div className="fade-in mt-6 flex flex-wrap items-center gap-3 md:mt-8" style={{ '--delay': '1050ms' } as React.CSSProperties}>
             <a
               href="#contact"
-              className="group inline-flex min-h-13 items-center gap-3 whitespace-nowrap rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-foreground transition-[transform,background-color] duration-500 ease-[var(--ease-out-expo)] hover:scale-[1.03] md:min-h-14 md:px-8 md:text-[16px]"
+              className="group inline-flex min-h-13 items-center gap-3 whitespace-nowrap rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-foreground transition-[transform,background-color] duration-500 ease-[var(--ease-out-expo)] hover:scale-[1.03]"
             >
               Démarrer un projet
               <ArrowIcon className="size-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
             <a
               href="#travaux"
-              className="group inline-flex min-h-13 items-center gap-3 whitespace-nowrap rounded-full border border-line bg-background/50 px-7 text-[15px] font-medium transition-[border-color,background-color] duration-500 hover:border-foreground/40 hover:bg-foreground/5 md:min-h-14 md:px-8 md:text-[16px]"
+              className="group inline-flex min-h-13 items-center gap-3 whitespace-nowrap rounded-full border border-line bg-background/50 px-7 text-[15px] font-medium transition-[border-color,background-color] duration-500 hover:border-foreground/40 hover:bg-foreground/5"
             >
               Voir les réalisations
               <ArrowIcon className="size-4 opacity-70 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </div>
+        </div>
+        <div
+          className="fade-in flex justify-between gap-4 text-[14px] text-foreground/75 md:col-span-3 md:col-start-10 md:flex-col md:items-end md:text-right md:text-[15px]"
+          style={{ '--delay': '1200ms' } as React.CSSProperties}
+        >
+          <p>Identité · Motion · Web</p>
+          <p>
+            Cotonou, Bénin · <LocalTime />
+          </p>
         </div>
       </div>
     </section>
