@@ -1,0 +1,331 @@
+@import 'tailwindcss';
+
+@property --wdth {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 100;
+}
+
+@property --wght {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 800;
+}
+
+@theme inline {
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-line: var(--line);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* NEXORA — encre chaude, crème, orange vermillon */
+:root {
+  color-scheme: dark;
+  --background: #0d0c0b;
+  --foreground: #ece5d8;
+  --card: #161412;
+  --card-foreground: #ece5d8;
+  --popover: #161412;
+  --popover-foreground: #ece5d8;
+  --primary: #ece5d8;
+  --primary-foreground: #0d0c0b;
+  --secondary: #1c1a17;
+  --secondary-foreground: #ece5d8;
+  --muted: #1c1a17;
+  --muted-foreground: #8d867b;
+  --accent: #ff4a1c;
+  --accent-foreground: #0d0c0b;
+  --destructive: #ff4a1c;
+  --border: rgb(236 229 216 / 0.14);
+  --input: rgb(236 229 216 / 0.14);
+  --ring: #ff4a1c;
+  --line: rgb(236 229 216 / 0.14);
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    transition:
+      background-color 0.7s cubic-bezier(0.65, 0, 0.35, 1),
+      color 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-foreground);
+  }
+}
+
+/* ---------- Images ---------- */
+.art-img {
+  filter: saturate(0.75) contrast(1.08) brightness(0.92);
+  transition:
+    filter 0.8s ease,
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.group:hover .art-img {
+  filter: none;
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px currentColor;
+}
+.outline-text-fg {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--foreground);
+}
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* ---------- Hero kinetic type ---------- */
+.hero-letter {
+  display: inline-block;
+  font-variation-settings:
+    'wdth' var(--wdth),
+    'wght' var(--wght);
+  line-height: 0.8;
+  transform: translateY(110%);
+  animation:
+    letter-rise 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    breathe 6s ease-in-out infinite;
+  animation-delay:
+    calc(var(--i) * 80ms + 150ms),
+    calc(var(--i) * 260ms + 1.6s);
+  transition: color 0.6s ease;
+}
+.is-pointer .hero-letter {
+  animation:
+    letter-rise 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0ms;
+  transition:
+    --wdth 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    --wght 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.6s ease;
+}
+
+@keyframes letter-rise {
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    --wdth: 100;
+    --wght: 800;
+  }
+  50% {
+    --wdth: 72;
+    --wght: 500;
+  }
+}
+
+.fragment-reveal {
+  clip-path: inset(100% 0 0 0);
+  animation: clip-up 1.4s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+.fragment-reveal img {
+  transform: scale(1.35);
+  animation: img-settle 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes clip-up {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes img-settle {
+  to {
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fade-in 1s ease forwards;
+  animation-delay: var(--delay, 0ms);
+}
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.word-swap {
+  animation: word-swap 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes word-swap {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.blink {
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.scrub {
+  animation: scrub 4s linear infinite;
+}
+@keyframes scrub {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ---------- Scroll reveals ---------- */
+[data-reveal] .rv-word {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--i) * 45ms);
+}
+[data-reveal][data-inview='true'] .rv-word {
+  transform: translateY(0);
+}
+
+[data-reveal] .rv-clip {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.4s cubic-bezier(0.77, 0, 0.18, 1);
+}
+[data-reveal] .rv-clip .art-img {
+  transform: scale(1.3);
+}
+[data-reveal][data-inview='true'] .rv-clip {
+  clip-path: inset(0 0 0 0);
+}
+[data-reveal][data-inview='true'] .rv-clip .art-img {
+  transform: scale(1);
+}
+[data-reveal][data-inview='true'] .group:hover .rv-clip .art-img {
+  transform: scale(1.04);
+}
+
+[data-reveal] .rv-fade {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--delay, 200ms);
+}
+[data-reveal][data-inview='true'] .rv-fade {
+  opacity: 1;
+  transform: none;
+}
+
+[data-reveal] .rv-line {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.4s cubic-bezier(0.77, 0, 0.18, 1);
+}
+[data-reveal][data-inview='true'] .rv-line {
+  transform: scaleX(1);
+}
+
+/* Manifesto scroll-scrubbed words */
+.mf-word {
+  opacity: clamp(0.14, calc((var(--p, 0) - var(--w)) * 18 + 0.14), 1);
+  transition: opacity 0.2s linear;
+}
+
+/* ---------- Marquee ---------- */
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+.marquee-track.reverse {
+  animation-direction: reverse;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-y {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+
+/* ---------- Link underline ---------- */
+.link-line {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.6s cubic-bezier(0.77, 0, 0.18, 1);
+}
+.link-line:hover {
+  background-size: 100% 1px;
+  background-position: 0% 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .hero-letter {
+    animation: letter-rise 0.001ms forwards !important;
+  }
+  .mf-word {
+    opacity: 1;
+  }
+}
