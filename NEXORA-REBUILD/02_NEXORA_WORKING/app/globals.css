@@ -64,6 +64,30 @@
   color: var(--foreground);
 }
 
+/* Échelle typographique : 6 niveaux, pas un de plus. */
+@utility t-section {
+  font-variation-settings: 'wdth' 125;
+  font-stretch: 125%;
+  font-weight: 900;
+  font-size: clamp(2.6rem, 6vw, 6.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+@utility t-card {
+  font-variation-settings: 'wdth' 112;
+  font-stretch: 112%;
+  font-weight: 800;
+  font-size: clamp(2.25rem, 4vw, 4rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+@utility t-lead {
+  font-family: var(--font-instrument), ui-serif, Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.6rem, 2.2vw, 1.875rem);
+  line-height: 1.15;
+}
+
 @utility font-wide {
   font-variation-settings: 'wdth' 125;
   font-stretch: 125%;
@@ -95,6 +119,17 @@
   a {
     text-underline-offset: 0.2em;
   }
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p,
+  li,
+  dd {
+    text-wrap: pretty;
+  }
+
   ::-webkit-scrollbar {
     width: 10px;
   }
@@ -171,14 +206,16 @@ body::after {
 }
 
 .word-swap {
-  animation: word-swap 0.9s var(--ease-out-expo) both;
+  animation: word-swap 0.7s var(--ease-out-expo) both;
 }
 @keyframes word-swap {
   from {
-    transform: translateY(105%);
+    transform: translateY(70%);
+    opacity: 0;
   }
   to {
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -218,6 +255,7 @@ body::after {
 }
 
 /* ---------- Expertises : spotlight + visuels ---------- */
+/* taste-skill-ignore : halo d'interaction demandé (spotlight), pas un décor au repos */
 .spot {
   --mx: 50%;
   --my: 50%;
@@ -240,12 +278,6 @@ body::after {
   pointer-events: none;
 }
 
-.viz * {
-  animation-play-state: paused;
-}
-[data-inview='true'] .viz * {
-  animation-play-state: running;
-}
 
 /* Voir : construction d'une marque */
 .viz-draw {
@@ -273,15 +305,18 @@ body::after {
 @keyframes pop {
   0%,
   30% {
-    transform: scale(0);
+    transform: scale(0.6);
+    opacity: 0;
   }
   42%,
   82% {
     transform: scale(1);
+    opacity: 1;
   }
   95%,
   100% {
-    transform: scale(0);
+    transform: scale(0.6);
+    opacity: 0;
   }
 }
 
@@ -356,6 +391,30 @@ body::after {
   }
 }
 
+/* Visuels en pause tant qu'ils ne sont pas à l'écran (après les raccourcis animation). */
+.viz * {
+  animation-play-state: paused !important;
+}
+[data-inview='true'] .viz * {
+  animation-play-state: running !important;
+}
+
+/* ---------- Réalisations : rideau à l'entrée ---------- */
+[data-reveal] .rv-curtain {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.2s var(--ease-in-out-quint);
+}
+[data-reveal] .rv-curtain img {
+  transform: scale(1.12);
+  transition: transform 1.6s var(--ease-out-expo);
+}
+[data-reveal][data-inview='true'] .rv-curtain {
+  clip-path: inset(0 0 0 0);
+}
+[data-reveal][data-inview='true'] .rv-curtain img {
+  transform: scale(1);
+}
+
 /* ---------- FAQ ---------- */
 details::details-content {
   block-size: 0;
@@ -415,6 +474,12 @@ details[open]::details-content {
   .viz-block {
     transform: none;
     opacity: 1;
+  }
+  [data-reveal].rv-curtain,
+  [data-reveal] .rv-curtain img {
+    clip-path: none;
+    transform: none;
+    transition: none;
   }
   .mf-word {
     opacity: 1;

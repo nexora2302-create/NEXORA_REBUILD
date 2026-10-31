@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { fr } from './fr'
 import { Reveal, SplitWords } from './reveal'
 
 const STEPS = [
@@ -48,12 +49,10 @@ export function Method() {
       <div className="grid gap-12 md:grid-cols-12">
         <div className="md:sticky md:top-28 md:col-span-5 md:h-fit">
           <Reveal>
-            <h2 id="methode-title" className="font-wide text-[11vw] font-black leading-[0.92] tracking-[-0.04em] md:text-[clamp(3rem,5.4vw,5.8rem)]">
+            <h2 id="methode-title" className="t-section">
               <SplitWords text="Du brief" />
               <br />
-              <span className="font-serif font-normal italic tracking-normal">
-                <SplitWords text="à l’image." offset={2} />
-              </span>
+              <SplitWords text="à l’image." offset={2} />
             </h2>
           </Reveal>
 
@@ -92,18 +91,18 @@ export function Method() {
             >
               <span aria-hidden className="absolute -left-[5px] top-12 size-[9px] rounded-full bg-accent md:hidden" />
               <div>
-                <p className="font-mono text-sm text-accent">Étape {String(i + 1).padStart(2, '0')}</p>
+                <p className="font-mono text-[14px] text-accent md:hidden">Étape {i + 1} sur {STEPS.length}</p>
                 <h3
-                  className={`font-wide mt-3 text-[2.4rem] font-black leading-[0.95] tracking-[-0.03em] transition-colors duration-700 md:text-[clamp(2.6rem,4vw,4rem)] ${
+                  className={`t-card mt-3 transition-colors duration-700 md:mt-0 ${
                     i === active ? '' : 'md:text-foreground/45'
                   }`}
                 >
                   {s.title}
                 </h3>
-                <p className="mt-5 max-w-md text-[17px] leading-relaxed text-foreground/75 md:text-lg">{s.text}</p>
+                <p className="mt-5 max-w-md text-[17px] leading-relaxed text-foreground/80 md:text-lg">{fr(s.text)}</p>
                 <ul className="mt-6 flex flex-wrap gap-2">
                   {s.out.map((o) => (
-                    <li key={o} className="rounded-full border border-line px-3.5 py-1.5 text-[13px] text-foreground/85">
+                    <li key={o} className="rounded-full border border-line px-3.5 py-1.5 text-[14px] text-foreground/85">
                       {o}
                     </li>
                   ))}

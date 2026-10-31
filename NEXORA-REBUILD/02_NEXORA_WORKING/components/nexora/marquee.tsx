@@ -1,9 +1,25 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+
 const WORDS = ['Identité visuelle', 'Motion design', 'Sites web', 'Cotonou', 'Bénin']
 
 export function Marquee() {
+  const ref = useRef<HTMLElement>(null)
+  const [playing, setPlaying] = useState(false)
+
+  // Le bandeau ne tourne que lorsqu'il est visible.
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const io = new IntersectionObserver(([e]) => setPlaying(!!e?.isIntersecting))
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
   return (
-    <section aria-label="Nos disciplines" className="overflow-hidden border-y border-line py-5">
-      <div className="marquee-track flex w-max whitespace-nowrap">
+    <section ref={ref} aria-label="Nos disciplines" className="overflow-hidden border-y border-line py-5">
+      <div className="marquee-track flex w-max whitespace-nowrap" style={{ animationPlayState: playing ? 'running' : 'paused' }}>
         {[0, 1].map((dup) => (
           <div key={dup} className="flex shrink-0 items-center" aria-hidden={dup === 1}>
             {[...WORDS, ...WORDS].map((w, i) => (

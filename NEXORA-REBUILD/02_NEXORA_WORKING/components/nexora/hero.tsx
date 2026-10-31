@@ -134,7 +134,7 @@ function KineticVerb() {
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const id = setInterval(() => setI((v) => (v + 1) % VERBS.length), 2400)
+    const id = setInterval(() => setI((v) => (v + 1) % VERBS.length), 3000)
     return () => clearInterval(id)
   }, [])
 

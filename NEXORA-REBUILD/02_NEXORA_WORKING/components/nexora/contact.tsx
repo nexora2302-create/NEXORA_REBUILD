@@ -9,7 +9,7 @@ export function Contact() {
       <div className="grid gap-14 md:grid-cols-12">
         <div className="md:col-span-6">
           <Reveal>
-            <h2 id="contact-title" className="font-wide text-[12vw] font-black leading-[0.9] tracking-[-0.045em] md:text-[clamp(3.2rem,6.2vw,6.6rem)]">
+            <h2 id="contact-title" className="t-section">
               <SplitWords text="Un" />
               <span className="inline-block overflow-hidden pb-[0.08em] align-bottom">
                 <span className="rv-word" style={{ '--i': 1 } as React.CSSProperties}>

@@ -1,3 +1,4 @@
+import { fr } from './fr'
 import { Reveal, SplitWords } from './reveal'
 import { SpotGrid } from './spot-grid'
 
@@ -30,7 +31,7 @@ const HABITER: Expertise = {
 function Copy({ x }: { x: Expertise }) {
   return (
     <div>
-      <h3 className="font-wide text-[13vw] font-black leading-[0.9] tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+      <h3 className="t-card">
         <span aria-hidden>
           {x.word}
           <span className="text-accent">.</span>
@@ -40,10 +41,10 @@ function Copy({ x }: { x: Expertise }) {
         </span>
       </h3>
       <p className="mt-4 font-serif text-2xl italic md:text-[1.7rem]">{x.title}</p>
-      <p className="mt-2 max-w-md text-[17px] leading-relaxed text-foreground/75">{x.line}</p>
+      <p className="mt-2 max-w-md text-[17px] leading-relaxed text-foreground/80">{fr(x.line)}</p>
       <ul className="mt-6 flex flex-wrap gap-2">
         {x.items.map((it) => (
-          <li key={it} className="rounded-full border border-line px-3.5 py-1.5 text-[13px] text-foreground/85">
+          <li key={it} className="rounded-full border border-line px-3.5 py-1.5 text-[14px] text-foreground/85">
             {it}
           </li>
         ))}
@@ -186,14 +187,11 @@ export function Expertises() {
   return (
     <section id="expertises" aria-labelledby="expertises-title" className="relative px-4 py-28 md:px-8 md:py-36">
       <Reveal className="mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:items-end">
-        <h2 id="expertises-title" className="font-wide text-[11vw] font-black leading-[0.92] tracking-[-0.04em] md:col-span-8 md:text-[clamp(3rem,6vw,6.5rem)]">
+        <h2 id="expertises-title" className="t-section md:col-span-8">
           <SplitWords text="Trois métiers," />
-          <span className="font-serif font-normal italic tracking-normal">
-            <SplitWords text="un seul" offset={2} />
-          </span>
-          <SplitWords text="mouvement." offset={4} />
+          <SplitWords text="un seul mouvement." offset={2} />
         </h2>
-        <p className="max-w-sm text-[17px] leading-relaxed text-foreground/75 md:col-span-4">
+        <p className="max-w-sm text-[17px] leading-relaxed text-foreground/80 md:col-span-4">
           L’identité donne le ton, le mouvement donne le rythme, le web donne la scène. Séparément ou ensemble.
         </p>
       </Reveal>

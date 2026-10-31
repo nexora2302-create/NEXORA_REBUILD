@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { fr } from './fr'
 import { ArrowIcon } from './icons'
 
 const EMAIL = 'bonjour@nexora.bj'
@@ -106,7 +107,7 @@ export function ContactForm() {
           <ArrowIcon className="size-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </button>
         <p role="status" className="max-w-sm text-[14px] leading-snug text-muted-foreground">
-          {message[status]}
+          {fr(message[status])}
         </p>
       </div>
     </form>

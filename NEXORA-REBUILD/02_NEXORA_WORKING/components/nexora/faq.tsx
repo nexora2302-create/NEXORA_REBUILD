@@ -1,3 +1,4 @@
+import { fr } from './fr'
 import { PlusIcon } from './icons'
 import { Reveal, SplitWords } from './reveal'
 
@@ -13,25 +14,27 @@ export function Faq() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="relative border-t border-line px-4 py-28 md:px-8 md:py-36">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
-        <Reveal className="md:col-span-4">
-          <h2 id="faq-title" className="font-wide text-[11vw] font-black leading-[0.92] tracking-[-0.04em] md:text-[clamp(2.6rem,3.6vw,4rem)]">
-            <SplitWords text="Questions" />
-            <br />
-            <span className="font-serif font-normal italic tracking-normal">
-              <SplitWords text="fréquentes" offset={1} />
-            </span>
+        <Reveal className="md:col-span-12">
+          <h2 id="faq-title" className="t-section">
+            <SplitWords text="Questions fréquentes" />
           </h2>
         </Reveal>
-        <div className="md:col-span-7 md:col-start-6">
+        <div className="order-last md:order-none md:col-span-3">
+          <p className="max-w-xs text-[17px] leading-relaxed text-foreground/80">{fr('Une autre question ? Écrivez-nous, nous répondons en français comme en anglais.')}</p>
+          <a href="#contact" className="link-line mt-4 inline-flex min-h-11 items-center text-[15px] font-semibold text-accent">
+            Poser une question
+          </a>
+        </div>
+        <div className="md:col-span-8 md:col-start-5">
           {FAQ_ITEMS.map((f) => (
             <details key={f.q} className="group border-t border-line last:border-b">
               <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 text-xl font-semibold tracking-tight transition-colors hover:text-accent md:text-2xl [&::-webkit-details-marker]:hidden">
-                {f.q}
+                {fr(f.q)}
                 <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line transition-[transform,background-color,color] duration-500 ease-[var(--ease-out-expo)] group-open:rotate-45 group-open:bg-accent group-open:text-accent-foreground">
                   <PlusIcon className="size-4" />
                 </span>
               </summary>
-              <p className="max-w-2xl pb-7 text-[17px] leading-relaxed text-foreground/75">{f.a}</p>
+              <p className="max-w-2xl pb-7 text-[17px] leading-relaxed text-foreground/80">{fr(f.a)}</p>
             </details>
           ))}
         </div>

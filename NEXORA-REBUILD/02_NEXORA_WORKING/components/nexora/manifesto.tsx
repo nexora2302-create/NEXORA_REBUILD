@@ -91,8 +91,8 @@ export function Manifesto() {
 
       <div className="mt-16 grid gap-6 border-t border-line pt-8 md:mt-24 md:grid-cols-12">
         <p className="font-serif text-2xl italic md:col-span-4">Cotonou, pour le monde.</p>
-        <p className="max-w-xl text-[17px] leading-relaxed text-foreground/75 md:col-span-6 md:col-start-6">
-          Entreprises, marques, institutions et créateurs : nous construisons leur image et leur présence numérique au Bénin, en Afrique et à l’international. Chaque prestation se commande seule ou se combine avec les autres.
+        <p className="max-w-xl text-[17px] leading-relaxed text-foreground/80 md:col-span-6 md:col-start-6">
+          Entreprises, marques, institutions et créateurs : nous construisons leur image et leur présence numérique au Bénin, en Afrique et à l’international. Chaque prestation se commande seule ou se combine avec les autres.
         </p>
       </div>
     </section>
