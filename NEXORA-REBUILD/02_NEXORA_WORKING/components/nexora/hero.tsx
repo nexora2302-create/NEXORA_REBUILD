@@ -11,6 +11,13 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [ready, setReady] = useState(false)
+  const [posterGone, setPosterGone] = useState(false)
+
+  useEffect(() => {
+    if (!ready) return
+    const id = setTimeout(() => setPosterGone(true), 1000)
+    return () => clearTimeout(id)
+  }, [ready])
 
   // Progression de sortie du hero (0 → 1), transform/opacité uniquement.
   useEffect(() => {
@@ -47,7 +54,8 @@ export function Hero() {
       import('./nx-scene').then(({ mountNxScene }) => {
         if (cancelled) return
         try {
-          dispose = mountNxScene(canvas, { reduced: false, force })
+          // L'affiche a déjà joué l'entrée : la 3D reprend directement au repos.
+          dispose = mountNxScene(canvas, { reduced: false, force, intro: false })
           setReady(true)
         } catch {
           /* WebGL indisponible : le hero reste lisible sans la pièce */
@@ -92,7 +100,8 @@ export function Hero() {
                   className="hero-sculpt pointer-events-none absolute left-1/2 top-[-0.42em] aspect-[4/5] h-[2.05em] md:top-[-0.32em] md:h-[2.05em]"
                   style={{ transform: 'translate3d(-50%, calc(var(--p) * -14vh), 0)' }}
                 >
-                  {!ready && (
+                  {!posterGone && (
+                  <span className="sculpt-poster absolute inset-0 block">
                   <img
                     src="/hero/x-sculpt.webp"
                     srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w"
@@ -101,10 +110,11 @@ export function Hero() {
                     fetchPriority="high"
                     width={633}
                     height={792}
-                    className="sculpt-poster absolute inset-0 h-full w-full object-contain"
+                    className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-1000 ${ready ? 'opacity-0' : 'opacity-100'}`}
                   />
+                  </span>
                   )}
-                  <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} />
+                  <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-1000 ${ready ? 'opacity-100' : 'opacity-0'}`} />
                 </span>
               </span>
             ) : (
@@ -130,8 +140,12 @@ export function Hero() {
         style={{ transform: 'translate3d(0, calc(var(--p) * -6vh), 0)', opacity: 'calc(1 - var(--p) * 1.2)' }}
       >
         <div className="md:col-span-5">
-          <p className="fade-in t-lead-hero" style={{ '--delay': '900ms' } as React.CSSProperties}>
-            Nous faisons bouger <KineticVerb />
+          <p className="t-lead-hero">
+            <span className="block overflow-hidden pb-[0.08em]">
+              <span className="hero-line block" style={{ '--i': 6 } as React.CSSProperties}>
+                Nous faisons bouger <KineticVerb />
+              </span>
+            </span>
           </p>
           <div className="fade-in mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 md:mt-8" style={{ '--delay': '1050ms' } as React.CSSProperties}>
             <a

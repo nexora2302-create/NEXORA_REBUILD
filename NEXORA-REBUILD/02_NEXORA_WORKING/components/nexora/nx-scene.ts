@@ -98,7 +98,7 @@ function shapeRibbon(rb: Ribbon, time: number, unfold: number) {
   geo.computeVertexNormals()
 }
 
-export function mountNxScene(canvas: HTMLCanvasElement, opts: { reduced: boolean; force?: boolean }) {
+export function mountNxScene(canvas: HTMLCanvasElement, opts: { reduced: boolean; force?: boolean; intro?: boolean }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, premultipliedAlpha: false, preserveDrawingBuffer: !!opts.force })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
   renderer.setClearColor(0x000000, 0)
@@ -211,8 +211,9 @@ export function mountNxScene(canvas: HTMLCanvasElement, opts: { reduced: boolean
 
   const frame = (now: number) => {
     const t = still ? 4 : (now - start) / 1000
-    const unfold = still ? 1 : easeOut(clamp01((t - 0.35) / 2))
-    const glow = still ? 1 : clamp01((t - 0.9) / 1.6)
+    const skip = still || opts.intro === false
+    const unfold = skip ? 1 : easeOut(clamp01((t - 0.35) / 2))
+    const glow = skip ? 1 : clamp01((t - 0.9) / 1.6)
 
     shapeRibbon(a, t, unfold)
     shapeRibbon(b, t, unfold)

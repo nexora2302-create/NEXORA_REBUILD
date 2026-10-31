@@ -215,7 +215,14 @@ body::after {
 /* ---------- Hero ---------- */
 .sculpt-poster {
   opacity: 0;
-  animation: fade-in 1.4s var(--ease-out-expo) 0.5s forwards;
+  transform: scale(0.6) rotate(-14deg);
+  animation: sculpt-in 1.8s var(--ease-out-expo) 0.45s forwards;
+}
+@keyframes sculpt-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .hero-line {
   transform: translate3d(0, 105%, 0);
