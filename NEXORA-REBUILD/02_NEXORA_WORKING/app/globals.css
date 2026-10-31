@@ -108,7 +108,7 @@
 
 @utility t-wordmark {
   /* « NEXORA » mesure 5,48 em en Archivo largeur 125, graisse 900, approche -0,03 em : il remplit la largeur utile. */
-  font-size: calc((100vw - 2rem) / 5.52);
+  font-size: calc((100vw - 2rem) / 2.95);
   font-weight: 900;
   font-variation-settings: 'wdth' 125;
   font-stretch: 125%;

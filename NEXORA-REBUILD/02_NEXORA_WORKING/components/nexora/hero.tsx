@@ -78,44 +78,51 @@ export function Hero() {
       {/* Le mot, serré comme le logo ; la sculpture 3D tient la place du X. Il s'écarte au scroll. */}
       <h1
         aria-label="NEXORA"
-        className="t-wordmark absolute inset-x-0 top-[34svh] z-0 flex -translate-y-1/2 justify-center px-4 md:top-[40%] md:px-8 [@media(max-height:560px)]:top-[34%]"
+        className="t-wordmark absolute inset-x-0 top-[33svh] z-0 flex -translate-y-1/2 flex-col items-center gap-[0.07em] px-4 md:top-[40%] md:flex-row md:justify-center md:gap-0 md:px-8 [@media(max-height:560px)]:top-[34%] [@media(max-height:560px)]:flex-row"
       >
-        {LETTERS.map((l, i) =>
-          l === 'X' ? (
-            <span key={l} aria-hidden className="relative z-10 block">
-              <span className="invisible block">X</span>
+        {[LETTERS.slice(0, 3), LETTERS.slice(3)].map((group, g) => (
+          <span key={g} aria-hidden className="flex">
+          {group.map((l) => {
+              const i = LETTERS.indexOf(l)
+              return (
+            l === 'X' ? (
+              <span key={l} aria-hidden className="relative z-10 block">
+                <span className="invisible block">X</span>
+                <span
+                  className="hero-sculpt pointer-events-none absolute left-1/2 top-[-0.42em] aspect-[4/5] h-[2.05em] md:top-[-0.32em] md:h-[2.05em]"
+                  style={{ transform: 'translate3d(-50%, calc(var(--p) * -14vh), 0)' }}
+                >
+                  {!ready && (
+                  <img
+                    src="/hero/x-sculpt.webp"
+                    srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w"
+                    sizes="(min-width: 768px) 44vw, 72vw"
+                    alt=""
+                    fetchPriority="high"
+                    width={633}
+                    height={792}
+                    className="sculpt-poster absolute inset-0 h-full w-full object-contain"
+                  />
+                  )}
+                  <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} />
+                </span>
+              </span>
+            ) : (
               <span
-                className="hero-sculpt pointer-events-none absolute left-1/2 top-[-0.75em] aspect-[4/5] h-[2.9em] md:top-[-0.32em] md:h-[2.05em]"
-                style={{ transform: 'translate3d(-50%, calc(var(--p) * -14vh), 0)' }}
+                key={l}
+                aria-hidden
+                className="block overflow-hidden"
+                style={{ transform: `translate3d(calc(var(--p) * ${i < 2 ? -1 : 1} * ${10 + Math.abs(i - 2) * 3}vw), 0, 0)` }}
               >
-                {!ready && (
-                <img
-                  src="/hero/x-sculpt.webp"
-                  srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w"
-                  sizes="(min-width: 768px) 44vw, 60vw"
-                  alt=""
-                  fetchPriority="high"
-                  width={633}
-                  height={792}
-                  className="sculpt-poster absolute inset-0 h-full w-full object-contain"
-                />
-                )}
-                <canvas ref={canvasRef} className={`absolute inset-0 h-full w-full transition-opacity duration-700 ${ready ? 'opacity-100' : 'opacity-0'}`} />
+                <span className="hero-line block" style={{ '--i': i } as React.CSSProperties}>
+                  {l}
+                </span>
               </span>
-            </span>
-          ) : (
-            <span
-              key={l}
-              aria-hidden
-              className="block overflow-hidden"
-              style={{ transform: `translate3d(calc(var(--p) * ${i < 2 ? -1 : 1} * ${10 + Math.abs(i - 2) * 3}vw), 0, 0)` }}
-            >
-              <span className="hero-line block" style={{ '--i': i } as React.CSSProperties}>
-                {l}
-              </span>
-            </span>
-          ),
-        )}
+            )
+          )
+          })}
+          </span>
+        ))}
       </h1>
 
       <div
@@ -126,7 +133,7 @@ export function Hero() {
           <p className="fade-in t-lead-hero" style={{ '--delay': '900ms' } as React.CSSProperties}>
             Nous faisons bouger <KineticVerb />
           </p>
-          <div className="fade-in mt-6 flex flex-wrap items-center gap-3 md:mt-8" style={{ '--delay': '1050ms' } as React.CSSProperties}>
+          <div className="fade-in mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 md:mt-8" style={{ '--delay': '1050ms' } as React.CSSProperties}>
             <a
               href="#contact"
               className="group inline-flex min-h-13 items-center gap-3 whitespace-nowrap rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-foreground transition-[transform,background-color] duration-500 ease-[var(--ease-out-expo)] hover:scale-[1.03]"
@@ -136,7 +143,7 @@ export function Hero() {
             </a>
             <a
               href="#travaux"
-              className="group inline-flex min-h-13 items-center gap-3 whitespace-nowrap rounded-full border border-line bg-background/50 px-7 text-[15px] font-medium transition-[border-color,background-color] duration-500 hover:border-foreground/40 hover:bg-foreground/5"
+              className="group inline-flex min-h-13 items-center gap-2 whitespace-nowrap rounded-full px-2 text-[15px] font-medium max-md:underline max-md:decoration-foreground/40 max-md:underline-offset-4 md:gap-3 md:border md:border-line md:bg-background/50 md:px-7 transition-[border-color,background-color] duration-500 hover:border-foreground/40 hover:bg-foreground/5"
             >
               Voir les réalisations
               <ArrowIcon className="size-4 opacity-70 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
