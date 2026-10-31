@@ -94,13 +94,13 @@ export function Hero() {
       {/* Chaleur sous la sculpture */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_45%_55%_at_56%_88%,rgb(122_36_16/0.55),transparent_70%)] max-md:bg-[radial-gradient(ellipse_70%_35%_at_50%_42%,rgb(122_36_16/0.5),transparent_70%)]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(ellipse_42%_50%_at_50%_86%,rgb(122_36_16/0.55),transparent_70%)] max-md:bg-[radial-gradient(ellipse_75%_30%_at_50%_45%,rgb(122_36_16/0.5),transparent_70%)]"
       />
 
       {/* Le mot, derrière la sculpture ; il s'écarte au scroll */}
       <h1
         aria-label="NEXORA"
-        className="relative z-0 mt-24 flex justify-between px-4 text-[20.5vw] uppercase leading-none tracking-[-0.02em] md:mt-28 md:px-8 md:text-[20vw] [@media(max-height:560px)]:mt-16 [@media(max-height:560px)]:text-[13vw]"
+        className="absolute inset-x-0 top-[27svh] z-0 flex -translate-y-1/2 justify-between px-4 text-[20.5vw] uppercase leading-none tracking-[-0.02em] md:top-[47%] md:px-8 md:text-[19vw] [@media(max-height:560px)]:top-[30%] [@media(max-height:560px)]:text-[13vw]"
       >
         {LETTERS.map((l, i) => (
           <span
@@ -125,7 +125,7 @@ export function Hero() {
       {/* La sculpture X, devant le mot */}
       <div
         aria-hidden
-        className="hero-sculpt pointer-events-none absolute left-1/2 top-[6.5rem] z-10 aspect-[4/5] h-[min(52svh,120vw)] md:bottom-[-2svh] md:left-[53%] md:top-auto md:h-[90svh]"
+        className="hero-sculpt pointer-events-none absolute left-1/2 top-[25svh] z-10 aspect-[4/5] h-[min(42svh,100vw)] md:bottom-[-6svh] md:top-auto md:h-[68svh]"
         style={{ transform: 'translate3d(-50%, calc(var(--p) * -18vh), 0)' }}
       >
         <img src="/hero/x-sculpt.webp" srcSet="/hero/x-sculpt-sm.webp 560w, /hero/x-sculpt.webp 950w" sizes="(min-width: 768px) 72vh, 42vh" alt="" fetchPriority="high" width={633} height={792} className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-700 ${ready ? 'opacity-0' : 'opacity-100'}`} />
