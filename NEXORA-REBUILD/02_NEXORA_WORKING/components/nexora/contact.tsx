@@ -1,11 +1,12 @@
 import { ContactForm } from './contact-form'
 import { UpIcon } from './icons'
 import { LocalTime } from './local-time'
+import { Logo } from './logo'
 import { Reveal, SplitWords } from './reveal'
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="theme-signal relative px-4 py-24 md:px-8 md:py-32">
+    <section id="contact" data-header="signal" aria-labelledby="contact-title" className="theme-signal relative px-4 py-24 md:px-8 md:py-32">
       <div className="grid gap-14 md:grid-cols-12">
         <div className="md:col-span-6">
           <Reveal>
@@ -50,19 +51,19 @@ export function Contact() {
   )
 }
 
-const LINKS: [string, string][] = [
-  ['Expertises', '#expertises'],
-  ['Réalisations', '#travaux'],
-  ['Méthode', '#methode'],
-  ['FAQ', '#faq'],
-]
-
-export function Footer() {
+export function Footer({ base = '' }: { base?: string }) {
+  const LINKS: [string, string][] = [
+    ['Studio', `${base}#studio`],
+    ['Expertises', `${base}#expertises`],
+    ['Réalisations', '/realisations'],
+    ['Méthode', `${base}#methode`],
+    ['FAQ', `${base}#faq`],
+  ]
   return (
     <footer className="px-4 pb-8 pt-10 md:px-8">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <a href="#top" className="font-wide inline-flex min-h-11 items-center text-lg font-black tracking-tight" aria-label="NX® NEXORA, retour en haut">
-          NX<sup className="text-[0.55em] font-bold">®</sup>
+        <a href={base || '#top'} className="inline-flex min-h-11 items-center" aria-label="NEXORA, accueil">
+          <Logo className="text-[1.15rem]" />
         </a>
         <nav aria-label="Pied de page">
           <ul className="flex flex-wrap gap-x-6 text-[14px] text-foreground/80">

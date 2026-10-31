@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
+import { fr } from './fr'
 
 type Style = 'serif' | 'accent' | 'outline'
 type Token = { t: 'w'; v: string; tail: string; style?: Style } | { t: 'img'; src: string; alt: string }
@@ -31,6 +32,12 @@ const TOKENS: Token[] = RAW.split(' ').map((part) => {
   }
   return { t: 'w', v: part, tail: '' }
 })
+
+const PRINCIPLES = [
+  { title: 'Une idée d’abord.', text: 'Chaque projet part d’une idée tirée de votre marque, jamais d’une tendance du moment.' },
+  { title: 'Trois métiers, une équipe.', text: 'Identité, motion et web conçus ensemble : votre image reste cohérente sur chaque support.' },
+  { title: 'D’ici, pour partout.', text: 'Entreprises, institutions et créateurs, au Bénin, en Afrique et à l’international, en français comme en anglais.' },
+]
 
 const STYLE_CLASS: Record<Style, string> = {
   serif: 'font-serif font-normal italic tracking-normal',
@@ -68,32 +75,39 @@ export function Manifesto() {
   const total = TOKENS.length
 
   return (
-    <section id="studio" ref={ref} aria-labelledby="studio-title" className="relative px-4 py-28 md:px-8 md:py-40">
-      <h2 id="studio-title" className="sr-only">Le studio</h2>
-      <p className="font-wide text-[8vw] font-extrabold leading-[1] tracking-[-0.03em] md:text-[4.6vw]">
-        {TOKENS.map((tok, i) => {
-          const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
-          if (tok.t === 'img') {
+    <section id="studio" ref={ref} data-header="paper" aria-labelledby="studio-title" className="theme-paper relative px-4 py-28 md:px-8 md:py-40">
+      <h2 id="studio-title" className="t-section max-w-[14ch]">
+        Né à Cotonou, pensé pour le monde.
+      </h2>
+
+      <div className="mt-16 grid gap-14 md:mt-24 md:grid-cols-12">
+        <p className="font-wide text-[clamp(1.9rem,3.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-[-0.03em] md:col-span-7">
+          {TOKENS.map((tok, i) => {
+            const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
+            if (tok.t === 'img') {
+              return (
+                <span key={i} className="mf-word relative mx-[0.1em] inline-block h-[0.8em] w-[1.6em] translate-y-[0.06em] overflow-hidden rounded-full align-baseline" style={style}>
+                  <Image src={tok.src} alt={tok.alt} fill sizes="10vw" className="object-cover" />
+                </span>
+              )
+            }
             return (
-              <span key={i} className="mf-word relative mx-[0.1em] inline-block h-[0.8em] w-[1.6em] translate-y-[0.06em] overflow-hidden rounded-full align-baseline" style={style}>
-                <Image src={tok.src} alt={tok.alt} fill sizes="12vw" className="object-cover" />
+              <span key={i} className={tok.style === 'accent' ? '' : 'mf-word'} style={style}>
+                <span className={tok.style ? STYLE_CLASS[tok.style] : ''}>{tok.v}</span>
+                {tok.tail}{' '}
               </span>
             )
-          }
-          return (
-            <span key={i} className={tok.style === 'accent' ? '' : 'mf-word'} style={style}>
-              <span className={tok.style ? STYLE_CLASS[tok.style] : ''}>{tok.v}</span>
-              {tok.tail}{' '}
-            </span>
-          )
-        })}
-      </p>
-
-      <div className="mt-16 grid gap-6 border-t border-line pt-8 md:mt-24 md:grid-cols-12">
-        <p className="font-serif text-2xl italic md:col-span-4">Cotonou, pour le monde.</p>
-        <p className="max-w-xl text-[17px] leading-relaxed text-foreground/80 md:col-span-6 md:col-start-6">
-          Entreprises, marques, institutions et créateurs : nous construisons leur image et leur présence numérique au Bénin, en Afrique et à l’international. Chaque prestation se commande seule ou se combine avec les autres.
+          })}
         </p>
+
+        <ul className="flex flex-col gap-10 md:col-span-4 md:col-start-9 md:pt-3">
+          {PRINCIPLES.map((p) => (
+            <li key={p.title}>
+              <h3 className="font-wide text-[1.6rem] font-extrabold leading-[1.05] tracking-[-0.02em]">{p.title}</h3>
+              <p className="mt-3 text-[17px] leading-relaxed text-foreground/85">{fr(p.text)}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )

@@ -43,8 +43,8 @@ export function Hero() {
       const dx = Math.abs(e.clientX - (r.left + r.width / 2))
       const k = Math.max(0, 1 - dx / range)
       const eased = k * k * (3 - 2 * k)
-      letter.style.setProperty('--wdth', String(100 + eased * 25))
-      letter.style.setProperty('--wght', String(800 + eased * 100))
+      letter.style.setProperty('--wdth', String(100 + eased * 12))
+      letter.style.setProperty('--wght', String(800 + eased * 80))
     })
   }
   const handleLeave = () => {
@@ -76,15 +76,9 @@ export function Hero() {
         className="flex flex-1 flex-col justify-end px-4 pb-8 pt-24 md:px-8 md:pb-10"
         style={{ transform: 'translate3d(0, calc(var(--p) * -10vh), 0)', opacity: 'calc(1 - var(--p) * 1.1)' }}
       >
-        <p className="fade-in mb-auto self-end text-right font-mono text-xs leading-relaxed text-foreground/70" style={{ '--delay': '700ms' } as React.CSSProperties}>
-          Cotonou, Bénin
-          <br />
-          6.37°N 2.43°E
-        </p>
-
         <h1
           aria-label="NEXORA"
-          className="relative mt-10 flex justify-between text-[23.5vw] uppercase leading-none tracking-[-0.02em] [@media(max-height:560px)]:justify-start [@media(max-height:560px)]:text-[15vw]"
+          className="relative flex justify-between text-[21vw] uppercase leading-none tracking-[-0.02em] [@media(max-height:560px)]:justify-start [@media(max-height:560px)]:text-[15vw]"
         >
           {LETTERS.map((l, i) => (
             <span key={l} aria-hidden className="block overflow-hidden">

@@ -49,6 +49,23 @@
   --danger: #ff8a6b;
 }
 
+/* Champ os : casse le noir deux fois dans la page (studio, méthode) */
+.theme-paper {
+  --background: #ece5d8;
+  --foreground: #0d0c0b;
+  --card: #e2dacb;
+  --muted-foreground: #4f493f;
+  --accent: #b02f0b;
+  --accent-foreground: #ece5d8;
+  --border: rgb(13 12 11 / 0.16);
+  --line: rgb(13 12 11 / 0.16);
+  --ring: #0d0c0b;
+  --danger: #9e2a08;
+  --logo-x: #b02f0b;
+  background: var(--background);
+  color: var(--foreground);
+}
+
 /* Aplat braise : réservé au moment du contact */
 .theme-signal {
   --background: #ff4a1c;
@@ -60,6 +77,7 @@
   --danger: #0d0c0b;
   --accent: #0d0c0b;
   --accent-foreground: #ff4a1c;
+  --logo-x: #0d0c0b;
   background: var(--background);
   color: var(--foreground);
 }
@@ -141,6 +159,15 @@
     border-radius: 999px;
     border: 2px solid var(--background);
   }
+}
+
+/* Transitions entre pages (accueil ↔ réalisations) et filtres */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(*) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Grain global, discret */
@@ -241,7 +268,7 @@ body::after {
 
 /* Manifeste : les mots s'allument au fil de la lecture */
 .mf-word {
-  opacity: clamp(0.4, calc((var(--p, 0) - var(--w)) * 18 + 0.4), 1);
+  opacity: clamp(0.5, calc((var(--p, 0) - var(--w)) * 18 + 0.5), 1);
 }
 
 /* ---------- Marquee ---------- */
@@ -391,6 +418,18 @@ body::after {
   }
 }
 
+/* Apparition 3D liée au scroll (expertises) */
+.rise-stage {
+  perspective: 1400px;
+}
+.rise {
+  transform-origin: 50% 0%;
+  transform: translate3d(0, calc((1 - var(--rise)) * 140px), 0) rotateX(calc((1 - var(--rise)) * 16deg))
+    scale(calc(0.9 + var(--rise) * 0.1));
+  opacity: calc(0.15 + var(--rise) * 0.85);
+  will-change: transform;
+}
+
 /* Visuels en pause tant qu'ils ne sont pas à l'écran (après les raccourcis animation). */
 .viz * {
   animation-play-state: paused !important;
@@ -483,5 +522,15 @@ details[open]::details-content {
   }
   .mf-word {
     opacity: 1;
+  }
+  .rise {
+    transform: none;
+    opacity: 1;
+  }
+  .zoom-stage {
+    height: auto;
+  }
+  ::view-transition-group(*) {
+    animation-duration: 0s;
   }
 }

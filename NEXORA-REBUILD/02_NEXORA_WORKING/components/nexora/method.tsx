@@ -45,7 +45,7 @@ export function Method() {
   }, [])
 
   return (
-    <section id="methode" aria-labelledby="methode-title" className="relative border-t border-line px-4 py-28 md:px-8 md:py-36">
+    <section id="methode" data-header="paper" aria-labelledby="methode-title" className="theme-paper relative px-4 py-28 md:px-8 md:py-36">
       <div className="grid gap-12 md:grid-cols-12">
         <div className="md:sticky md:top-28 md:col-span-5 md:h-fit">
           <Reveal>
@@ -60,7 +60,7 @@ export function Method() {
             <div className="font-wide h-[0.9em] overflow-hidden text-[clamp(6rem,11vw,10rem)] font-black leading-[0.9] tracking-[-0.05em]">
               <div className="transition-transform duration-700 ease-[var(--ease-out-expo)]" style={{ transform: `translateY(${-active * 0.9}em)` }}>
                 {STEPS.map((_, i) => (
-                  <div key={i} className={`h-[0.9em] ${i === active ? 'text-accent' : 'text-foreground/20'}`}>
+                  <div key={i} className={`h-[0.9em] ${i === active ? 'text-accent' : 'text-foreground/15'}`}>
                     {String(i + 1).padStart(2, '0')}
                   </div>
                 ))}
@@ -94,7 +94,7 @@ export function Method() {
                 <p className="font-mono text-[14px] text-accent md:hidden">Étape {i + 1} sur {STEPS.length}</p>
                 <h3
                   className={`t-card mt-3 transition-colors duration-700 md:mt-0 ${
-                    i === active ? '' : 'md:text-foreground/45'
+                    i === active ? '' : 'md:text-foreground/55'
                   }`}
                 >
                   {s.title}

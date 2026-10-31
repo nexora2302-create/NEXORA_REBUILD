@@ -1,5 +1,6 @@
 import { fr } from './fr'
 import { Reveal, SplitWords } from './reveal'
+import { ScrollRise } from './scroll-rise'
 import { SpotGrid } from './spot-grid'
 
 type Expertise = {
@@ -196,29 +197,35 @@ export function Expertises() {
         </p>
       </Reveal>
 
-      <SpotGrid className="grid gap-4 md:grid-cols-12">
-        <Reveal as="article" className={`${tile} flex flex-col gap-8 md:col-span-7`}>
-          <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
-            <VizVoir />
-          </div>
-          <Copy x={VOIR} />
-        </Reveal>
+      <SpotGrid className="rise-stage grid gap-4 md:grid-cols-12">
+        <ScrollRise className="md:col-span-7">
+          <Reveal as="article" className={`${tile} flex h-full flex-col gap-8`}>
+            <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
+              <VizVoir />
+            </div>
+            <Copy x={VOIR} />
+          </Reveal>
+        </ScrollRise>
 
-        <Reveal as="article" className={`${tile} flex flex-col gap-8 md:col-span-5`}>
-          <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
-            <VizBouger />
-          </div>
-          <Copy x={BOUGER} />
-        </Reveal>
+        <ScrollRise className="md:col-span-5" delay={0.12}>
+          <Reveal as="article" className={`${tile} flex h-full flex-col gap-8`}>
+            <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
+              <VizBouger />
+            </div>
+            <Copy x={BOUGER} />
+          </Reveal>
+        </ScrollRise>
 
-        <Reveal as="article" className={`${tile} grid items-center gap-8 md:col-span-12 md:grid-cols-12`}>
-          <div className="md:col-span-5">
-            <Copy x={HABITER} />
-          </div>
-          <div className="overflow-hidden rounded-2xl md:col-span-7">
-            <VizHabiter />
-          </div>
-        </Reveal>
+        <ScrollRise className="md:col-span-12">
+          <Reveal as="article" className={`${tile} grid items-center gap-8 md:grid-cols-12`}>
+            <div className="md:col-span-5">
+              <Copy x={HABITER} />
+            </div>
+            <div className="overflow-hidden rounded-2xl md:col-span-7">
+              <VizHabiter />
+            </div>
+          </Reveal>
+        </ScrollRise>
       </SpotGrid>
     </section>
   )

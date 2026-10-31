@@ -1,118 +1,118 @@
+'use client'
+
 import Image from 'next/image'
+import { useEffect, useRef } from 'react'
+import { PROJECTS } from '@/lib/projects'
 import { fr } from './fr'
 import { ArrowIcon } from './icons'
 import { Reveal, SplitWords } from './reveal'
-import { Stack } from './stack'
 
-type Project = {
-  title: string
-  tag: string
-  year: string
-  img: string
-  alt: string
-  note: string
-  pos?: string
-}
-
-const PROJECTS: Project[] = [
-  {
-    title: 'Kpèvi Records', tag: 'Identité visuelle', year: '2026', img: '/work/kpevi.webp',
-    alt: 'Système d’identité pour un label afro-électronique : pochettes, affiches et autocollants bleu outremer',
-    note: 'Un label afro-électronique et un logo-cercle qui tourne comme un vinyle, décliné de la pochette au sticker.',
-  },
-  {
-    title: 'Ganvié, l’heure bleue', tag: 'Motion design, générique', year: '2026', img: '/work/ganvie.webp',
-    alt: 'Image de film stylisée d’un village lacustre sur pilotis à l’heure bleue, soleil vermillon',
-    note: 'Générique d’ouverture pour un festival de cinéma imaginaire : 45 secondes de lumière sur le lac Nokoué.',
-  },
-  {
-    title: 'Atelier Dàxó', tag: 'Site e-commerce', year: '2026', img: '/work/daxo.webp',
-    alt: 'Maquettes d’un site e-commerce pour un atelier textile, écrans mobile et desktop',
-    note: 'Une boutique en ligne où chaque tissu se déroule au défilement, pensée d’abord pour le mobile.',
-  },
-  {
-    title: 'Biennale Cotonou Design', tag: 'Campagne d’affichage', year: '2026', img: '/work/biennale.webp',
-    alt: 'Affiches typographiques jaune acide collées sur un mur ensoleillé à Cotonou',
-    note: 'Des lettres qui se déforment sous le soleil : une campagne pensée pour la rue, déclinée en motion.',
-  },
-  {
-    title: 'Sons d’Ancêtres', tag: 'Affiche de festival', year: '2026', img: '/work/p1.webp', pos: '50% 20%',
-    alt: 'Affiche typographique d’un festival de musiques africaines : portrait en bleu et orange, formes géométriques',
-    note: 'Une affiche pour un festival imaginaire : portrait, typographie découpée et motifs géométriques.',
-  },
-  {
-    title: 'Kora Café', tag: 'Identité et packaging', year: '2026', img: '/work/p4.webp',
-    alt: 'Packaging de café artisanal Kora : sachet kraft, carte et boîte, tissu indigo',
-    note: 'Un système d’identité et de packaging pour un café béninois imaginaire.',
-  },
-  {
-    title: 'Flux', tag: 'Film de marque, motion', year: '2025', img: '/work/p2.webp',
-    alt: 'Image de motion design : ruban de lumière orange et ambre sur fond noir',
-    note: 'Une exploration de matière lumineuse pour un film de marque.',
-  },
-  {
-    title: 'Éliore', tag: 'Site e-commerce', year: '2025', img: '/work/p3.webp',
-    alt: 'Maquette d’un site e-commerce de mode sur ordinateur portable, interface sombre',
-    note: 'Un concept de boutique en ligne de mode, sobre et éditoriale.',
-  },
+/*
+ * Galerie « zoom » : sept images autour d'un centre. Au scroll (natif, section collante),
+ * chacune grandit à sa vitesse ; l'image centrale finit plein écran, les autres sortent du cadre.
+ */
+const LAYOUT: { slug: string; box: string; scale: number }[] = [
+  { slug: 'ganvie-heure-bleue', box: 'h-[25vh] w-[25vw]', scale: 4 },
+  { slug: 'kpevi-records', box: 'h-[30vh] w-[35vw] -translate-y-[30vh] translate-x-[5vw]', scale: 5 },
+  { slug: 'sons-d-ancetres', box: 'h-[45vh] w-[20vw] -translate-y-[10vh] -translate-x-[25vw]', scale: 6 },
+  { slug: 'atelier-daxo', box: 'h-[25vh] w-[25vw] translate-x-[27.5vw]', scale: 5 },
+  { slug: 'kora-cafe', box: 'h-[25vh] w-[20vw] translate-y-[27.5vh] translate-x-[5vw]', scale: 6 },
+  { slug: 'biennale-cotonou-design', box: 'h-[25vh] w-[30vw] translate-y-[27.5vh] -translate-x-[22.5vw]', scale: 8 },
+  { slug: 'flux', box: 'h-[15vh] w-[15vw] translate-y-[22.5vh] translate-x-[25vw]', scale: 9 },
 ]
 
-const CARD = 'grid overflow-hidden rounded-[1.75rem] border border-line bg-card md:h-[min(66svh,620px)] md:grid-cols-12 origin-top will-change-[transform]'
-
 export function Work() {
+  const stageRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = stageRef.current
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const r = el.getBoundingClientRect()
+      const range = r.height - window.innerHeight
+      const p = range > 0 ? Math.min(1, Math.max(0, -r.top / range)) : 0
+      el.style.setProperty('--z', p.toFixed(4))
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  const bySlug = Object.fromEntries(PROJECTS.map((p) => [p.slug, p]))
+
   return (
-    <section id="travaux" aria-labelledby="travaux-title" className="relative px-4 py-28 md:px-8 md:py-36">
-      <Reveal className="mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:items-end">
+    <section id="travaux" aria-labelledby="travaux-title" className="relative">
+      <Reveal className="grid gap-6 px-4 pb-16 pt-28 md:grid-cols-12 md:items-end md:px-8 md:pb-20 md:pt-36">
         <h2 id="travaux-title" className="t-section md:col-span-8">
           <SplitWords text="Réalisations" />
         </h2>
         <p className="max-w-sm text-[17px] leading-relaxed text-foreground/80 md:col-span-4">
-          Des concepts d’exploration conçus par le studio pour montrer sa démarche, en attendant les premiers projets clients.
+          {fr('Huit concepts d’exploration conçus par le studio pour montrer sa démarche, en attendant les premiers projets clients.')}
         </p>
       </Reveal>
 
-      <Stack className="flex flex-col gap-6 md:gap-[12vh]">
-        {PROJECTS.map((p, i) => (
-          <li key={p.title} className="md:sticky" style={{ top: `calc(5.5rem + ${i * 0.9}rem)` }}>
-            <article data-stack-card aria-labelledby={`p-${i}`} className={`group ${CARD}`}>
-              <Reveal threshold={0.15} className="relative aspect-[4/3] overflow-hidden md:col-span-7 md:aspect-auto">
-                <div className="rv-curtain absolute inset-0">
-                <Image
-                  src={p.img}
-                  alt={p.alt}
-                  fill
-                  sizes="(min-width: 768px) 58vw, 100vw"
-                  className="object-cover"
-                  style={{ objectPosition: p.pos }}
-                />
-                </div>
-              </Reveal>
-              <div className="flex flex-col justify-between gap-10 p-6 md:col-span-5 md:p-10">
-                <div>
-                  <p className="text-[15px] font-medium text-accent">{p.tag}</p>
-                  <h3 id={`p-${i}`} className="t-card mt-3">
-                    {p.title}
-                  </h3>
-                  <p className="mt-5 max-w-md text-[17px] leading-relaxed text-foreground/80">{fr(p.note)}</p>
-                </div>
-                <p className="text-[14px] text-muted-foreground">Concept studio, {p.year}</p>
+      <div ref={stageRef} className="zoom-stage relative h-[300vh]" style={{ '--z': 0 } as React.CSSProperties}>
+        <div className="sticky top-0 h-svh overflow-hidden">
+          {LAYOUT.map(({ slug, box, scale }, i) => {
+            const p = bySlug[slug]
+            return (
+              <div
+                key={slug}
+                className="absolute inset-0 flex items-center justify-center will-change-transform"
+                style={{ transform: `scale(calc(1 + var(--z) * ${scale - 1}))` }}
+              >
+                <a
+                  href={`/realisations#${slug}`}
+                  className={`zoom-tile group relative block overflow-hidden ${box}`}
+                  style={{ viewTransitionName: `work-${slug}` }}
+                  aria-label={`${p.title}, ${p.tag}`}
+                >
+                  <div className="absolute inset-0" style={p.crop ? { transform: `scale(${p.crop})` } : undefined}>
+                  <Image
+                    src={p.img}
+                    alt={p.alt}
+                    fill
+                    placeholder="blur"
+                    blurDataURL={p.blur}
+                    quality={82}
+                    sizes={i === 0 ? '100vw' : '(min-width: 768px) 40vw, 60vw'}
+                    className="object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
+                    style={{ objectPosition: p.pos }}
+                  />
+                  </div>
+                </a>
               </div>
-            </article>
-          </li>
-        ))}
-        <li className="md:sticky" style={{ top: `calc(5.5rem + ${PROJECTS.length * 0.9}rem)` }}>
-          <div data-stack-card className="flex flex-col items-start justify-between gap-10 rounded-[1.75rem] bg-accent p-6 text-accent-foreground md:h-[min(46svh,420px)] md:p-10">
-            <p className="t-section">La prochaine, c’est la vôtre.</p>
-            <a
-              href="#contact"
-              className="group/cta inline-flex min-h-12 items-center gap-3 rounded-full bg-accent-foreground px-6 text-[15px] font-semibold text-accent transition-transform duration-500 hover:scale-[1.03]"
-            >
-              Parler de votre projet
-              <ArrowIcon className="size-4 transition-transform duration-500 group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-0.5" />
-            </a>
+            )
+          })}
+
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 bg-gradient-to-t from-background/80 to-transparent px-4 pb-6 pt-24 md:px-8 md:pb-8">
+            <p className="max-w-xs text-[15px] leading-snug text-foreground/90">Choisissez une image pour ouvrir son projet.</p>
           </div>
-        </li>
-      </Stack>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-start gap-6 px-4 py-20 md:flex-row md:items-center md:justify-between md:px-8 md:py-24">
+        <p className="t-card max-w-[18ch]">Chaque concept, en détail.</p>
+        <a
+          href="/realisations"
+          className="group inline-flex min-h-14 items-center gap-4 rounded-full bg-accent pl-7 pr-2 text-[16px] font-semibold text-accent-foreground transition-transform duration-500 hover:scale-[1.03]"
+        >
+          Voir toutes les réalisations
+          <span className="grid size-10 place-items-center rounded-full bg-accent-foreground text-accent transition-transform duration-500 group-hover:rotate-45">
+            <ArrowIcon className="size-4" />
+          </span>
+        </a>
+      </div>
     </section>
   )
 }
