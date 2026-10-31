@@ -106,6 +106,15 @@
   line-height: 1.15;
 }
 
+@utility t-hero {
+  font-size: clamp(2.6rem, 6.3vw, 7rem);
+  font-weight: 900;
+  font-variation-settings: 'wdth' 112;
+  font-stretch: 112%;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
 @utility font-wide {
   font-variation-settings: 'wdth' 125;
   font-stretch: 125%;
@@ -187,22 +196,14 @@ body::after {
 }
 
 /* ---------- Hero ---------- */
-.hero-letter {
-  display: inline-block;
-  font-variation-settings:
-    'wdth' var(--wdth),
-    'wght' var(--wght);
-  line-height: 0.8;
-  transform: translateY(110%);
-  animation: letter-rise 1.3s var(--ease-out-expo) forwards;
-  animation-delay: calc(var(--i) * 70ms + 200ms);
-  transition:
-    --wdth 0.6s var(--ease-out-expo),
-    --wght 0.6s var(--ease-out-expo);
+.hero-line {
+  transform: translate3d(0, 105%, 0);
+  animation: letter-rise 1.2s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--i) * 110ms + 250ms);
 }
 @keyframes letter-rise {
   to {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -544,7 +545,7 @@ details[open]::details-content {
   html {
     scroll-behavior: auto;
   }
-  .hero-letter,
+  .hero-line,
   .rv-word,
   [data-reveal] .rv-word {
     animation: none;
