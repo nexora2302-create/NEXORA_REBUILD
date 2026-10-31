@@ -19,7 +19,6 @@ export function Header({ base = '' }: { base?: string }) {
 
   const [open, setOpen] = useState(false)
   const [solid, setSolid] = useState(false)
-  const [hidden, setHidden] = useState(false)
   const [showCta, setShowCta] = useState(!!base)
   const [theme, setTheme] = useState<string | null>(null)
   const [current, setCurrent] = useState<string | null>(base ? 'travaux' : null)
@@ -27,20 +26,15 @@ export function Header({ base = '' }: { base?: string }) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const openRef = useRef<HTMLButtonElement>(null)
 
-  // Fond plein une fois le haut quitté, masqué en descendant, rendu en remontant,
-  // et teinté selon la section qui passe sous la barre (data-header="paper" | "signal").
+  // Fond plein une fois le haut quitté (la barre reste toujours visible),
+  // et teintée selon la section qui passe sous la barre (data-header="paper" | "signal").
   useEffect(() => {
     let raf = 0
-    let lastY = window.scrollY
     const update = () => {
       raf = 0
       const y = window.scrollY
       setSolid(y > 24)
       if (!base) setShowCta(y > window.innerHeight * 0.75)
-      if (Math.abs(y - lastY) > 6) {
-        setHidden(y > lastY && y > 320)
-        lastY = y
-      }
       let t: string | null = null
       document.querySelectorAll<HTMLElement>('[data-header]').forEach((el) => {
         const r = el.getBoundingClientRect()
@@ -107,13 +101,11 @@ export function Header({ base = '' }: { base?: string }) {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-[transform,background-color,color] duration-500 ease-[var(--ease-out-expo)] ${themeClass} ${
-          hidden && !open ? '-translate-y-full' : ''
-        }`}
+        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,color] duration-500 ease-[var(--ease-out-expo)] ${themeClass}`}
       >
-        <div className="grid h-16 grid-cols-12 items-center gap-4 px-4 md:px-8">
+        <div className={`grid grid-cols-12 items-center gap-4 px-4 md:px-8 transition-[height] duration-500 ease-[var(--ease-out-expo)] ${solid ? 'h-14' : 'h-16 md:h-20'}`}>
           <a href={base || '#top'} className="col-span-6 inline-flex min-h-11 items-center md:col-span-3" aria-label="NEXORA, accueil">
-            <Logo className="text-[1.3rem]" />
+            <Logo className="text-[0.95rem]" />
           </a>
 
           <nav aria-label="Navigation principale" className="hidden md:col-span-6 md:block">
@@ -178,7 +170,7 @@ export function Header({ base = '' }: { base?: string }) {
         style={{ '--logo-x': '#0d0c0b' } as React.CSSProperties}
       >
         <div className="flex h-16 items-center justify-between">
-          <Logo className="text-[1.3rem]" />
+          <Logo className="text-[0.95rem]" />
           <button ref={closeRef} type="button" onClick={() => setOpen(false)} className="inline-flex min-h-11 min-w-11 items-center justify-end text-[15px] font-medium">
             Fermer
           </button>

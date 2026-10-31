@@ -1,7 +1,6 @@
 import { fr } from './fr'
 import { Reveal, SplitWords } from './reveal'
-import { ScrollRise } from './scroll-rise'
-import { SpotGrid } from './spot-grid'
+import { StackCards } from './stack-cards'
 
 type Expertise = {
   word: string
@@ -183,50 +182,46 @@ function VizHabiter() {
   )
 }
 
+const CARDS: { x: Expertise; viz: () => React.JSX.Element; tone: string }[] = [
+  { x: VOIR, viz: VizVoir, tone: 'bg-card' },
+  { x: BOUGER, viz: VizBouger, tone: 'theme-paper' },
+  { x: HABITER, viz: VizHabiter, tone: 'bg-[#7a2410]' },
+]
+
 export function Expertises() {
-  const tile = 'spot relative overflow-hidden rounded-[1.75rem] p-6 md:p-9'
   return (
     <section id="expertises" aria-labelledby="expertises-title" className="relative px-4 py-28 md:px-8 md:py-36">
-      <Reveal className="mb-12 grid gap-6 md:mb-16 md:grid-cols-12 md:items-end">
-        <h2 id="expertises-title" className="t-section md:col-span-8">
+      <Reveal className="mb-12 grid gap-6 md:mb-20 md:grid-cols-12 md:items-end">
+        <h2 id="expertises-title" className="t-section md:col-span-12">
           <SplitWords text="Trois métiers," />
+          <br className="hidden md:block" />
           <SplitWords text="un seul mouvement." offset={2} />
         </h2>
-        <p className="max-w-sm text-[17px] leading-relaxed text-foreground/80 md:col-span-4">
+        <p className="max-w-sm text-[17px] leading-relaxed text-foreground/85 md:col-span-4 md:col-start-9">
           L’identité donne le ton, le mouvement donne le rythme, le web donne la scène. Séparément ou ensemble.
         </p>
       </Reveal>
 
-      <SpotGrid className="rise-stage grid gap-4 md:grid-cols-12">
-        <ScrollRise className="md:col-span-7">
-          <Reveal as="article" className={`${tile} flex h-full flex-col gap-8`}>
-            <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
-              <VizVoir />
-            </div>
-            <Copy x={VOIR} />
-          </Reveal>
-        </ScrollRise>
-
-        <ScrollRise className="md:col-span-5" delay={0.12}>
-          <Reveal as="article" className={`${tile} flex h-full flex-col gap-8`}>
-            <div className="aspect-[5/3] overflow-hidden rounded-2xl bg-background/60">
-              <VizBouger />
-            </div>
-            <Copy x={BOUGER} />
-          </Reveal>
-        </ScrollRise>
-
-        <ScrollRise className="md:col-span-12">
-          <Reveal as="article" className={`${tile} grid items-center gap-8 md:grid-cols-12`}>
-            <div className="md:col-span-5">
-              <Copy x={HABITER} />
-            </div>
-            <div className="overflow-hidden rounded-2xl md:col-span-7">
-              <VizHabiter />
-            </div>
-          </Reveal>
-        </ScrollRise>
-      </SpotGrid>
+      {/* Cartes empilées : chaque métier glisse sur le précédent, qui recule et s'assombrit. */}
+      <StackCards>
+        {CARDS.map(({ x, viz: Viz, tone }, i) => (
+          <div key={x.word} data-stack={i} className="stack-item md:sticky" style={{ top: `calc(6.5rem + ${i * 1.5}rem)` }}>
+            <Reveal
+              as="article"
+              threshold={0.1}
+              className={`stack-card relative grid items-center gap-8 overflow-hidden rounded-[1.75rem] p-6 md:min-h-[min(74svh,640px)] md:grid-cols-12 md:gap-10 md:p-10 ${tone}`}
+            >
+              <div className="md:col-span-5">
+                <Copy x={x} />
+              </div>
+              <div className="aspect-[16/10] overflow-hidden rounded-2xl bg-[#0d0c0b] md:col-span-7">
+                <Viz />
+              </div>
+              <span aria-hidden className="stack-dim pointer-events-none absolute inset-0 bg-[#0d0c0b]" />
+            </Reveal>
+          </div>
+        ))}
+      </StackCards>
     </section>
   )
 }

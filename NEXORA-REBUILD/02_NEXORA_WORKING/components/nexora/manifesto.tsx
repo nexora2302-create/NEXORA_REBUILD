@@ -3,34 +3,23 @@
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
 import { fr } from './fr'
+import { Reveal, SplitWords } from './reveal'
 
-type Style = 'serif' | 'accent' | 'outline'
-type Token = { t: 'w'; v: string; tail: string; style?: Style } | { t: 'img'; src: string; alt: string }
+type Token = { t: 'w'; v: string } | { t: 'img'; src: string; alt: string }
 
-// *mot* = serif italique · ^mot^ = serif orange · =mot= = contour
+// [clé] = une image qui s'ouvre dans la phrase au fil de la lecture
 const RAW =
-  'NEXORA est un studio créatif né à ^Cotonou^. Nous dessinons des *identités* qui se lisent [poster] des *images* qui bougent [motion] et des *sites* qui se vivent [interface] pour les marques qui refusent de rester =immobiles=.'
+  'Nous dessinons des identités [poster] qui se lisent, des images [motion] qui bougent et des sites [interface] qui se vivent, pour les marques qui refusent de rester immobiles.'
 
 const IMAGES: Record<string, { src: string; alt: string }> = {
-  poster: { src: '/work/poster.webp', alt: 'Affiche' },
+  poster: { src: '/work/poster.webp', alt: 'Affiche d’identité visuelle' },
   motion: { src: '/work/motion.webp', alt: 'Image de motion design' },
-  interface: { src: '/work/interface.webp', alt: 'Interface web' },
+  interface: { src: '/work/interface.webp', alt: 'Interface de site web' },
 }
-
-const MARKS: [RegExp, Style][] = [
-  [/^\*(.+)\*(\W*)$/, 'serif'],
-  [/^\^(.+)\^(\W*)$/, 'accent'],
-  [/^=(.+)=(\W*)$/, 'outline'],
-]
 
 const TOKENS: Token[] = RAW.split(' ').map((part) => {
   const img = part.match(/^\[(\w+)\]$/)
-  if (img) return { t: 'img', ...IMAGES[img[1]] }
-  for (const [re, style] of MARKS) {
-    const m = part.match(re)
-    if (m) return { t: 'w', v: m[1], tail: m[2], style }
-  }
-  return { t: 'w', v: part, tail: '' }
+  return img ? { t: 'img', ...IMAGES[img[1]] } : { t: 'w', v: part }
 })
 
 const PRINCIPLES = [
@@ -39,28 +28,27 @@ const PRINCIPLES = [
   { title: 'D’ici, pour partout.', text: 'Entreprises, institutions et créateurs, au Bénin, en Afrique et à l’international, en français comme en anglais.' },
 ]
 
-const STYLE_CLASS: Record<Style, string> = {
-  serif: 'font-serif font-normal italic tracking-normal',
-  accent: 'font-serif font-normal italic tracking-normal text-accent',
-  outline: 'outline-text',
-}
-
 export function Manifesto() {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLParagraphElement>(null)
 
+  // Progression de lecture de la phrase (0 → 1) pendant qu'elle traverse l'écran.
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.style.setProperty('--p', '1.2')
+      return
+    }
     let raf = 0
     const update = () => {
+      raf = 0
       const r = el.getBoundingClientRect()
       const vh = window.innerHeight
-      const p = (vh * 0.85 - r.top) / (r.height * 0.75)
-      el.style.setProperty('--p', Math.min(1.05, Math.max(0, p)).toFixed(3))
+      const p = (vh * 0.92 - r.top) / (vh * 0.92 - vh * 0.3 + r.height * 0.6)
+      el.style.setProperty('--p', Math.min(1.2, Math.max(0, p)).toFixed(3))
     }
     const onScroll = () => {
-      cancelAnimationFrame(raf)
-      raf = requestAnimationFrame(update)
+      if (!raf) raf = requestAnimationFrame(update)
     }
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -75,40 +63,48 @@ export function Manifesto() {
   const total = TOKENS.length
 
   return (
-    <section id="studio" ref={ref} data-header="paper" aria-labelledby="studio-title" className="theme-paper relative px-4 py-28 md:px-8 md:py-40">
-      <h2 id="studio-title" className="t-section max-w-[14ch]">
-        Né à Cotonou, pensé pour le monde.
-      </h2>
+    <section id="studio" data-header="paper" aria-labelledby="studio-title" className="theme-paper relative px-4 py-28 md:px-8 md:py-40">
+      <Reveal className="grid gap-8 md:grid-cols-12 md:items-end">
+        <h2 id="studio-title" className="t-section md:col-span-12">
+          <SplitWords text="Né à Cotonou," />
+          <br className="hidden md:block" />
+          <SplitWords text="pensé pour le monde." offset={3} />
+        </h2>
+        <p className="max-w-sm text-[17px] leading-relaxed md:col-span-4 md:col-start-9">
+          Studio créatif basé à Cotonou, au Bénin : identité, motion design et web.
+        </p>
+      </Reveal>
 
-      <div className="mt-16 grid gap-14 md:mt-24 md:grid-cols-12">
-        <p className="font-wide text-[clamp(1.9rem,3.4vw,3.6rem)] font-extrabold leading-[1.04] tracking-[-0.03em] md:col-span-7">
-          {TOKENS.map((tok, i) => {
-            const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
-            if (tok.t === 'img') {
-              return (
-                <span key={i} className="mf-word relative mx-[0.1em] inline-block h-[0.8em] w-[1.6em] translate-y-[0.06em] overflow-hidden rounded-full align-baseline" style={style}>
-                  <Image src={tok.src} alt={tok.alt} fill sizes="10vw" className="object-cover" />
-                </span>
-              )
-            }
+      <p
+        ref={ref}
+        className="font-wide mt-20 text-[clamp(1.85rem,4vw,4.1rem)] font-extrabold leading-[1.08] tracking-[-0.03em] md:mt-32"
+        style={{ '--p': 0 } as React.CSSProperties}
+      >
+        {TOKENS.map((tok, i) => {
+          const style = { '--w': (i / total).toFixed(3) } as React.CSSProperties
+          if (tok.t === 'img') {
             return (
-              <span key={i} className={tok.style === 'accent' ? '' : 'mf-word'} style={style}>
-                <span className={tok.style ? STYLE_CLASS[tok.style] : ''}>{tok.v}</span>
-                {tok.tail}{' '}
+              <span key={i} className="mf-open relative inline-block h-[0.82em] translate-y-[0.08em] overflow-hidden rounded-full align-baseline" style={style}>
+                <Image src={tok.src} alt={tok.alt} fill sizes="12vw" className="object-cover" />
               </span>
             )
-          })}
-        </p>
+          }
+          return (
+            <span key={i} className="mf-word" style={style}>
+              {tok.v}{' '}
+            </span>
+          )
+        })}
+      </p>
 
-        <ul className="flex flex-col gap-10 md:col-span-4 md:col-start-9 md:pt-3">
-          {PRINCIPLES.map((p) => (
-            <li key={p.title}>
-              <h3 className="font-wide text-[1.6rem] font-extrabold leading-[1.05] tracking-[-0.02em]">{p.title}</h3>
-              <p className="mt-3 text-[17px] leading-relaxed text-foreground/85">{fr(p.text)}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Reveal as="ul" className="mt-20 grid gap-12 md:mt-28 lg:grid-cols-3 lg:gap-8">
+        {PRINCIPLES.map((p, i) => (
+          <li key={p.title} className="rv-up" style={{ '--i': i } as React.CSSProperties}>
+            <h3 className="font-wide text-[1.75rem] font-extrabold leading-[1.02] tracking-[-0.025em] md:text-[2rem]">{fr(p.title)}</h3>
+            <p className="mt-4 max-w-sm text-[17px] leading-relaxed">{fr(p.text)}</p>
+          </li>
+        ))}
+      </Reveal>
     </section>
   )
 }
