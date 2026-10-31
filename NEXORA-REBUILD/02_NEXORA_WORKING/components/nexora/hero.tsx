@@ -143,12 +143,12 @@ export function Hero() {
             </a>
           </div>
         </div>
-        <div
-          className="fade-in flex justify-between gap-4 text-[14px] text-foreground/75 md:col-span-3 md:col-start-10 md:flex-col md:items-end md:text-right md:text-[15px]"
-          style={{ '--delay': '1200ms' } as React.CSSProperties}
-        >
-          <p>Identité · Motion · Web</p>
-          <p>
+        <div className="fade-in md:col-span-4 md:col-start-9 lg:col-span-3 lg:col-start-10" style={{ '--delay': '1200ms' } as React.CSSProperties}>
+          <p className="max-w-[22rem] text-[16px] leading-relaxed text-foreground/85 md:text-[17px]">
+            Studio créatif à Cotonou. Identité, motion design et sites web, pensés ensemble pour les marques du Bénin, d’Afrique et d’ailleurs.
+          </p>
+          <p className="mt-5 flex items-center gap-2 text-[14px] text-foreground/70 md:mt-6 md:text-[15px]">
+            <span aria-hidden className="live-dot size-1.5 rounded-full bg-accent" />
             Cotonou, Bénin · <LocalTime />
           </p>
         </div>
