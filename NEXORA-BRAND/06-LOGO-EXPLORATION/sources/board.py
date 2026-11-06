@@ -19,6 +19,13 @@ def sym(kind, fg, acc, cls='', title=None):
         return (f'<svg class="{cls}" viewBox="-10 -130 900 828" role="img" aria-label="{title or "Symbole Décalage"}">{t}'
                 f'<path d="{a}" fill="{fg}"/><path class="slide" d="{b}" fill="{acc}"/></svg>')
     if kind == 'entrelacs':
+        from entfinal import symbol_t as _st, symbol_mono_t as _sm, INK as _I, BONE as _B, EMBER as _E, RUST as _R, DEEP as _D
+        if fg == acc:
+            return _sm(fg, cls=cls)
+        if fg == BONE:
+            return _st(cls=cls)
+        return _st(a=(_I, _E), b=('#4a4239', _D), cls=cls)
+    if kind == 'entrelacs_old':
         L, pad = 980, 140; size = L + 2*pad; c = size/2
         b = blade(L, 210, 0.06); m = uid(); ang = 40
         g1 = f'translate({c} {c}) rotate({-ang})'; g2 = f'translate({c} {c}) rotate({180+ang})'
@@ -28,6 +35,10 @@ def sym(kind, fg, acc, cls='', title=None):
                 f'<g class="spin" style="transform-origin:{c}px {c}px"><g mask="url(#{m})"><path d="{b}" transform="{g2}" fill="{acc}"/></g><path d="{b}" transform="{g1}" fill="{fg}"/></g></svg>')
 
 def word(kind, fg, acc, cls=''):
+    if kind == 'entrelacs':
+        from entfinal import display_word as _dw, INK as _I, BONE as _B, EMBER as _E, RUST as _R, DEEP as _D
+        s = _dw(fg, (_B, _E) if fg == BONE else (_I, _E), (_E, _R) if fg == BONE else ('#4a4239', _D))
+        return s.replace('<svg class=""', f'<svg class="{cls}"', 1)
     v = {'courbe': 'courbe', 'decalage': 'decalage', 'entrelacs': 'entrelacs', 'plain': 'plain'}[kind]
     s, W = wordmark(fg, acc, v, None, pad=0)
     # ids de masque uniques
@@ -74,6 +85,20 @@ def construction_entrelacs():
 <path d="M200 0A200 200 0 0 0 153 -128" fill="none" stroke="var(--fg)" stroke-width="5"/><path d="M200 0A200 200 0 0 1 153 128" fill="none" stroke="var(--fg)" stroke-width="5"/>
 <g class="dlabel"><text x="230" y="-80">40°</text><text x="230" y="110">40°</text><text x="-520" y="-450">lame : 980 × 210</text><text x="-520" y="490">passage : 34</text></g></svg>'''
 
+def sting_html():
+    from entfinal import sting
+    return sting()
+
+def construction_entrelacs():
+    from entfinal import blade as _bl
+    sil, up, lo, mid = _bl()
+    pts = ' '.join(f'{x:.0f},{y:.0f}' for x, y in mid)
+    return f'''<svg class="diagram" viewBox="-620 -330 1240 660" role="img" aria-label="Construction du symbole Entrelacs">
+<g stroke="var(--line)" stroke-width="3" fill="none"><line x1="-600" y1="0" x2="600" y2="0"/><line x1="0" y1="-310" x2="0" y2="310"/></g>
+<polygon points="{up}" fill="var(--ghost)"/><polygon points="{lo}" fill="var(--ghost-acc)"/>
+<polyline points="{pts}" fill="none" stroke="var(--ember)" stroke-width="6"/><polygon points="{sil}" fill="none" stroke="var(--fg)" stroke-width="4"/>
+<g class="dlabel"><text x="-590" y="-250">lame 1000 × 240, inclinée à ±40°</text><text x="-590" y="290">torsion : face os / tranche braise</text></g></svg>'''
+
 # ---------- briques de planche ----------
 def tile(content, bg, cls='', label=''):
     lab = f'<span class="tlabel">{label}</span>' if label else ''
@@ -85,18 +110,32 @@ def icon(kind, bg, fg, acc, shape='round'):
 def favicons(kind):
     out = ''
     for px in (64, 32, 16):
-        out += f'<span class="fav" style="--px:{px}px"><span class="favbox">{sym(kind, BONE, EMBER, "fsym")}</span><small>{px} px</small></span>'
+        if kind == 'entrelacs' and px <= 32:
+            from entfinal import small as _sml
+            inner = _sml(bg='#0d0c0b').replace('<svg class=""', '<svg class="fsym"', 1)
+        else:
+            inner = sym(kind, BONE, EMBER, "fsym")
+        out += f'<span class="fav" style="--px:{px}px"><span class="favbox">{inner}</span><small>{px} px</small></span>'
     return out
 
 def header_mock(kind, mode='word'):
-    logo = word(kind, BONE, EMBER, 'hword') if mode == 'word' else sym(kind, BONE, EMBER, 'hsym')
-    return f'''<div class="mock mock-head"><span class="mlogo">{logo}</span><span class="mnav"><i>Studio</i><i>Expertises</i><i>Réalisations</i><i>Méthode</i></span><span class="mcta">Démarrer un projet</span></div>'''
+    if mode == 'lockup':
+        from entfinal import plain_word as _pw
+        logo = sym(kind, BONE, EMBER, 'hsym') + _pw(BONE, 'hword')
+    else:
+        logo = word(kind, BONE, EMBER, 'hword') if mode == 'word' else sym(kind, BONE, EMBER, 'hsym')
+    return f'''<div class="mock mock-head"><span class="mlogo hl">{logo}</span><span class="mnav"><i>Studio</i><i>Expertises</i><i>Réalisations</i><i>Méthode</i></span><span class="mcta">Démarrer un projet</span></div>'''
 
 def footer_mock(kind):
     return f'''<div class="mock mock-foot"><span class="mlogo">{sym(kind, INK, DEEP, 'fsym2')}</span><span class="mfoot">Studio créatif · Cotonou, Bénin</span><span class="mfoot">© 2026</span></div>'''
 
 def tab_mock(kind):
-    return f'''<div class="tabmock"><span class="tab"><span class="tabicon">{sym(kind, BONE, EMBER, 'tsym')}</span><span>NEXORA, studio créatif</span><span class="x">×</span></span></div>'''
+    if kind == 'entrelacs':
+        from entfinal import small as _sml
+        ic = _sml(bg='#2c2824').replace('<svg class=""', '<svg class="tsym"', 1)
+    else:
+        ic = sym(kind, BONE, EMBER, 'tsym')
+    return f'''<div class="tabmock"><span class="tab"><span class="tabicon">{ic}</span><span>NEXORA, studio créatif</span><span class="x">×</span></span></div>'''
 
 def direction(num, kind, name, idea, concept, logic, evolution, plus, minus, construction, motion_note, header_mode='word'):
     p = ''.join(f'<li>{x}</li>' for x in plus); m = ''.join(f'<li>{x}</li>' for x in minus)
@@ -109,7 +148,7 @@ def direction(num, kind, name, idea, concept, logic, evolution, plus, minus, con
   </header>
 
   <div class="hero-grid">
-    {tile(sym(kind, BONE, EMBER, 'big', f'Symbole {name}'), INK, 'hero-sym motion')}
+    {tile(sting_html() if kind == 'entrelacs' else sym(kind, BONE, EMBER, 'big', f'Symbole {name}'), INK, 'hero-sym motion')}
     {tile(word(kind, INK, DEEP, 'wd'), BONE, 'hero-word', 'Logotype, fond os')}
     {tile(word(kind, BONE, EMBER, 'wd'), INK, 'hero-word', 'Logotype, fond encre')}
   </div>
@@ -173,102 +212,16 @@ D2 = direction('2', 'decalage', 'Décalage',
   'La branche braise glisse en place depuis l’alignement, puis rebondit légèrement : le mot « bouge » une fois, et se fige.')
 
 
-import base64 as _b64
-from entfinal import symbol as esym, symbol_t as esym_t, small as esmall, animated as eanim, display_word as edisplay, plain_word as eplain, blade as eblade, INK as _I, BONE as _B, EMBER as _E, RUST as _R, DEEP as _D
-_poster = 'data:image/webp;base64,' + _b64.b64encode(open('/home/user/nexora_rebuild/NEXORA-REBUILD/02_NEXORA_WORKING/public/hero/x-sculpt-sm.webp','rb').read()).decode()
+D3 = direction('3', 'entrelacs', 'Entrelacs',
+  'Deux rubans qui se tordent et se croisent : le X du hero, mis à plat.',
+  'Deux rubans se croisent en X : deux métiers qui se rencontrent, une marque et son studio. Chaque ruban se tord et montre sa face os puis sa tranche braise, comme la laque de la sculpture du site. Le logo est l’image arrêtée de cette sculpture.',
+  'Deux lames de 1000 × 240 unités, pointes effilées, inclinées à ±40°. Une ligne de torsion traverse chaque lame d’un bord à l’autre. La lame arrière est plus sombre : la profondeur vient de la couleur. Un passage de 30 unités marque le dessus et le dessous. Sous 32 px, une version réduite aux lames pleines.',
+  'Le symbole devient le point d’entrée de la marque : ouverture des vidéos, transitions, chargement, objets en volume.',
+  ['Continuité directe avec la sculpture 3D du site', 'Symbole abstrait, reconnaissable sans lire le nom', 'Signature animée forte pour les vidéos'],
+  ['Dessin plus riche : version réduite nécessaire sous 32 px', 'Dans le mot, le symbole se lit comme un X seulement en grand', 'Antériorité des marques à lames croisées à vérifier'],
+  construction_entrelacs(),
+  'Les deux lames arrivent du fond, se croisent, puis le X fait un tour complet sur lui-même, de l’arrière vers l’avant.', header_mode='lockup')
 
-def ecss(svg, cls):
-    return svg.replace('<svg class=""', f'<svg class="{cls}"', 1) if '<svg class=""' in svg else svg.replace('<svg ', f'<svg class="{cls}" ', 1)
-
-def e_construction():
-    sil, up, lo, mid = eblade()
-    sil2 = eblade(k=-1.6)[0]
-    return f"""<svg class="diagram" viewBox="-620 -380 1240 760" role="img" aria-label="Construction du symbole Entrelacs">
-<g stroke="var(--line)" stroke-width="3" fill="none"><line x1="-600" y1="0" x2="600" y2="0"/><line x1="0" y1="-360" x2="0" y2="360"/></g>
-<polygon points="{up}" fill="var(--ghost)"/><polygon points="{lo}" fill="var(--ghost-acc)"/>
-<polyline points="{' '.join(f'{x:.0f},{y:.0f}' for x,y in mid)}" fill="none" stroke="var(--ember)" stroke-width="6"/>
-<polygon points="{sil}" fill="none" stroke="var(--fg)" stroke-width="4"/>
-<g class="dlabel"><text x="-590" y="-300">lame : 1000 × 240, pointes effilées</text><text x="-590" y="330">ligne de torsion : tanh, du bord haut au bord bas</text>
-<text x="300" y="-150">face os</text><text x="-420" y="150">tranche braise</text></g></svg>"""
-
-def stage3d(color, bg, fallback, zoom='1'):
-    return f"""<figure class="tile stage" style="--tbg:{bg}"><div class="stage-fallback">{fallback}</div><canvas data-x3d data-color="{color}" data-zoom="{zoom}" aria-hidden="true"></canvas></figure>"""
-
-PALETTES = [
-  ('Os et braise, fond encre', esym(bg=_I), _I),
-  ('Laque, fond os', esym(a=(_I, _E), b=('#4a4239', _D), bg=_B), _B),
-  ('Braise, fond braise', esym(a=(_I, '#3a1206'), b=('#3a1206', _I), bg=_E), _E),
-  ('Tranche, variante calme', esym(a=(_B, _E), b=('#3a3530', _E), bg=_I, kind='band'), _I),
-  ('Noir sur blanc', esym(bg='#ffffff', mono=_I, gapcol='#ffffff'), '#ffffff'),
-  ('Blanc sur noir', esym(bg='#000000', mono='#ffffff', gapcol='#000000'), '#000000'),
-]
-_pal = ''.join(f'<figure class="tile pal" style="--tbg:{bg}">{ecss(s, "mid")}<span class="tlabel">{n}</span></figure>' for n, s, bg in PALETTES)
-_favs = ''.join(f'<span class="fav" style="--px:{px}px"><span class="favbox" style="background:none;outline:0">{ecss(esmall() if px <= 32 else esym(bg=_I), "fsymfull")}</span><small>{px} px</small></span>' for px in (64, 32, 16))
-
-D3 = f"""
-<section class="dir" id="entrelacs">
-  <header class="dir-head">
-    <p class="dir-num">Piste 3, approfondie</p>
-    <h2>Entrelacs</h2>
-    <p class="dir-idea">Le X du hero mis à plat : deux rubans qui se tordent et se croisent.</p>
-  </header>
-
-  <div class="hero-grid">
-    {stage3d('0c0a09', '#0d0c0b', ecss(esym(bg=_I), 'big'))}
-    <figure class="tile hero-word" style="--tbg:#ece5d8"><span class="lockup">{ecss(esym_t(a=(_I, _E), b=('#4a4239', _D)), 'lsym')}{ecss(eplain(_I), 'lword')}</span><span class="tlabel">Logo complet, fond os</span></figure>
-    <figure class="tile hero-word" style="--tbg:#0d0c0b">{ecss(edisplay(_B, (_B, _E), (_E, _R)), 'wd')}<span class="tlabel">Mot signature, comme dans le hero</span></figure>
-  </div>
-  <p class="note">Le grand panneau est animé en 3D temps réel avec les mêmes rubans que la sculpture du site : dépliage à l’arrivée, respiration, tour complet toutes les 9 s, orientation vers le pointeur.</p>
-
-  <h3 class="sub">Du volume au plat</h3>
-  <div class="steps">
-    <figure class="tile" style="--tbg:#0d0c0b"><img src="{_poster}" alt="Sculpture X du hero" class="poster"><span class="tlabel">La sculpture du hero</span></figure>
-    <figure class="tile" style="--tbg:#0d0c0b">{ecss(esym(bg=_I), 'mid')}<span class="tlabel">Le symbole : face os, tranche braise</span></figure>
-    <figure class="tile" style="--tbg:#0d0c0b">{ecss(esmall(), 'mid')}<span class="tlabel">Version réduite, 32 px et moins</span></figure>
-  </div>
-
-  <div class="two">
-    <div class="text">
-      <h3>Concept</h3><p>Le logo et la sculpture du hero deviennent un seul objet. Deux rubans se croisent en X : deux métiers qui se rencontrent, une marque et son studio, une idée et sa mise en forme. Chaque ruban se tord, on voit sa face os puis sa tranche braise, comme sur le site quand la lumière glisse sur la laque. Le logo n’est plus un dessin à côté du site : c’est l’image arrêtée de son animation.</p>
-      <h3>Logique graphique</h3><p>Deux lames identiques de 1000 × 240 unités, inclinées à ±40°, pointes effilées. Une ligne de torsion en tangente hyperbolique traverse chaque lame d’un bord à l’autre et sépare la face os de la tranche braise. La lame arrière est plus sombre (braise et rouille) : la profondeur vient de la couleur, sans ombre ni dégradé. Un passage de 30 unités marque le dessus et le dessous. Sous 32 px, une version réduite garde les deux lames pleines et un passage élargi.</p>
-      <h3>Mouvement</h3><p>Deux niveaux, la même chorégraphie. En 3D (hero, écrans d’accueil, vidéo) : dépliage, respiration, tour complet. En SVG léger (en-tête, chargement) : les rubans respirent en se tordant, puis le X fait un demi-tour avec la courbe d’accélération du site.</p>
-    </div>
-    <figure class="construct">{e_construction()}<figcaption>Construction d’une lame, unités de dessin</figcaption></figure>
-  </div>
-
-  <h3 class="sub">Agencements de couleurs</h3>
-  <div class="palettes">{_pal}</div>
-
-  <h3 class="sub">Animation</h3>
-  <div class="anims">
-    {stage3d('0c0a09', '#ece5d8', ecss(esym(a=(_I, _E), b=('#4a4239', _D), bg=_B), 'big'), '1.05')}
-    <div class="anim-light">
-      <figure class="tile" style="--tbg:#0d0c0b">{ecss(eanim(), 'mid')}<span class="tlabel">SVG léger, en boucle</span></figure>
-      <div class="anim-sizes">{ecss(eanim(), 'a48')}{ecss(eanim(), 'a24')}<span>48 et 24 px : en-tête, menu, chargement</span></div>
-    </div>
-  </div>
-  <p class="note">À gauche, la 3D sur fond os (laque d’encre, reflets os et braise). À droite, l’animation sans WebGL : quelques kilo-octets, utilisable dans l’en-tête et comme indicateur de chargement.</p>
-
-  <h3 class="sub">Petites tailles, icônes, contexte</h3>
-  <div class="context">
-    <div class="ctx-col">
-      <div class="favs">{_favs}</div>
-      <div class="tabmock"><span class="tab"><span class="tabicon">{ecss(esmall(), 'tsym')}</span><span>NEXORA, studio créatif</span><span class="x">×</span></span></div>
-      <div class="icons"><span class="appicon">{ecss(esym(bg=_I), 'fill')}</span><span class="appicon">{ecss(esym(a=(_I, '#3a1206'), b=('#3a1206', _I), bg=_E), 'fill')}</span><span class="appicon circle">{ecss(esym(a=(_I, _E), b=('#4a4239', _D), bg=_B), 'fill')}</span><small>Icône d’application, avatar</small></div>
-    </div>
-    <div class="ctx-col">
-      <div class="mock mock-head"><span class="mlogo hl">{ecss(esym_t(), 'hsym')}{ecss(eplain(_B), 'hword')}</span><span class="mnav"><i>Studio</i><i>Expertises</i><i>Réalisations</i><i>Méthode</i></span><span class="mcta">Démarrer un projet</span></div>
-      <div class="mock mock-foot"><span class="mlogo hl">{ecss(esym_t(a=(_I, _E), b=('#4a4239', _D)), 'fsym2')}{ecss(eplain(_I), 'hword')}</span><span class="mfoot">Studio créatif · Cotonou, Bénin</span><span class="mfoot">© 2026</span></div>
-      <div class="changes"><h3>Ce qui change sur le site</h3><ul><li>Le logo de l’en-tête, du menu mobile et du pied de page.</li><li>Le favicon, l’icône Apple et l’image de partage.</li><li>Rien d’autre : la sculpture du hero est déjà ce logo en volume. Couleurs, typos, sections et animations restent identiques.</li></ul></div>
-    </div>
-  </div>
-
-  <div class="verdict">
-    <div><h3>Forces</h3><ul><li>Continuité totale avec le hero : le site n’a pas besoin d’être repensé</li><li>Un symbole abstrait et propriétaire, qui se reconnaît sans lire le nom</li><li>Deux niveaux d’animation cohérents, du WebGL au SVG léger</li><li>Plusieurs agencements de couleurs, tous dans la palette existante</li></ul></div>
-    <div><h3>Limites</h3><ul><li>Dessin plus riche que les deux autres pistes : il faut la version réduite sous 32 px</li><li>Dans le mot NEXORA, le symbole se lit comme un X seulement en grand ; en petit, préférer le logo complet (symbole + nom)</li><li>À vérifier : l’antériorité des marques à deux lames croisées</li></ul></div>
-    <div><h3>Évolution possible</h3><p>Le symbole devient le point d’entrée de toute la marque : intro de vidéos, transitions entre pages, chargement, objets imprimés en volume. La torsion peut porter une couleur différente par métier (identité, motion, web) sans changer la forme.</p></div>
-  </div>
-</section>"""
 rows = [
  ('Intelligence du concept', 5, 3, 5),
  ('Mémorisation sans lire le nom', 5, 3, 4),
@@ -282,7 +235,7 @@ def dots(n): return '<span class="dots" aria-label="'+str(n)+' sur 5">' + ''.joi
 table = ''.join(f'<tr><th scope="row">{r[0]}</th><td>{dots(r[1])}</td><td>{dots(r[2])}</td><td>{dots(r[3])}</td></tr>' for r in rows)
 tot = [sum(r[i] for r in rows) for i in (1,2,3)]
 
-X3D = open('x3d.js').read()
+from entfinal import plain_word as plain_w
 html = f'''<title>Logo NEXORA</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -414,6 +367,18 @@ tfoot td, tfoot th {{ border: 0; font-weight: 800 }}
 .changes ul {{ margin: 10px 0 0; padding-left: 1.1em; display: grid; gap: 6px }}
 @media (prefers-reduced-motion: reduce) {{ .anim animate, .anim animateTransform {{ display: none }} }}
 @media (max-width: 860px) {{ .steps, .anims {{ grid-template-columns: minmax(0, 1fr) }} .palettes {{ grid-template-columns: repeat(2, minmax(0, 1fr)) }} .lsym {{ height: 72px }} .lword {{ height: 36px }} }}
+.sting {{ width: min(70%, 340px); aspect-ratio: 1010 / 990; perspective: 1100px }}
+.srot {{ position: relative; width: 100%; height: 100%; transform-style: preserve-3d; animation: s-turn 7s cubic-bezier(.83,0,.17,1) infinite }}
+.sface {{ position: absolute; inset: 0; transform-style: preserve-3d }}
+.sface.back {{ transform: rotateY(180deg) }}
+.sbl {{ position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden }}
+.sbl svg {{ width: 100%; height: 100%; display: block }}
+.sface.front .sb {{ animation: s-in-b 7s cubic-bezier(.16,1,.3,1) infinite }}
+.sface.front .sa {{ animation: s-in-a 7s cubic-bezier(.16,1,.3,1) infinite }}
+@keyframes s-in-a {{ 0% {{ transform: translateZ(-900px) rotateY(-60deg); opacity: 0 }} 4% {{ opacity: 1 }} 22%, 88% {{ transform: none; opacity: 1 }} 97%, 100% {{ transform: translateZ(-900px); opacity: 0 }} }}
+@keyframes s-in-b {{ 0%, 3% {{ transform: translateZ(-1100px) rotateY(60deg); opacity: 0 }} 8% {{ opacity: 1 }} 26%, 88% {{ transform: none; opacity: 1 }} 97%, 100% {{ transform: translateZ(-1100px); opacity: 0 }} }}
+@keyframes s-turn {{ 0%, 34% {{ transform: rotateY(0) }} 60%, 100% {{ transform: rotateY(360deg) }} }}
+@media (prefers-reduced-motion: reduce) {{ .srot, .sface .sbl {{ animation: none !important }} }}
 /* mouvement */
 .motion .draw {{ stroke-dasharray: 1; animation: draw 4.2s cubic-bezier(.83,0,.17,1) infinite }}
 @keyframes draw {{ 0% {{ stroke-dashoffset: 1 }} 35%, 100% {{ stroke-dashoffset: 0 }} }}
@@ -434,8 +399,8 @@ tfoot td, tfoot th {{ border: 0; font-weight: 800 }}
 <div class="wrap">
   <header class="intro">
     <h1>Trois signatures pour <span>NEXORA</span></h1>
-    <p class="lead">Exploration du logo, deuxième tour. La piste 3, Entrelacs, est approfondie pour se rapprocher de la sculpture du hero : nouveau dessin, agencements de couleurs, animation 3D et animation légère. Les pistes 1 et 2 restent présentées pour comparaison.</p>
-    <nav class="index" aria-label="Pistes"><a href="#entrelacs">3. Entrelacs, approfondie</a><a href="#courbe">1. Courbe</a><a href="#decalage">2. Décalage</a><a href="#comparaison">Comparaison</a><a href="#recommandation">Recommandation</a></nav>
+    <p class="lead">Exploration du logo. Trois pistes réellement différentes, chacune avec son symbole, son logotype, ses déclinaisons et ses tests en situation, pour choisir une direction avant toute intégration au site.</p>
+    <nav class="index" aria-label="Pistes"><a href="#courbe">1. Courbe</a><a href="#decalage">2. Décalage</a><a href="#entrelacs">3. Entrelacs</a><a href="#comparaison">Comparaison</a><a href="#recommandation">Recommandation</a></nav>
   </header>
 
   <section class="start" aria-labelledby="depart">
@@ -450,9 +415,9 @@ tfoot td, tfoot th {{ border: 0; font-weight: 800 }}
     </div>
   </section>
 
-  {D3}
   {D1}
   {D2}
+  {D3}
 
   <section class="compare" id="comparaison" aria-labelledby="cmp">
     <h2 id="cmp">Comparaison</h2>
@@ -465,23 +430,20 @@ tfoot td, tfoot th {{ border: 0; font-weight: 800 }}
   </section>
 
   <section class="reco" id="recommandation" aria-labelledby="rec">
-    <figure class="tile" style="--tbg:#0d0c0b"><span class="lockup big-lockup">{ecss(esym_t(), 'lsym')}{ecss(eplain(BONE), 'lword')}</span></figure>
+    <figure class="tile" style="--tbg:#0d0c0b"><span class="lockup big-lockup">{sym('entrelacs', BONE, EMBER, 'lsym')}{plain_w(BONE, 'lword')}</span></figure>
     <div class="text">
-      <h2 id="rec">Direction retenue&nbsp;: Entrelacs</h2>
-      <p>Approfondie, la piste 3 répond le mieux à votre objectif : changer de logo sans refaire le site. La sculpture du hero devient le logo en volume, et le logo devient l’image arrêtée de la sculpture. Une seule forme, du favicon à la 3D.</p>
-      <p>L’idée de la piste 1 reste précieuse : sa courbe est déjà celle des animations du site. Elle peut rester la signature du mouvement sans être le logo. La piste 2 est conservée pour mémoire.</p>
-      <h3>Étapes suivantes, après votre validation</h3>
+      <h2 id="rec">Recommandation&nbsp;: Entrelacs</h2>
+      <p>La piste qui change le logo sans changer le site : la sculpture du hero en est déjà la version en volume. Une seule forme, du favicon à la vidéo.</p>
+      <p>L’idée de la piste 1 reste une très bonne signature de mouvement : sa courbe est celle des animations du site.</p>
+      <h3>Étapes suivantes, après votre choix</h3>
       <ol>
-        <li>Choix de l’agencement de couleurs principal (proposé : os et braise sur encre, laque sur os).</li>
-        <li>Finalisation du dessin : contours vectoriels, version réduite calée au pixel pour 16 et 32 px.</li>
-        <li>Intégration : en-tête, menu, pied de page, favicon, icône Apple, image de partage, sans toucher au reste.</li>
+        <li>Finalisation du dessin : contours vectoriels, version réduite calée au pixel.</li>
+        <li>Intégration au site : en-tête, pied de page, favicon, icône Apple, sans toucher au reste.</li>
         <li>Mise à jour du brand book et des fichiers de logo.</li>
       </ol>
     </div>
   </section>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>{X3D}</script>
 '''
 open('../logo-board.html', 'w').write(html)
 print(len(html))

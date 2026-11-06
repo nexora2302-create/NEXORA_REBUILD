@@ -109,3 +109,37 @@ if __name__ == '__main__':
     html = '<html><meta charset="utf-8"><body style="margin:0;background:#888;padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px">'
     for s in items: html += f'<div style="height:260px;display:flex;align-items:center;justify-content:center;background:#ece5d8">{s.replace("<svg ", "<svg style=\'max-width:100%;max-height:100%\' ",1)}</div>'
     open('explore6.html', 'w').write(html + '</body></html>')
+
+def blade_layer(which, faces, gapcol=None, gap=30, cls=''):
+    """Une seule lame dans le cadre du symbole (pour l'animation en profondeur). which : 'a' (avant) ou 'b' (arrière)."""
+    sil, up, lo, mid = blade()
+    rot = -ANG if which == 'a' else 180 + ANG
+    g = ''
+    if which == 'a' and gapcol:
+        g = f'<polygon points="{sil}" fill="{gapcol}" stroke="{gapcol}" stroke-width="{gap*2}" stroke-linejoin="round"/>'
+    return (f'<svg class="{cls}" xmlns="http://www.w3.org/2000/svg" viewBox="{VB}" aria-hidden="true">'
+            f'<g transform="translate({C} {C}) rotate({rot})">{g}<polygon points="{up}" fill="{faces[0]}"/><polygon points="{lo}" fill="{faces[1]}"/></g></svg>')
+
+def symbol_mono_t(color, gap=30, cls=''):
+    """Monochrome sur fond transparent : passage et fente découpés par masque."""
+    _n[0] += 1; m = f'mm{_n[0]}'
+    sil, up, lo, mid = blade()
+    tr1 = f'translate({C} {C}) rotate({-ANG})'; tr2 = f'translate({C} {C}) rotate({180+ANG})'
+    pl = P(mid)
+    return (f'<svg class="{cls}" xmlns="http://www.w3.org/2000/svg" viewBox="{VB}" role="img" aria-label="Symbole NEXORA">'
+            f'<defs><mask id="{m}a" maskUnits="userSpaceOnUse" x="0" y="0" width="{SIZE}" height="{SIZE}"><rect width="{SIZE}" height="{SIZE}" fill="#fff"/>'
+            f'<polygon transform="{tr1}" points="{sil}" fill="#000" stroke="#000" stroke-width="{gap*2}" stroke-linejoin="round"/>'
+            f'<polyline transform="{tr2}" points="{pl}" fill="none" stroke="#000" stroke-width="{gap*0.7:.0f}" stroke-linecap="round"/></mask>'
+            f'<mask id="{m}b" maskUnits="userSpaceOnUse" x="0" y="0" width="{SIZE}" height="{SIZE}"><rect width="{SIZE}" height="{SIZE}" fill="#fff"/>'
+            f'<polyline transform="{tr1}" points="{pl}" fill="none" stroke="#000" stroke-width="{gap*0.7:.0f}" stroke-linecap="round"/></mask></defs>'
+            f'<g mask="url(#{m}a)"><polygon transform="{tr2}" points="{sil}" fill="{color}"/></g>'
+            f'<g mask="url(#{m}b)"><polygon transform="{tr1}" points="{sil}" fill="{color}"/></g></svg>')
+
+def sting(bg=INK, front=((BONE, EMBER), (EMBER, RUST)), back=((EMBER, RUST), ('#4a4239', DEEP))):
+    """Animation signature : les deux lames arrivent du fond, se croisent, puis le X tourne sur lui-même (axe vertical)."""
+    def face(cls, cols):
+        a, b = cols
+        return (f'<div class="sface {cls}"><div class="sbl sb">{blade_layer("b", b)}</div>'
+                f'<div class="sbl sa">{blade_layer("a", a, gapcol=bg)}</div></div>')
+    return (f'<div class="sting" role="img" aria-label="Symbole NEXORA animé"><div class="srot">'
+            f'{face("front", front)}{face("back", back)}</div></div>')
