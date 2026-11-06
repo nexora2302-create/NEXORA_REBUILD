@@ -1,4 +1,4 @@
-# Exploration du logo NEXORA (étape 1)
+# Exploration du logo NEXORA (deuxième tour)
 
 Trois pistes, à comparer avant toute intégration au site :
 
@@ -11,3 +11,8 @@ Trois pistes, à comparer avant toute intégration au site :
 - `sources/` : scripts de génération (Python ; contours d'Archivo largeur 125, graisse 900, instanciés avec fontTools).
 
 Le site n'est pas modifié à cette étape.
+
+## Deuxième tour : Entrelacs approfondi
+
+- `svg/entrelacs-v2/` : nouveau symbole (rubans tordus, face os et tranche braise), six agencements de couleurs, versions transparentes, version réduite pour 32 px et moins, symbole animé (SVG natif), mot signature.
+- `sources/entfinal.py` : dessin du symbole ; `sources/x3d.js` : logo 3D animé (mêmes rubans que la sculpture du hero).
