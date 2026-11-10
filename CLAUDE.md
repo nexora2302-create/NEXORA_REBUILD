@@ -1,0 +1,48 @@
+# Mémoire du projet NEXORA
+
+Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
+
+## Le studio
+
+- Studio créatif basé au Bénin (Cotonou), trois associés sans hiérarchie, issus de l'audiovisuel de terrain.
+- Trois pôles : communication visuelle et audiovisuel (dont prestation événementielle : son, projection, captation, location de matériel), motion design, création de sites web. Le brand design est transversal, ce n'est pas un quatrième pôle.
+- Cible : particuliers, PME, événementiel, institutions, et surtout l'international. Positionnement premium accessible.
+- Ne jamais citer de nom, prénom ou rôle individuel des associés dans un livrable. Pas de section « à propos » ni « équipe » pour l'instant.
+
+## Règles de travail (demandées par l'utilisateur)
+
+- Répondre en français. Pas de tirets cadratins dans les textes.
+- Ne jamais inventer de clients, témoignages, chiffres ou projets.
+- Ne jamais pousser en production (`main`) sans validation explicite.
+- Ne jamais prétendre qu'un fichier a été déposé (Drive) ou qu'un nom/domaine est disponible sans confirmation réelle.
+- Tester le responsive (390, 768/1024, 1440, 1920 px) et vérifier visuellement avant de livrer.
+- Pas de rendu « site fait par IA » : design soigné, animé, pas de gabarit générique.
+
+## Technique
+
+- Dépôt : `nexora2302-create/NEXORA_REBUILD`. Branche de travail : `claude/nexora-rebuild-base`, poussée sur `main` uniquement sur demande.
+- Site : `NEXORA-REBUILD/02_NEXORA_WORKING` (Next.js 16, React 19, Tailwind v4, three.js). Vercel déploie depuis `main` (dossier racine ci-dessus). URL : https://nexoraa-nu.vercel.app
+- Composants principaux dans `components/nexora/` : `hero.tsx` + `nx-scene.ts` (sculpture 3D du X, affiche WebP de repli, 3D seulement avec vraie carte graphique), `manifesto.tsx` (Studio), `expertises.tsx` + `stack-cards.tsx`, `work.tsx` (galerie zoom), `method.tsx` (panneaux), `header.tsx` (barre toujours visible), `contact.tsx`, page `/realisations`.
+- Reste à faire côté utilisateur : variable `NEXT_PUBLIC_FORM_ENDPOINT` dans Vercel ; activer Vercel Web Analytics ou retirer le composant.
+
+## Marque : historique des décisions
+
+- Identité actuelle en ligne (« Braise ») : encre #0D0C0B, os #ECE5D8, braise #FF4A1C ; Archivo largeur 125 graisse 900 ; logo NX. Brand book v1 dans `NEXORA-BRAND/01` à `05`.
+- Logo : exploration dans `NEXORA-BRAND/06-LOGO-EXPLORATION`. Pistes Courbe, Décalage, Entrelacs. **Entrelacs retenu** (deux rubans tordus en X, prolongement du hero 3D), animation : arrivée du fond puis tour sur l'axe vertical. Pas encore intégré au site.
+- Atelier de marque (4 directions de couleurs, logo Entrelacs) : `NEXORA-BRAND/07-REBRANDING/atelier-4-directions.html`. Recommandation : **Indigo** (nuit indigo, indigo, coton, braise conservée pour l'action ; Gloock + Archivo). Non validé.
+  - Correction demandée et non terminée : le X (symbole) n'est pas centré dans le mot NEXORA de l'atelier ; recadrer le symbole sur sa forme réelle (boîte ~215–983 × 273–927 dans le repère 1200) et l'espacer comme une lettre.
+- Rebranding complet (nouveau nom) : `NEXORA-BRAND/07-REBRANDING/rebrand-3-propositions.html` (Volta, Sillage, Avant ; « Next Studio » écarté) et `volta-identite-et-maquette.html` (identité complète + maquette d'accueil clair/sombre). **Recommandation : Volta**, tagline « On met le courant. / We switch brands on. », symbole à trois faisceaux en V. **En attente de décision des associés.**
+  - Domaines testés (RDAP, 9 nov. 2026) : .com et .studio exacts des trois noms pris ; thevoltastudio.com, maisonvolta.com, maisonvolta.studio libres à cette date. Restent à vérifier par l'utilisateur : .bj, réseaux sociaux, OAPI/WIPO/EUIPO/INPI/USPTO (classes 35, 41, 42), sens en fon, yoruba, espagnol, portugais, arabe.
+
+## Artefacts publiés (privés, compte de l'utilisateur)
+
+- Planche logo : https://claude.ai/artifact/SsBfugxB9n33WY8H44C9yo
+- Atelier 4 directions : https://claude.ai/artifact/CTrTexL7UF3dQzfMrE2BZU
+- Rebranding 3 propositions : https://claude.ai/artifact/8JhJxGKmC5z2rK4f55k8pJ
+- Identité Volta + maquette : https://claude.ai/artifact/F2bvJF72i1eu61WpWSPGj7
+
+## Prochaines étapes probables
+
+1. Décision des associés sur le nom (Volta ou autre) et la direction de couleurs.
+2. Finaliser le logo choisi, puis l'intégrer au site (en-tête, pied de page, favicon, icône Apple, image de partage) sans toucher au reste.
+3. Mettre à jour le brand book et les fichiers de logo.

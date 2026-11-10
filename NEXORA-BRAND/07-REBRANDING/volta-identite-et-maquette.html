@@ -1,0 +1,369 @@
+<title>Volta, identité de marque</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500..900&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>/* Volta : graphite d'abord (la scène), lin pour les documents ; une seule pointe de cuivre par écran. */
+:root {
+  --bg: #121417; --fg: #F2EFE9; --mut: #8B9199; --cu: #C8693A; --arc: #3D7BFF; --surf: #1B1E22; --rule: rgba(242,239,233,.16); --ghost: #2A2E34; --onCu: #121417;
+  --fd: "Big Shoulders Display", "Arial Narrow", sans-serif; --ft: "IBM Plex Sans", system-ui, sans-serif; --fm: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg: #F2EFE9; --fg: #121417; --mut: #5E636B; --surf: #E7E3DB; --rule: rgba(18,20,23,.16); --ghost: #D9D4CA; --arc: #1F55D6; color-scheme: light } }
+:root[data-theme="light"] { --bg: #F2EFE9; --fg: #121417; --mut: #5E636B; --surf: #E7E3DB; --rule: rgba(18,20,23,.16); --ghost: #D9D4CA; --arc: #1F55D6; color-scheme: light }
+[hidden] { display: none !important }
+* { box-sizing: border-box }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--ft); -webkit-font-smoothing: antialiased }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg) }
+h1, h2, h3, p, figure { margin: 0 }
+a { color: inherit }
+.mono { font-family: var(--fm); font-size: .78rem; letter-spacing: .06em }
+code { font-family: var(--fm); font-size: .85em }
+.lk { display: inline-flex; align-items: center; gap: .3em; line-height: 1 }
+.lks { height: 1em; width: auto; flex: none }
+.wd { font-family: var(--fd); font-weight: 800; text-transform: uppercase; letter-spacing: .02em; line-height: .8 }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; gap: 16px; padding: 12px max(16px, env(safe-area-inset-right, 0px)) 12px max(16px, env(safe-area-inset-left, 0px)); background: var(--bg); box-shadow: 0 1px 0 var(--rule) }
+.bl { text-decoration: none }
+.lk-bar { font-size: 1.5rem }
+.sw { display: flex; gap: 4px; margin-left: auto; background: var(--surf); padding: 4px; border-radius: 999px }
+.sw a { text-decoration: none; font-weight: 600; font-size: 14px; padding: 7px 14px; border-radius: 999px }
+.sw a.on { background: var(--fg); color: var(--bg) }
+.th { font: 600 13px var(--ft); background: none; color: var(--fg); border: 1px solid var(--rule); border-radius: 999px; padding: 7px 12px; cursor: pointer }
+.th-l { display: none } :root[data-theme="light"] .th-d { display: none } :root[data-theme="light"] .th-l { display: inline }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--cu); outline-offset: 2px }
+main { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)) }
+.view { max-width: 1240px; margin: 0 auto; padding-block: 24px 80px }
+
+/* ---------- identité ---------- */
+.cover { min-height: 72vh; display: grid; place-items: center; align-content: center; gap: 18px; text-align: center; padding-block: 48px }
+.cvs { width: min(42vw, 260px); height: auto }
+.cv-t { font: 900 clamp(5rem, 22vw, 15rem)/.8 var(--fd); text-transform: uppercase; letter-spacing: .02em }
+.cv-l { font-family: var(--fm); font-size: 13px; color: var(--mut); letter-spacing: .08em }
+.ch { padding-block: 72px; display: grid; gap: 28px; box-shadow: 0 -1px 0 var(--rule) }
+.cn { font-family: var(--fm); color: var(--cu); font-size: 13px }
+.ch h2 { font: 800 clamp(2.6rem, 6vw, 5rem)/.9 var(--fd); text-transform: uppercase; letter-spacing: .01em }
+.ch h3 { font: 600 13px/1.3 var(--ft); letter-spacing: .08em; text-transform: uppercase; color: var(--mut); margin-top: 6px }
+.h3s { margin-top: 12px }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start }
+.big { font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.3; font-weight: 500 }
+.txt { display: grid; gap: 14px; max-width: 62ch }
+.txt ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px }
+.poles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px }
+.poles div { background: var(--surf); border-radius: 14px; padding: 18px; display: grid; gap: 4px }
+.poles div:nth-child(2) { background: var(--cu); color: var(--onCu) }
+.poles span { font-size: 13px; opacity: .75 }
+.pane { background: var(--surf); border-radius: 18px; padding: clamp(18px, 3vw, 32px); display: grid; gap: 12px }
+.cons { width: 100%; max-width: 440px; justify-self: center; height: auto }
+.cl text { font: 500 3.2px var(--fm); fill: var(--mut) }
+figcaption { font-size: 13px; color: var(--mut) }
+.lv { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px }
+.lvi { border-radius: 12px; display: grid; place-items: center; padding: 18px; grid-column: span 3; min-height: 96px; box-shadow: inset 0 0 0 1px var(--rule) }
+.lvi.sq { grid-column: span 2 } .lvi .lk { font-size: 2rem } .lvi.sq .s { width: 46px; height: 46px }
+.dk { background: #121417 } .lt { background: #F2EFE9 } .cu { background: #C8693A }
+.clear { background: #F2EFE9; border-radius: 12px; padding: 22px; display: grid; place-items: center }
+.cz { font-size: 2rem; padding: .5em; outline: 1px dashed #C8693A; outline-offset: 0 }
+.dont { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px }
+.dont figure { display: grid; gap: 8px }
+.dn { background: #F2EFE9; border-radius: 12px; aspect-ratio: 4 / 3; display: grid; place-items: center; position: relative; overflow: hidden }
+.dn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent calc(50% - 1.5px), #D3402F calc(50% - 1.5px), #D3402F calc(50% + 1.5px), transparent calc(50% + 1.5px)) }
+.dn .s, .dn span .s { width: 64px; height: 64px; display: block }
+.pal { display: grid; grid-template-columns: 2.4fr 1.6fr 1fr .8fr .7fr; gap: 8px; min-height: 240px }
+.pc { border-radius: 14px; padding: 16px; display: grid; align-content: end; gap: 2px; box-shadow: inset 0 0 0 1px var(--rule); min-width: 0 }
+.pc b { font: 800 1.5rem/1 var(--fd); text-transform: uppercase } .pc code { font-size: 12px } .pc span { font-size: 12px; line-height: 1.35; opacity: .85 }
+.note { color: var(--mut); font-size: 14px; max-width: 80ch }
+.ty { min-height: 220px; align-content: space-between }
+.t1 { font: 800 clamp(2.4rem, 5vw, 4rem)/.9 var(--fd); text-transform: uppercase; letter-spacing: .02em }
+.t3 { font-size: 1.35rem; line-height: 1.4 } .t2 { font-size: 13px; color: var(--mut) }
+.scale { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 28px; font-family: var(--fd); font-weight: 800; text-transform: uppercase; line-height: 1 }
+.scale span:nth-child(n+3) { text-transform: none; font-weight: 500 }
+.dag { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px }
+.dag > div { display: grid; gap: 10px; align-content: start }
+.icons { display: flex; gap: 16px; color: var(--fg) } .icons svg { width: 30px; height: 30px }
+.mo { min-height: 320px; place-items: center; align-content: center }
+.igs { width: min(60%, 240px); height: auto; overflow: visible }
+.igs polygon { transform-box: view-box; transform-origin: 50px 92px; animation: ign .9s cubic-bezier(.2,.9,.1,1) both }
+.igs polygon:nth-child(1) { animation-delay: .1s } .igs polygon:nth-child(3) { animation-delay: .19s } .igs polygon:nth-child(2) { animation-delay: .28s }
+@keyframes ign { from { transform: scale(0) } to { transform: scale(1) } }
+.replay { font: 600 13px var(--ft); color: var(--fg); background: none; border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; cursor: pointer }
+.tone { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px }
+.tone div { background: var(--surf); border-radius: 14px; padding: 18px; display: grid; gap: 6px; align-content: start }
+.tone b { font: 800 1.4rem/1 var(--fd); text-transform: uppercase } .tone p { font-size: 14px; color: var(--mut) }
+.dd { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+.dd > div { border-radius: 14px; padding: 18px; display: grid; gap: 8px; box-shadow: inset 0 0 0 1px var(--rule) }
+.dd > div:first-child { box-shadow: inset 0 0 0 2px var(--cu) }
+.ap { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px; align-items: start }
+.ap figure { display: grid; gap: 8px; min-width: 0 }
+.ap-bc { grid-column: span 3 } .ap-doc { grid-column: span 2; grid-row: span 2 } .ap-ban { grid-column: span 1; grid-row: span 2 }
+.ap-scr { grid-column: span 3 } .ap-mail { grid-column: span 2 } .ap-post { grid-column: span 2 } .ap-tee { grid-column: span 2 }
+.ap-bc { display: grid; grid-template-columns: 1fr 1fr; gap: 10px } .ap-bc figcaption { grid-column: 1 / -1 }
+.bcr, .bcv { aspect-ratio: 85 / 55; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,.25) }
+.bcr { background: #121417; display: grid; place-items: center } .bcs { width: 32%; height: auto }
+.bcv { background: #F2EFE9; color: #121417; padding: 14px; display: grid; align-content: space-between; font-size: 11px; line-height: 1.35 }
+.lk-sm { font-size: 1.05rem } .bcv .mono { font-size: 9px }
+.doc { aspect-ratio: 210 / 297; background: #fff; color: #121417; border-radius: 4px; padding: 10%; display: grid; grid-template-rows: auto auto auto 1fr auto; gap: 8px; box-shadow: 0 2px 10px rgba(0,0,0,.25); font-size: 11px }
+.dh { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; box-shadow: 0 1px 0 #C8693A } .dh .mono { font-size: 8px }
+.dt { font: 800 1.3rem/1 var(--fd); text-transform: uppercase; margin-top: 8px } .dl { color: #5E636B }
+.dlines { display: grid; gap: 6px; align-content: start; margin-top: 6px } .dlines i { display: block; height: 5px; background: #E7E3DB; border-radius: 3px }
+.df { font-size: 7px; color: #5E636B }
+.ban { aspect-ratio: 85 / 200; background: #121417; color: #F2EFE9; border-radius: 4px; display: grid; justify-items: center; align-content: space-between; padding: 22% 10% 12%; text-align: center }
+.bans { width: 70%; height: auto } .ban p { font: 800 1.15rem/1 var(--fd); text-transform: uppercase; letter-spacing: .04em } .lk-ban { font-size: 1.1rem }
+.scr { aspect-ratio: 16 / 9; background: #0B0C0E; color: #F2EFE9; border-radius: 6px; display: grid; place-items: center; align-content: center; gap: 14px; position: relative; box-shadow: inset 0 0 0 6px #22252a }
+.scr .mono { position: absolute; top: 14px; left: 18px; font-size: 9px; color: #8B9199 } .scrs { width: 16%; height: auto }
+.scr p { font: 800 clamp(1.1rem, 2.4vw, 1.9rem)/1 var(--fd); text-transform: uppercase; letter-spacing: .03em }
+.mail { background: #fff; color: #121417; border-radius: 8px; padding: 18px; display: grid; gap: 10px; font-size: 13px; box-shadow: 0 2px 10px rgba(0,0,0,.18) }
+.mrow { display: flex; align-items: center; gap: 12px; padding-top: 10px; box-shadow: 0 -1px 0 #E7E3DB } .mrow span { font-size: 11px; color: #5E636B } .lk-mail { font-size: 1.2rem } .mail .mono { font-size: 10px; color: #5E636B }
+.post { aspect-ratio: 1; background: #121417; color: #F2EFE9; border-radius: 8px; padding: 9%; display: grid; align-content: space-between; position: relative; overflow: hidden }
+.pt { font: 900 clamp(2rem, 4.4vw, 3.4rem)/.85 var(--fd); text-transform: uppercase; color: #C8693A } .ps { font-size: 12px; max-width: 18ch; position: relative }
+.posts { position: absolute; right: -8%; bottom: -12%; width: 52%; height: auto; opacity: .95 }
+.tee { aspect-ratio: 1; background: var(--surf); border-radius: 8px; position: relative; display: grid; place-items: center }
+.tee > svg:first-child { width: 82%; height: auto } .tee .tees { position: absolute; width: 11%; height: auto; left: 57%; top: 34% } .crew { position: absolute; bottom: 10px; right: 12px; color: var(--mut) }
+
+.bcr, .ban, .post, .scr { box-shadow: inset 0 0 0 1px rgba(242,239,233,.14), 0 2px 8px rgba(0,0,0,.25) }
+/* ---------- maquette ---------- */
+.site { padding-top: 0 }
+.sn { display: flex; align-items: center; gap: 24px; padding-block: 20px }
+.sl { text-decoration: none } .lk-nav { font-size: 1.7rem }
+.sn nav { margin-left: auto; display: flex; gap: 22px; font-size: 14px }
+.sn nav a { text-decoration: none; position: relative }
+.sn nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1.5px; background: var(--cu); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.9,.1,1) }
+.sn nav a:hover::after, .sn nav a:focus-visible::after { transform: scaleX(1) }
+.b { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 4px; font-weight: 600; font-size: 15px; text-decoration: none; border: 0; cursor: pointer; transition: transform .25s cubic-bezier(.2,.9,.1,1), background-color .25s }
+.b:hover { transform: translateY(-2px) }
+.b-p { background: var(--cu); color: var(--onCu) } .b-p:hover { background: #D9784A }
+.b-s { box-shadow: inset 0 0 0 1.5px var(--rule); color: var(--fg) } .b-s:hover { box-shadow: inset 0 0 0 1.5px var(--fg) }
+.hero { position: relative; min-height: min(86vh, 820px); display: grid; align-content: end; gap: 28px; padding-block: 48px 56px; overflow: hidden }
+.h-sym { position: absolute; right: -4%; top: 2%; width: min(58vw, 640px); pointer-events: none }
+.hs { width: 100%; height: auto; overflow: visible }
+.hs polygon { transform-box: view-box; transform-origin: 50px 92px; animation: ign 1.1s cubic-bezier(.2,.9,.1,1) both }
+.hs polygon:nth-child(1) { animation-delay: .15s } .hs polygon:nth-child(3) { animation-delay: .25s } .hs polygon:nth-child(2) { animation-delay: .35s }
+.hs polygon:not(:nth-child(2)) { fill: var(--ghost) }
+.h-k { color: var(--mut); position: relative }
+.h-t { font: 900 clamp(4.2rem, 13vw, 11.5rem)/.82 var(--fd); text-transform: uppercase; letter-spacing: .01em; position: relative }
+.h-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: end; position: relative }
+.h-l { font-size: clamp(1.05rem, 1.6vw, 1.3rem); max-width: 44ch }
+.h-b { display: flex; flex-wrap: wrap; gap: 10px }
+.sp, .sw2, .ct { padding-block: 96px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; box-shadow: 0 -1px 0 var(--rule) }
+.s2 { font: 800 clamp(2.6rem, 6.4vw, 5.6rem)/.88 var(--fd); text-transform: uppercase }
+.pg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px }
+.pl { background: var(--surf); border-radius: 6px; padding: 26px; display: grid; gap: 14px; align-content: start; transition: transform .35s cubic-bezier(.2,.9,.1,1), box-shadow .35s; box-shadow: inset 0 0 0 1px transparent }
+.pl:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px var(--cu) }
+.pn { color: var(--cu) } .pl h3 { font: 800 1.9rem/.95 var(--fd); text-transform: uppercase }
+.pl p { color: var(--mut); font-size: 15px }
+.pl ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; color: var(--fg) }
+.pl ul li::before { content: ""; display: inline-block; width: 6px; height: 6px; background: var(--cu); margin-right: 10px; vertical-align: middle; clip-path: polygon(50% 100%, 0 0, 100% 0) }
+.sig { background: #C8693A; color: #121417; border-radius: 6px; padding: clamp(28px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 40px; align-items: center; margin-block: 24px }
+.sgs { width: 100%; max-width: 300px; height: auto }
+.sgs polygon { fill: #121417 } .sgs polygon:nth-child(2) { fill: #F2EFE9 }
+.sig p { font-size: 1.15rem; max-width: 52ch; margin-top: 18px }
+.tw-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 12px } .tw-h p { color: var(--mut) }
+.wg { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; align-items: start }
+.wk { grid-column: span 2; display: grid; gap: 8px; min-width: 0 } .wk-a { grid-column: span 3 }
+.ph { background: var(--surf); border-radius: 6px; aspect-ratio: 4 / 5; display: grid; place-items: center; color: var(--mut); box-shadow: inset 0 0 0 1px var(--rule); transition: box-shadow .3s }
+.ph, .wk-a .ph { aspect-ratio: auto; height: clamp(240px, 30vw, 440px) }
+.wk:hover .ph { box-shadow: inset 0 0 0 1px var(--cu) }
+.wk h3 { font: 800 1.5rem/1 var(--fd); text-transform: uppercase } .wk p { color: var(--mut) }
+.ct { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start }
+.cf { display: grid; gap: 8px }
+.cf label { font-size: 13px; font-weight: 600; margin-top: 8px }
+.cf input, .cf select, .cf textarea { font: 400 16px var(--ft); color: var(--fg); background: var(--surf); border: 0; border-radius: 4px; padding: 12px 14px; box-shadow: inset 0 -2px 0 var(--rule) }
+.cf input:focus, .cf textarea:focus, .cf select:focus { box-shadow: inset 0 -2px 0 var(--cu); outline: none }
+.cf button { justify-self: start; margin-top: 14px }
+.cf-s { font-size: 14px; color: var(--mut); min-height: 1.4em }
+.sf { display: grid; grid-template-columns: auto 1fr 1fr; gap: 24px 48px; align-items: start; padding-block: 48px 24px; box-shadow: 0 -1px 0 var(--rule); font-size: 14px; color: var(--mut) }
+.lk-foot { font-size: 2.6rem; color: var(--fg) } .sf .sm { grid-column: 1 / -1; font-size: 12px }
+@media (max-width: 900px) {
+  .cols, .dag, .ct, .sig, .dd { grid-template-columns: minmax(0, 1fr) }
+  .poles, .pg { grid-template-columns: minmax(0, 1fr) }
+  .tone, .dont { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .pal { grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 0 } .pc { min-height: 120px } .pc:first-child { grid-column: 1 / -1 }
+  .ap { grid-template-columns: repeat(2, minmax(0, 1fr)) } .ap > figure { grid-column: span 2 !important; grid-row: auto !important }
+  .ap-doc, .ap-ban { grid-column: span 1 !important } .ap-ban .ban { max-height: 420px; margin-inline: auto; width: 100% }
+  .wg { grid-template-columns: minmax(0, 1fr) } .wk, .wk-a { grid-column: auto }
+  .h-row { grid-template-columns: minmax(0, 1fr) } .sn nav { display: none } .sf { grid-template-columns: minmax(0, 1fr) }
+  .lv { grid-template-columns: repeat(2, minmax(0, 1fr)) } .lvi, .lvi.sq { grid-column: span 1 } .lvi .lk { font-size: 1.5rem }
+  .h-sym { width: 86vw; right: -18%; top: 6% } .sw a { padding: 7px 10px; font-size: 13px }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important } }
+</style>
+<header class="bar"><a class="bl" href="#identite"><span class="lk lk-bar"><svg class="lks" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg><span class="wd">Volta</span></span></a>
+<nav class="sw" aria-label="Parties"><a href="#identite" data-v="identite">Identité</a><a href="#site" data-v="site">Site</a></nav>
+<button class="th" type="button" id="themeBtn" aria-label="Changer de thème">Clair / sombre</button></header>
+
+<main>
+<!-- ================= IDENTITÉ ================= -->
+<section class="view" id="v-identite" aria-label="Identité de marque">
+ <div class="cover">
+  <div class="cv-sym"><svg class="cvs" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg></div>
+  <h1 class="cv-t">Volta</h1>
+  <p class="cv-l">Identité de marque · version 1.0</p>
+ </div>
+
+ <section class="ch" aria-labelledby="h1"><p class="cn">01</p><h2 id="h1">L’histoire</h2>
+  <div class="cols">
+   <p class="big">Avant chaque événement, il y a un moment précis : celui où l’on met le courant. Les enceintes s’allument, le projecteur s’éclaire, la caméra se met en route. Volta est né de ce moment.</p>
+   <div class="txt"><p>Le volt est l’unité qui fait fonctionner tout ce que nous touchons : le son, l’image, la lumière, les écrans, les serveurs. « Volta » est aussi un mot de mouvement. En italien et en portugais, il signifie « le tour, le virage » ; c’est enfin une danse de la Renaissance faite de sauts tournés. L’énergie et le mouvement, dans un seul mot de deux syllabes qui se prononce de la même façon à Cotonou, Paris, Londres ou Dubaï.</p>
+   <p>Le symbole réunit trois faisceaux issus d’un même point. C’est la forme commune au cône d’une enceinte, au faisceau d’un projecteur et au champ d’une caméra. Trois métiers, une seule source. Ensemble, ils dessinent le V de Volta. Le faisceau central, cuivre comme le conducteur, est celui qui porte l’idée : le brand design, qui traverse tout ce que nous faisons.</p></div>
+  </div>
+  <div class="poles"><div><b>Communication visuelle et audiovisuel</b><span>Faisceau gauche</span></div><div><b>Brand design</b><span>Faisceau central, la signature</span></div><div><b>Motion design et web</b><span>Faisceau droit</span></div></div>
+ </section>
+
+ <section class="ch" aria-labelledby="h2"><p class="cn">02</p><h2 id="h2">Le logo</h2>
+  <div class="cols">
+   <figure class="pane"><svg class="cons" viewBox="-6 -6 112 112" role="img" aria-label="Construction du symbole">
+<circle cx="50" cy="92" r="88" fill="none" stroke="var(--rule)" stroke-width=".4"/>
+<line x1="50" y1="92" x2="4.7" y2="16.6" stroke="var(--rule)" stroke-width=".4"/><line x1="50" y1="92" x2="31.0" y2="6.1" stroke="var(--rule)" stroke-width=".4"/><line x1="50" y1="92" x2="39.0" y2="4.7" stroke="var(--rule)" stroke-width=".4"/><line x1="50" y1="92" x2="50.0" y2="4.0" stroke="var(--rule)" stroke-width=".4"/><line x1="50" y1="92" x2="61.0" y2="4.7" stroke="var(--rule)" stroke-width=".4"/><line x1="50" y1="92" x2="69.0" y2="6.1" stroke="var(--rule)" stroke-width=".4"/><line x1="50" y1="92" x2="95.3" y2="16.6" stroke="var(--rule)" stroke-width=".4"/>
+<g opacity=".9"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--ghost)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--ghost)"/></g>
+<circle cx="50" cy="92" r="1.8" fill="var(--fg)"/>
+<g class="cl"><text x="54" y="98">source unique</text><text x="2" y="10">31°</text><text x="31" y="2">12,5°</text><text x="44" y="0">±7,2°</text><text x="66" y="62">rayon 88</text></g></svg><figcaption>Construction : trois triangles issus d’une source unique, sur un cercle de rayon 88. Écarts de 5,3° entre les faisceaux.</figcaption></figure>
+   <div class="txt"><h3>Versions</h3>
+    <div class="lv">
+     <div class="lvi dk"><span class="lk" style="color:#F2EFE9"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg><span class="wd">Volta</span></span></div><div class="lvi lt"><span class="lk" style="color:#121417"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg><span class="wd">Volta</span></span></div>
+     <div class="lvi lt sq"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#121417"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg></div><div class="lvi dk sq"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#F2EFE9"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg></div><div class="lvi cu sq"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#F2EFE9"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg></div>
+    </div>
+    <h3>Zone de protection</h3><p>Autour du logo, un espace libre égal à la hauteur du faisceau central divisée par deux (0,5 V). Rien n’y entre : ni texte, ni bord de page, ni autre logo.</p>
+    <div class="clear"><span class="cz"><span class="lk" style="color:#121417"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg><span class="wd">Volta</span></span></span></div>
+    <h3>Tailles minimales</h3><p>Logo horizontal : 24 px de haut à l’écran, 8 mm à l’impression. Symbole seul : 16 px, 5 mm. En dessous, le faisceau central disparaît.</p>
+   </div>
+  </div>
+  <h3 class="h3s">Usages à éviter</h3>
+  <div class="dont">
+   <figure><div class="dn"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#3D7BFF"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg></div><figcaption>Changer la couleur du faisceau central</figcaption></figure>
+   <figure><div class="dn"><span style="display:inline-block;transform:rotate(180deg)"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg></span></div><figcaption>Retourner ou faire pivoter le symbole</figcaption></figure>
+   <figure><div class="dn"><span style="display:inline-block;transform:scaleX(1.5)"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg></span></div><figcaption>Déformer les proportions</figcaption></figure>
+   <figure><div class="dn" style="background:#C8693A"><svg class="s" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg></div><figcaption>Poser le symbole cuivre sur fond cuivre</figcaption></figure>
+  </div>
+ </section>
+
+ <section class="ch" aria-labelledby="h3"><p class="cn">03</p><h2 id="h3">Couleurs</h2>
+  <div class="pal">
+   <div class="pc" style="background:#121417;color:#F2EFE9"><b>Graphite</b><code>#121417</code><span>60 %. Fond principal, scène, vidéo, écrans.</span></div>
+   <div class="pc" style="background:#F2EFE9;color:#121417"><b>Lin</b><code>#F2EFE9</code><span>25 %. Fond clair, documents, texte sur sombre.</span></div>
+   <div class="pc" style="background:#C8693A;color:#121417"><b>Cuivre</b><code>#C8693A</code><span>8 %. Action, signature, faisceau central.</span></div>
+   <div class="pc" style="background:#3D7BFF;color:#F2EFE9"><b>Arc</b><code>#3D7BFF</code><span>4 %. Liens, données, interface web.</span></div>
+   <div class="pc" style="background:#8B9199;color:#121417"><b>Câble</b><code>#8B9199</code><span>3 %. Texte secondaire, filets.</span></div>
+  </div>
+  <p class="note">Contrastes mesurés : lin sur graphite 16,1:1 ; graphite sur cuivre 4,9:1 (texte de bouton) ; câble sur graphite 5,8:1. Sur fond lin, cuivre et arc (3,3:1) ne portent jamais de texte courant : aplats, filets ou titres très gras uniquement ; câble (2,8:1) y est réservé aux éléments décoratifs.</p>
+ </section>
+
+ <section class="ch" aria-labelledby="h4"><p class="cn">04</p><h2 id="h4">Typographie</h2>
+  <div class="cols">
+   <div class="pane ty"><p class="t1">On met le courant.</p><p class="t2">Big Shoulders Display, 800, capitales, interlettrage +2 %. Titres, affiches, écrans.</p></div>
+   <div class="pane ty"><p class="t3">Son, image, lumière et web, pensés ensemble pour que tout fonctionne le jour J.</p><p class="t2">IBM Plex Sans, 400 et 600. Texte, interface, documents. IBM Plex Mono pour les données techniques (fiches, minutages).</p></div>
+  </div>
+  <div class="scale"><span style="font-size:4.5rem">Titre 72</span><span style="font-size:2.5rem">Section 40</span><span style="font-size:1.5rem;font-family:var(--ft)">Intertitre 24</span><span style="font-size:1.06rem;font-family:var(--ft)">Texte 17</span><span style="font-size:.82rem;font-family:var(--fm)">TECHNIQUE 13</span></div>
+ </section>
+
+ <section class="ch" aria-labelledby="h5"><p class="cn">05</p><h2 id="h5">Direction artistique</h2>
+  <div class="dag">
+   <div><h3>Images</h3><p>La lumière de travail, pas la photo de banque : plateaux, régies, câbles, faisceaux dans la fumée, mains sur une console, écrans allumés dans le noir. Ombres profondes, une seule source chaude, grain conservé. Les gens sont montrés en action, jamais en pose.</p></div>
+   <div><h3>Icônes</h3><p>Trait de 1,5 px, angles vifs, construits sur la même géométrie de faisceaux. Une seule couleur. Pas d’icônes en pastille ni d’emoji.</p>
+    <div class="icons">
+     <svg viewBox="0 0 24 24" aria-label="Son"><path d="M4 9h4l5-4v14l-5-4H4z M16 9a4 4 0 0 1 0 6 M18.5 6.5a8 8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+     <svg viewBox="0 0 24 24" aria-label="Projection"><path d="M3 8h8v8H3z M11 10l10-5v14l-10-5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+     <svg viewBox="0 0 24 24" aria-label="Caméra"><path d="M3 7h12v10H3z M15 11l6-3v8l-6-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+     <svg viewBox="0 0 24 24" aria-label="Motion"><path d="M3 17c4 0 5-10 9-10s5 10 9 10" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+     <svg viewBox="0 0 24 24" aria-label="Web"><path d="M3 5h18v14H3z M3 9h18" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    </div></div>
+   <div><h3>Mise en page</h3><p>Grille de 12 colonnes, marges larges, beaucoup de noir. Un seul élément cuivre par composition. Les titres en capitales serrées tiennent le haut ; les infos techniques en Plex Mono, alignées comme une feuille de service.</p></div>
+  </div>
+ </section>
+
+ <section class="ch" aria-labelledby="h6"><p class="cn">06</p><h2 id="h6">Mouvement</h2>
+  <div class="cols">
+   <div class="pane mo"><div class="ign" aria-hidden="true"><svg class="igs" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg></div><button type="button" class="replay" id="replay">Rejouer l’allumage</button></div>
+   <div class="txt"><h3>L’allumage</h3><p>Le geste signature de la marque. Les trois faisceaux sortent de la source l’un après l’autre (gauche, droite, puis central), comme un plateau qu’on met sous tension. 900 ms, courbe <code>cubic-bezier(0.2, 0.9, 0.1, 1)</code>, 90 ms d’écart. C’est l’ouverture de chaque vidéo et le chargement du site.</p>
+   <h3>Principes</h3><ul><li><b>Tout part d’une source.</b> Les éléments apparaissent depuis un point, jamais depuis le bord de l’écran.</li><li><b>Démarrage franc, arrêt doux.</b> Comme une mise sous tension : rapide au départ, posé à l’arrivée.</li><li><b>Un seul mouvement à la fois.</b> Le reste attend.</li><li><b>Le cuivre arrive en dernier.</b> Il ponctue.</li></ul></div>
+  </div>
+ </section>
+
+ <section class="ch" aria-labelledby="h7"><p class="cn">07</p><h2 id="h7">Ton de voix</h2>
+  <div class="tone">
+   <div><b>Direct</b><p>On dit ce qu’on fait. « Son, lumière et captation pour 800 personnes. »</p></div>
+   <div><b>Technique sans jargon</b><p>« La salle sera sonorisée sans un seul larsen. » plutôt que « gestion du feedback acoustique ».</p></div>
+   <div><b>Énergique</b><p>Des verbes d’action, des phrases courtes.</p></div>
+   <div><b>Fiable</b><p>Pas de superlatifs : des délais, des chiffres, des engagements.</p></div>
+  </div>
+  <div class="dd"><div><h3>Oui</h3><p>« Votre événement, branché de la première à la dernière minute. »</p><p>« Un site qui charge vite et qui tient la charge. »</p></div><div><h3>Non</h3><p>« Nous sommes des passionnés qui créons des expériences uniques et inoubliables. »</p><p>« Solutions innovantes à 360° pour booster votre marque. »</p></div></div>
+ </section>
+
+ <section class="ch" aria-labelledby="h8"><p class="cn">08</p><h2 id="h8">Applications</h2>
+  <div class="ap">
+   <figure class="ap-bc"><div class="bcr"><svg class="bcs" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg></div><div class="bcv"><span><span class="lk lk-sm" style="color:#121417"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg><span class="wd">Volta</span></span></span><span><b>Prénom Nom</b><br>Direction de projet</span><span class="mono">+229 00 00 00 00<br>bonjour@volta.example</span></div><figcaption>Carte de visite, 85 × 55 mm, recto et verso</figcaption></figure>
+   <figure class="ap-doc"><div class="doc"><div class="dh"><span class="lk lk-sm" style="color:#121417"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg><span class="wd">Volta</span></span><span class="mono">DEVIS N° 2026-014</span></div><p class="dt">Sonorisation et captation</p><p class="dl">Client · Lieu · Date</p><div class="dlines"><i></i><i></i><i style="width:70%"></i></div><div class="df mono">VOLTA · Cotonou, Bénin · volta.example</div></div><figcaption>En-tête de document, A4</figcaption></figure>
+   <figure class="ap-ban"><div class="ban"><svg class="bans" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg><p>Son · Lumière · Image</p><span><span class="lk lk-ban" style="color:#F2EFE9"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg><span class="wd">Volta</span></span></span></div><figcaption>Kakémono événementiel, 85 × 200 cm</figcaption></figure>
+   <figure class="ap-scr"><div class="scr"><span class="mono">ÉCRAN 1 · 1920 × 1080</span><svg class="scrs" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg><p>On démarre dans 5 minutes.</p></div><figcaption>Écran de projection d’attente</figcaption></figure>
+   <figure class="ap-mail"><div class="mail"><p><b>Prénom Nom</b><br>Direction de projet</p><p class="mrow"><span class="lk lk-mail" style="color:#121417"><svg class="lks" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#121417"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#121417"/></svg><span class="wd">Volta</span></span><span>Son · Image · Motion · Web</span></p><p class="mono">+229 00 00 00 00 · volta.example</p></div><figcaption>Signature e-mail</figcaption></figure>
+   <figure class="ap-post"><div class="post"><p class="pt">Branché.</p><p class="ps">Conférence annuelle · 800 personnes · son, projection, captation</p><svg class="posts" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg></div><figcaption>Post réseaux sociaux, 1:1</figcaption></figure>
+   <figure class="ap-tee"><div class="tee"><svg viewBox="0 0 200 200" aria-hidden="true"><path d="M60 20 L35 30 L10 60 L32 78 L45 66 L45 185 L155 185 L155 66 L168 78 L190 60 L165 30 L140 20 C132 34 116 40 100 40 C84 40 68 34 60 20Z" fill="#121417"/></svg><svg class="tees" viewBox="0 0 100 100" role="img" aria-label="Symbole Volta"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="#F2EFE9"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="#C8693A"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="#F2EFE9"/></svg><span class="crew mono">CREW</span></div><figcaption>Tenue d’équipe : t-shirt graphite, symbole poitrine, « CREW » au dos</figcaption></figure>
+  </div>
+ </section>
+</section>
+
+<!-- ================= MAQUETTE ================= -->
+<section class="view site" id="v-site" hidden aria-label="Maquette de la page d’accueil">
+ <header class="sn"><a href="#site" class="sl" aria-label="Volta, accueil"><span class="lk lk-nav"><svg class="lks" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg><span class="wd">Volta</span></span></a><nav aria-label="Navigation du site"><a href="#poles">Pôles</a><a href="#signature">Signature</a><a href="#travaux">Réalisations</a><a href="#contact">Contact</a></nav><a href="#contact" class="b b-p">Parler du projet</a></header>
+ <div class="hero">
+  <div class="h-sym" aria-hidden="true"><svg class="hs" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg></div>
+  <p class="h-k mono">COTONOU · PARIS · DUBAÏ · EN LIGNE</p>
+  <h1 class="h-t">On met<br>le courant.</h1>
+  <div class="h-row"><p class="h-l">Son, image, motion et web, réunis dans un même studio. Pour que votre marque s’allume partout : sur scène, à l’écran et en ligne.</p>
+  <div class="h-b"><a href="#contact" class="b b-p">Parler du projet</a><a href="#travaux" class="b b-s">Voir les réalisations</a></div></div>
+ </div>
+ <section id="poles" class="sp" aria-labelledby="sp-t"><h2 id="sp-t" class="s2">Trois pôles,<br>une seule source.</h2>
+  <div class="pg">
+   <article class="pl"><span class="pn mono">01 / SCÈNE</span><h3>Communication visuelle et audiovisuel</h3><p>Réseaux sociaux, supports, présence de marque. Et le jour J : sonorisation, projection, captation, location de matériel.</p><ul class="mono"><li>Sonorisation</li><li>Projection et écrans</li><li>Captation</li><li>Location</li></ul></article>
+   <article class="pl"><span class="pn mono">02 / MOUVEMENT</span><h3>Motion design</h3><p>Logos animés, motion graphics, ouvertures d’événements, contenus vidéo pour les réseaux.</p><ul class="mono"><li>Logos animés</li><li>Motion graphics</li><li>Habillage d’écran</li><li>Vidéo sociale</li></ul></article>
+   <article class="pl"><span class="pn mono">03 / RÉSEAU</span><h3>Sites web</h3><p>Sites vitrines et professionnels, rapides, bilingues, faciles à mettre à jour.</p><ul class="mono"><li>Sites vitrines</li><li>Sites professionnels</li><li>Maintenance</li><li>Hébergement</li></ul></article>
+  </div>
+ </section>
+ <section id="signature" class="sig" aria-labelledby="sg-t">
+  <div class="sg-sym" aria-hidden="true"><svg class="sgs" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg></div>
+  <div><h2 id="sg-t" class="s2">Le brand design,<br>au centre.</h2><p>Logo, couleurs, direction artistique : c’est le faisceau central. Il traverse les trois pôles, pour que votre marque ait la même voix sur une affiche, dans une vidéo, sur un écran de scène et sur votre site.</p></div>
+ </section>
+ <section id="travaux" class="sw2" aria-labelledby="tr-t"><div class="tw-h"><h2 id="tr-t" class="s2">Réalisations</h2><p>Emplacements prêts à recevoir vos projets.</p></div>
+  <div class="wg">
+   <article class="wk wk-a"><div class="ph"><span class="mono">IMAGE 16:9</span></div><h3>Titre du projet</h3><p class="mono">ÉVÉNEMENT · SON · PROJECTION</p></article>
+   <article class="wk"><div class="ph"><span class="mono">IMAGE 4:5</span></div><h3>Titre du projet</h3><p class="mono">MOTION DESIGN</p></article>
+   <article class="wk"><div class="ph"><span class="mono">IMAGE 4:5</span></div><h3>Titre du projet</h3><p class="mono">SITE WEB</p></article>
+   <article class="wk wk-a"><div class="ph"><span class="mono">IMAGE 16:9</span></div><h3>Titre du projet</h3><p class="mono">IDENTITÉ · BRAND DESIGN</p></article>
+  </div></section>
+ <section id="contact" class="ct" aria-labelledby="ct-t"><h2 id="ct-t" class="s2">Votre projet,<br>sous tension.</h2>
+  <form class="cf" id="cf" novalidate>
+   <label for="cf-n">Nom</label><input id="cf-n" name="n" autocomplete="name" required>
+   <label for="cf-e">E-mail</label><input id="cf-e" name="e" type="email" autocomplete="email" required>
+   <label for="cf-p">Pôle</label><select id="cf-p" name="p"><option>Communication et audiovisuel</option><option>Motion design</option><option>Site web</option><option>Plusieurs pôles</option></select>
+   <label for="cf-m">Le projet en deux phrases</label><textarea id="cf-m" name="m" rows="3"></textarea>
+   <button class="b b-p" type="submit">Envoyer</button><p class="cf-s" id="cf-s" role="status"></p>
+  </form></section>
+ <footer class="sf"><span class="lk lk-foot"><svg class="lks" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50.00,92.00 4.68,16.57 30.95,6.09" fill="var(--fg)"/><polygon points="50.00,92.00 38.97,4.69 61.03,4.69" fill="var(--cu)"/><polygon points="50.00,92.00 69.05,6.09 95.32,16.57" fill="var(--fg)"/></svg><span class="wd">Volta</span></span><p>Son · Image · Motion · Web<br>Cotonou, Bénin · clients partout</p><p class="mono">bonjour@volta.example<br>@volta</p><p class="sm">© 2026 Volta. Maquette : contenus et adresses d’exemple.</p></footer>
+</section>
+</main>
+<script>(function () {
+  var root = document.documentElement;
+  try { var t = localStorage.getItem('volta-theme'); if (t) root.setAttribute('data-theme', t); } catch (e) {}
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    var next = cur === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('volta-theme', next); } catch (e) {}
+  });
+  var views = ['identite', 'site'];
+  var siteIds = ['poles', 'signature', 'travaux', 'contact'];
+  function show() {
+    var h = (location.hash || '#identite').slice(1);
+    var v = views.indexOf(h) >= 0 ? h : (siteIds.indexOf(h) >= 0 ? 'site' : 'identite');
+    views.forEach(function (k) { document.getElementById('v-' + k).hidden = k !== v; });
+    document.querySelectorAll('.sw a').forEach(function (a) { var on = a.dataset.v === v; a.classList.toggle('on', on); if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
+    if (views.indexOf(h) >= 0) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', show); show();
+  document.getElementById('replay').addEventListener('click', function () {
+    var s = document.querySelector('.igs'); var p = s.parentNode; var c = s.cloneNode(true); p.replaceChild(c, s);
+  });
+  document.getElementById('cf').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, st = document.getElementById('cf-s');
+    if (!f.n.value.trim() || !/\S+@\S+\.\S+/.test(f.e.value)) { st.textContent = 'Indiquez votre nom et une adresse e-mail valide.'; (f.n.value.trim() ? f.e : f.n).focus(); return; }
+    st.textContent = 'Maquette : le message n’est pas envoyé. Sur le site réel, il partira vers l’équipe.';
+  });
+})();
+</script>
