@@ -1,0 +1,74 @@
+.hero { padding-block: clamp(40px, 7vw, 96px); display: grid; gap: 24px }
+.hl { color: var(--x); font-stretch: 100% }
+.wm { display: block; height: auto }
+.trio { display: flex; flex-wrap: wrap; gap: clamp(16px, 4vw, 48px); align-items: center }
+.trio .sy { width: clamp(64px, 11vw, 120px); height: auto }
+.trio .pb { opacity: .45 }
+.v2c { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)) }
+.vc { display: grid; gap: 14px; align-content: start; padding-top: 14px; border-top: 2px solid var(--fg) }
+.vl { list-style: none; padding: 0; display: grid; gap: 10px; font-size: 15.5px }
+.n911 li { display: grid; grid-template-columns: 4.6em minmax(0, 1fr); gap: 10px; align-items: baseline }
+.fields { display: grid; gap: 28px 32px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)) }
+.fld { display: grid; gap: 8px; align-content: start; min-width: 0 }
+.fld ul { list-style: none; padding: 0; display: grid }
+.fld li { display: grid; grid-template-columns: minmax(0, 7.5em) minmax(0, 1fr) auto; gap: 0 10px; padding: 8px 0; border-bottom: 1px solid var(--rule); align-items: baseline }
+.fld .og { font: 500 1.1rem/1.2 "Noto Serif", "Noto Serif Hebrew", Georgia, serif; overflow-wrap: anywhere }
+.fld .tr { font: 700 14px var(--ft) } .fld .lg { font: 500 10.5px var(--fm); color: var(--mut) }
+.fld .gl { grid-column: 2 / -1; font-size: 13px; color: var(--mut) }
+.fld .vd { grid-column: 2 / -1; font-size: 12.5px }
+.fld .c-x { background: color-mix(in srgb, var(--x) 12%, transparent) } .fld .c-x .vd { color: var(--xt); font-weight: 700 }
+.fld .c-ko .vd { color: var(--ko) } .fld .c-mid .vd { color: var(--mid) }
+.board { padding-block: clamp(56px, 9vw, 120px); border-top: 6px solid var(--acc); display: grid; gap: clamp(28px, 4vw, 48px) }
+.bh { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 28px }
+.bh .eyebrow { flex-basis: 100% }
+.bn { font: 800 clamp(3.4rem, 12vw, 10rem)/.85 var(--fd); font-stretch: 118%; letter-spacing: -.04em }
+.scr { font: 500 clamp(2rem, 6vw, 4.6rem)/1 "Noto Serif", "Noto Serif Hebrew", Georgia, serif; color: var(--acc) }
+.b2, .b3 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px) }
+.b2 > *, .b3 > * { min-width: 0 }
+.bcol, .slog, .sys { display: grid; gap: 14px; align-content: start }
+.fiche { display: grid; grid-template-columns: minmax(0, 9em) minmax(0, 1fr); gap: 0; margin: 0; font-size: 14.5px }
+.fiche dt, .fiche dd { padding: 8px 0; border-bottom: 1px solid var(--rule); margin: 0 }
+.fiche dt { font: 600 11px/1.5 var(--fm); text-transform: uppercase; letter-spacing: .05em; color: var(--mut); padding-right: 10px }
+.layers { list-style: none; padding: 0; display: grid; gap: 10px }
+.layers li { padding: 12px 14px; background: var(--surf); display: grid; gap: 4px }
+.story { padding: 18px; border-left: 4px solid var(--acc); display: grid; gap: 8px }
+.story p:last-child { font: 400 1.12rem/1.5 var(--fs) }
+.lgrid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px }
+.lt { grid-column: span 3; display: grid; place-items: center; padding: 18px; min-height: 160px; box-shadow: inset 0 0 0 1px var(--rule); position: relative; gap: 6px }
+.lt .sy { width: 96px; height: 96px }
+.lt.wide { grid-column: span 6; min-height: 110px } .lt.wide .wm { width: min(100%, 420px) }
+.lt.sm { grid-column: span 2; min-height: 130px; align-content: center } .lt.sm .sy { width: 64px; height: 64px }
+.lt.an { grid-column: span 6; min-height: 150px; cursor: pointer }
+.lt .small { font-size: 11px; font-family: var(--fm) }
+.s16 { width: 16px; height: 16px }
+.blr .sy { filter: blur(5px) }
+.hidden { padding: 18px; background: var(--fg); color: var(--bg); display: grid; gap: 8px }
+.hidden .small { color: inherit; opacity: .75 }
+.lfr { font-size: clamp(1.25rem, 2.1vw, 1.65rem); line-height: 1.35 } .len { font-size: 1.1rem; line-height: 1.4; color: var(--mut) }
+.sfr { color: var(--fg) } .sen { color: var(--acc) }
+.sws { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 8px }
+.swc { padding: 14px; min-height: 130px; display: grid; align-content: end; gap: 3px; box-shadow: inset 0 0 0 1px var(--rule) }
+.swc b { font: 800 1.15rem/1 var(--fd) } .swc code { font-size: 11px } .swc span { font-size: 12px; line-height: 1.35 }
+.tyA { font-size: clamp(2rem, 4vw, 3rem); line-height: 1 } .tyB { font-size: 1.3rem }
+.risk { padding: 18px; border: 1px solid var(--rule); display: grid; gap: 8px }
+.risk ul { padding-left: 1.2em; display: grid; gap: 6px; font-size: 14.5px }
+.dots { display: flex; gap: 3px; margin-bottom: 6px } .dots i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--fg) } .dots i.on { background: var(--fg) }
+.why { display: block; font-size: 12.5px; color: var(--mut); line-height: 1.35 }
+.cmp td { width: 21% }
+tr.sum th, tr.sum td { border-top: 2px solid var(--fg); font-size: 18px }
+.strat article { display: grid; gap: 8px; align-content: start; padding: 16px; background: var(--surf) }
+.strat p { font-size: 14.5px }
+.src { padding-block: 0 48px } .src a { color: var(--xt) }
+/* animations de démonstration */
+.an-rhythmos .rho { stroke-dasharray: 100; stroke-dashoffset: 0 }
+.an-rhythmos:hover .rho, .an-rhythmos:focus .rho { animation: draw 600ms cubic-bezier(.65,0,.35,1) both }
+.an-rhythmos:hover .leg, .an-rhythmos:focus .leg { animation: step 300ms 600ms cubic-bezier(.2,.8,.2,1) both }
+@keyframes draw { from { stroke-dashoffset: 100 } to { stroke-dashoffset: 0 } }
+@keyframes step { from { transform: translate(-10px, -12px); opacity: 0 } to { transform: none; opacity: 1 } }
+.an-roshem .sy { perspective: 400px }
+.an-roshem:hover .sy rect:first-of-type, .an-roshem:focus .sy rect:first-of-type { animation: press 700ms ease-in-out both }
+@keyframes press { 50% { opacity: .35 } }
+.an-ami:hover .acc, .an-ami:focus .acc { animation: drop 200ms 300ms cubic-bezier(.7,0,.84,0) both }
+@keyframes drop { from { transform: translateY(-24px); opacity: 0 } to { transform: none; opacity: 1 } }
+@media (max-width: 820px) { .b2, .b3 { grid-template-columns: 1fr } .lt.sm { grid-column: span 3 } .lt.sm:last-of-type { grid-column: span 6 } }
+@media (max-width: 480px) { .fiche { grid-template-columns: 1fr } .fiche dt { border-bottom: 0; padding-bottom: 0 } .lt { grid-column: span 6 } .lt.sm { grid-column: span 3 } }

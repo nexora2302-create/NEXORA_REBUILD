@@ -40,6 +40,12 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
   - Slogans : maîtresse « Ça marque. / Burned in. » ; pôles : « Pas de deuxième prise. / No second takes. », « Chaque image frappe. / Every frame hits. », « Vite chargé, dur à oublier. / Loads fast. Lands hard. » ; CTA « On tourne ? / Ready to roll? », bouton « Envoyer le brief ».
   - Identité : noir salle #0B0C0E, blanc flash #F3F5F2, xénon #22E1FF (jamais en texte sur blanc), xénon profond #006F84 (texte en clair) ; Anybody + Schibsted Grotesk (+ Martian Mono pour les données). Motion « le flash » 900 ms (dérive, charge, flash unique, rémanence), max 3 flashs/s. Signature sonore 1,5 s (charge, clac + coup sourd, quinte qui s'éteint), prototype Web Audio.
   - **En attente de décision des associés.** Rien n'est intégré au site.
+- **Nom v3 (10 nov. 2026) : recommandation RHYTHMOS** (Strobe = plan B ; « 911 Studio » écarté). Brief modifié par l'utilisateur : poids des pôles = motion design, identité/communication visuelle, web d'abord ; audiovisuel au second plan ; nom à sens profond (langues anciennes), slogans longs + version courte, logo à idée cachée, son = bonus. Fichiers dans `NEXORA-BRAND/07-REBRANDING/v3/` (`propositions_nom_v3.html`, `identité_et_site_rhythmos.html`, sources `v3/sources/` : `props.py`, `site3.py`, `marks3.py`).
+  - Rhythmos (grec ῥυθμός) : avant « rythme », voulait dire « forme », la forme d'une chose qui bouge (Benveniste 1951 ; Aristote, Métaphysique 985b : Démocrite, « A diffère de N par la forme »). Logo : R = Ρ grec (rhô) + jambe détachée qui « fait un pas » ; logotype Mona Sans 800 en mètre (larges 125 / étroites 75, fin d'hexamètre). Couleur kyanos #2340D8 (clair #6E86FF en sombre), plâtre #F2F3F5, encre #121214 ; Mona Sans + Newsreader italique. Motion : forme / ordre / position, 100 BPM. Son : le dactyle (la, mi, mi, la).
+  - Signature : « Avant de dire « rythme », rhythmos voulait dire « forme »… Nous dessinons des marques qui bougent sans jamais perdre la leur. » Courte : « Garder la forme. / In motion. In shape. »
+  - Domaines (RDAP registre, 10 nov. 2026) : rhythmos.studio, rhythmos.design, rhythmosstudio.com libres ; rhythmos.com pris (société d'analyse énergétique, risque classe 42), rhythmos.co pris (conseil aux églises). Compte visé @rhythmos.studio (non vérifié).
+  - Autres planches : Roshem (hébreu רֹשֶׁם, empreinte ; sceau et empreinte en miroir ; risque politique Golfe) et Àmì (yoruba, signe ; accents = àmì ohùn ; AMI Paris). Tons yoruba de l'exemple ọkọ à faire valider par un locuteur ; fon/goun non couverts.
+  - **En attente de décision des associés.**
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
@@ -49,6 +55,8 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
 - Identité Volta + maquette : https://claude.ai/artifact/F2bvJF72i1eu61WpWSPGj7
 - Audit v2 (Volta → Strobe) : https://claude.ai/artifact/KjG6PnY4nG3A2hoHEvGdGX
 - Identité Strobe + maquette du site : https://claude.ai/artifact/CLyyn7L7bPa7hNubkHJMpj
+- Propositions de nom v3 : https://claude.ai/artifact/UP5iJ6DBqS5RRkRChtpHkK
+- Identité Rhythmos + maquette du site : https://claude.ai/artifact/Je7ZA4EwjgrjrekBUE44fY
 
 ## Prochaines étapes probables
 
