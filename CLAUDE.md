@@ -46,6 +46,12 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
   - Domaines (RDAP registre, 10 nov. 2026) : rhythmos.studio, rhythmos.design, rhythmosstudio.com libres ; rhythmos.com pris (société d'analyse énergétique, risque classe 42), rhythmos.co pris (conseil aux églises). Compte visé @rhythmos.studio (non vérifié).
   - Autres planches : Roshem (hébreu רֹשֶׁם, empreinte ; sceau et empreinte en miroir ; risque politique Golfe) et Àmì (yoruba, signe ; accents = àmì ohùn ; AMI Paris). Tons yoruba de l'exemple ọkọ à faire valider par un locuteur ; fon/goun non couverts.
   - **En attente de décision des associés.**
+- **Nom v4 (10 nov. 2026) : recommandation KERAIA** (l'utilisateur n'a « rien ressenti » avec Strobe ni Rhythmos ; il veut une lecture publique moderne + une lecture cachée biblique, type ICHTHYS, pas trop connue). Fichier unique `NEXORA-BRAND/07-REBRANDING/v4/nom_v4_keraia.html` (sources `v4/sources/nom4.py`, `marks4.py`). Identité complète et site NON construits : l'utilisateur valide d'abord le nom.
+  - κεραία : « petite corne » ; le trait d'une lettre (Mt 5:18 « pas un iota, pas un trait » ; Lc 16:17) ; « antenne » en grec moderne. Lecture cachée : la corne d'huile de l'onction de David (1 S 16:13, « τὸ κέρας τοῦ ἐλαίου » dans la Septante ; qeren en hébreu), 1 S 2:10, Jos 6:5, Lc 1:69. Phrase privée : « Lève-toi, oins-le, car c'est lui » (1 S 16:12).
+  - Logo : un i dont le point est une petite corne inclinée qui « verse » sur la tige (iota + keraia ; lu aussi comme micro sur pied, antenne). Logotype « keraia » en minuscules, Gloock. Couleur pourpre #6B1D52 (clair #D592BE en sombre), lin #F4F4F1, encre #141215 ; Gloock + Hanken Grotesk.
+  - Slogans : longue « En grec, keraia, c'est le plus petit trait d'une lettre, et c'est l'antenne qui porte une voix au loin… » ; courte « Jusqu'au dernier trait. / Down to the last stroke. » ; campagne « C'est lui. / This is the one. »
+  - Finalistes : Effata (Mc 7:34-37 ; connu du rite catholique), Mahir (Pr 22:29 ; prénom courant, domaines pris). Écartés notables : Qeren (« Karen », Keren Kayemet), Betsalel (Académie Bezalel), Tav (X de Twitter, TAV), Chotam (khatam en arabe), Ramkol.
+  - Domaines (RDAP, 10 nov. 2026) : keraia.studio, keraia.design, keraiastudio.com libres ; keraia.com et keraia.gr pris. À vérifier : .bj, comptes, marques, hellénophone, arabophone (proximité « karāhiya »), locuteurs fon/yoruba.
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
@@ -57,6 +63,7 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
 - Identité Strobe + maquette du site : https://claude.ai/artifact/CLyyn7L7bPa7hNubkHJMpj
 - Propositions de nom v3 : https://claude.ai/artifact/UP5iJ6DBqS5RRkRChtpHkK
 - Identité Rhythmos + maquette du site : https://claude.ai/artifact/Je7ZA4EwjgrjrekBUE44fY
+- Nom v4 Keraia : https://claude.ai/artifact/RuVE6f8coVCJgngHArSgUo
 
 ## Prochaines étapes probables
 
