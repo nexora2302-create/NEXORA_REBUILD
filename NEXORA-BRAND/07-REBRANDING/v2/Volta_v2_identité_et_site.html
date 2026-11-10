@@ -1,0 +1,504 @@
+<title>Strobe, identité et site</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Martian+Mono:wdth,wght@75..112.5,400..700&family=Schibsted+Grotesk:ital,wght@0,400..800;1,400&display=swap">
+<style>/* Strobe : salle noire / blanc flash, un seul accent (xénon). Mise en page éditoriale, échelles extrêmes. */
+:root {
+  --bg: #F3F5F2; --fg: #0B0C0E; --mut: #596066; --surf: #E6E9E5; --rule: rgba(11,12,14,.14);
+  --x: #22E1FF; --xt: #006F84; --onx: #0B0C0E; --night: #0B0C0E; --flash: #F3F5F2; --nmut: #8A9196;
+  --ok: #0A7F45; --ko: #B42318; --mid: #8A5A00;
+  --fd: "Anybody", "Arial Black", system-ui, sans-serif;
+  --ft: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --fm: "Martian Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --e-out: cubic-bezier(.16,1,.3,1); --e-in: cubic-bezier(.7,0,.84,0);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0B0C0E; --fg: #F3F5F2; --mut: #8A9196; --surf: #16181C; --rule: rgba(243,245,242,.14); --xt: #22E1FF; --ok: #4ADE80; --ko: #FF8A80; --mid: #F5C451; color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #0B0C0E; --fg: #F3F5F2; --mut: #8A9196; --surf: #16181C; --rule: rgba(243,245,242,.14); --xt: #22E1FF; --ok: #4ADE80; --ko: #FF8A80; --mid: #F5C451; color-scheme: dark }
+
+* { box-sizing: border-box }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 16px/1.55 var(--ft); -webkit-font-smoothing: antialiased; overflow-x: hidden }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg) }
+h1, h2, h3, p, ul, ol, figure, table { margin: 0 }
+h1, h2, h3 { text-wrap: balance }
+a { color: inherit }
+code, .mono { font-family: var(--fm); font-size: .78rem; letter-spacing: .02em }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1320px; margin-inline: auto }
+:focus-visible { outline: 2px solid var(--xt); outline-offset: 3px }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); box-shadow: 0 1px 0 var(--rule) }
+.bar .wrap { display: flex; align-items: center; gap: 12px 18px; padding-block: 10px; flex-wrap: wrap }
+.bar .lg svg { height: 20px; width: auto; display: block }
+.bar nav { display: flex; gap: 4px 14px; flex-wrap: wrap; margin-left: auto; font: 500 13px/1 var(--ft) }
+.bar nav a { text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent }
+.bar nav a:hover { border-color: var(--fg) }
+.tg { font: 600 12px/1 var(--fm); background: none; color: var(--fg); border: 1px solid var(--rule); padding: 8px 10px; cursor: pointer; letter-spacing: .04em }
+.tg:hover { border-color: var(--fg) }
+.eyebrow { font: 500 11px/1.3 var(--fm); letter-spacing: .1em; text-transform: uppercase; color: var(--mut) }
+.d1 { font: 900 clamp(3.2rem, 11vw, 10rem)/.84 var(--fd); font-stretch: 125%; letter-spacing: -.03em }
+.d2 { font: 900 clamp(2.2rem, 6vw, 5.2rem)/.9 var(--fd); font-stretch: 112%; letter-spacing: -.02em }
+.d3 { font: 800 clamp(1.3rem, 2.4vw, 1.9rem)/1.05 var(--fd); font-stretch: 105% }
+.lead { font-size: clamp(1.1rem, 1.8vw, 1.4rem); line-height: 1.4; max-width: 60ch }
+.small { font-size: 14px; color: var(--mut) }
+.sec { padding-block: clamp(56px, 9vw, 120px); display: grid; gap: clamp(24px, 4vw, 48px); border-top: 1px solid var(--rule) }
+.sec > header { display: grid; gap: 14px; max-width: 900px }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)) }
+.grid > * { min-width: 0 }
+.tbl { overflow-x: auto; border-top: 2px solid var(--fg) }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 640px }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule) }
+th { font: 600 11px/1.3 var(--fm); letter-spacing: .06em; text-transform: uppercase; color: var(--mut) }
+td.n { font: 600 14px var(--fm); font-variant-numeric: tabular-nums; white-space: nowrap }
+.tag { display: inline-block; font: 600 10.5px/1 var(--fm); letter-spacing: .06em; text-transform: uppercase; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap }
+.t-ok { color: var(--ok) } .t-ko { color: var(--ko) } .t-mid { color: var(--mid) } .t-x { background: var(--x); color: var(--onx); border-color: var(--x) }
+.night { --bg: #0B0C0E; --fg: #F3F5F2; --mut: #8A9196; --surf: #16181C; --rule: rgba(243,245,242,.16); --xt: #22E1FF; background: var(--bg); color: var(--fg); color-scheme: dark }
+.day { --bg: #F3F5F2; --fg: #0B0C0E; --mut: #596066; --surf: #E6E9E5; --rule: rgba(11,12,14,.14); --xt: #006F84; background: var(--bg); color: var(--fg) }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important } }
+.sec > *, .fin > *, .ret > * { min-width: 0 }
+
+.sw { display: flex; gap: 4px; margin-left: auto }
+.sw a { text-decoration: none; font: 600 13px/1 var(--ft); padding: 9px 12px; border: 1px solid var(--rule) }
+.sw a.on { background: var(--fg); color: var(--bg); border-color: var(--fg) }
+.x { color: var(--x) }
+.wm { display: block; height: auto }
+.btns { display: flex; flex-wrap: wrap; gap: 10px }
+.btn { font: 700 14px/1 var(--ft); padding: 14px 18px; border: 0; background: var(--x); color: #0B0C0E; cursor: pointer; transition: transform .12s var(--e-out) }
+.btn:hover { transform: translateY(-2px) }
+.btn:active { transform: translateY(1px) }
+.ghostb { background: none; color: var(--fg); box-shadow: inset 0 0 0 1px var(--rule) }
+
+/* ---- scène du flash ---- */
+.stage { position: relative; isolation: isolate }
+.stage::after { content: ""; position: absolute; inset: -12px; background: #F3F5F2; opacity: 0; pointer-events: none; z-index: 2 }
+.stage.fl::after { animation: flash 260ms var(--e-out) both }
+@keyframes flash { 0% { opacity: .92 } 100% { opacity: 0 } }
+.stg { display: block; width: 100%; height: auto; overflow: visible }
+.bd { animation: drift 9s ease-in-out infinite alternate }
+.b0 { --a: -110px; animation-duration: 7.3s } .b1 { --a: 140px; animation-duration: 9.1s } .b2 { --a: -70px; animation-duration: 11s }
+@keyframes drift { from { transform: translateX(var(--a)) } to { transform: translateX(calc(var(--a) * -.6)) } }
+.charge .bd { animation-duration: .45s; animation-timing-function: cubic-bezier(.7,0,.84,0) }
+.frozen .bd { animation: none; transform: none }
+.ghost { opacity: 0 }
+.fl .ghost { animation: ghost 900ms var(--e-out) both }
+@keyframes ghost { 0% { opacity: .9; transform: translateX(170px) } 100% { opacity: 0; transform: translateX(30px) } }
+@media (prefers-reduced-motion: reduce) { .bd { animation: none !important; transform: none !important } .stage::after, .ghost { display: none } }
+
+/* ---- brand book ---- */
+.cover { padding-block: clamp(36px, 7vw, 96px) }
+.cvw { display: grid; gap: clamp(24px, 4vw, 48px) }
+.cvb { display: flex; flex-wrap: wrap; gap: 18px 32px; align-items: center; justify-content: space-between }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start }
+.senses { list-style: none; padding: 0; display: grid; gap: 0 }
+.senses li { padding: 14px 0; border-top: 1px solid var(--rule); font-size: 17px }
+.senses b { font-family: var(--fd); font-weight: 800; margin-right: 6px }
+.pane { background: var(--surf); padding: clamp(16px, 3vw, 28px); display: grid; gap: 12px }
+.cons { width: 100%; max-width: 440px; justify-self: center; height: auto }
+.cl text { font: 500 3px var(--fm); fill: var(--mut) }
+.lv { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px }
+.lvi { grid-column: span 3; display: grid; place-items: center; padding: 22px 16px; min-height: 104px }
+.lvi .wm { width: 100% }
+.lvi.sq { grid-column: span 2; aspect-ratio: 1; min-height: 0 }
+.lvi.sq .sy { width: 44%; height: auto }
+.bd1 { box-shadow: inset 0 0 0 1px var(--rule) }
+.xb { background: var(--x) }
+.rules { grid-column: 1 / -1; display: grid; gap: 8px; padding-top: 6px }
+.rules ul, .mrules, .tw ul { padding-left: 1.1em; display: grid; gap: 7px; font-size: 15px }
+.pal { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 10px }
+.pc { padding: 16px; min-height: 230px; display: grid; align-content: end; gap: 4px; box-shadow: inset 0 0 0 1px var(--rule); min-width: 0 }
+.pc b { font: 900 1.6rem/1 var(--fd); font-stretch: 110% }
+.pc .pp { font: 700 2rem/1 var(--fd); margin-block: 8px }
+.pc span { font-size: 13px; line-height: 1.4 }
+.pc .ct { font: 500 11px/1.4 var(--fm); opacity: .85 }
+.prop { display: flex; height: 28px; box-shadow: inset 0 0 0 1px var(--rule) }
+.prop i { display: block; box-shadow: inset 0 0 0 1px var(--rule) }
+.tyw { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(20px, 4vw, 48px) }
+.tys { background: var(--surf); padding: clamp(18px, 3vw, 32px); display: grid; gap: 18px; align-content: space-between; min-height: 300px; overflow: hidden }
+.wsamp { font: 900 clamp(2.6rem, 8vw, 6.4rem)/.9 var(--fd); font-stretch: 100%; letter-spacing: -.02em; white-space: nowrap }
+.rng { display: grid; gap: 8px }
+.rng input { width: 100%; accent-color: var(--xt) }
+.tyl { display: grid; gap: 22px; align-content: start }
+.tyl > div { display: grid; gap: 6px; padding-top: 12px; border-top: 1px solid var(--rule) }
+.tA { font: 900 clamp(1.8rem, 3.4vw, 2.8rem)/.95 var(--fd); font-stretch: 112% }
+.tB { font-size: 17px; max-width: 46ch }
+.tC { font: 500 13px var(--fm); letter-spacing: .04em }
+.snd { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 4vw, 48px); padding: clamp(20px, 4vw, 40px); align-items: center }
+.small-st { width: clamp(90px, 16vw, 160px) }
+.sst { width: 100%; height: auto; display: block }
+.sndr { display: grid; gap: 16px }
+.tl { position: relative; display: grid; grid-template-columns: 6fr 1fr 9fr; height: 40px; font: 600 10.5px/40px var(--fm); text-transform: uppercase; letter-spacing: .06em }
+.seg { padding-left: 8px; overflow: hidden; white-space: nowrap; border-left: 1px solid var(--rule) }
+.s1 { background: linear-gradient(90deg, transparent, rgba(34,225,255,.18)) } .s2 { background: var(--x); color: #0B0C0E } .s3 { background: linear-gradient(90deg, rgba(34,225,255,.28), transparent) }
+#playhead { position: absolute; top: -4px; bottom: -4px; left: 0; width: 2px; background: var(--fg) }
+.brief article, .tw article { display: grid; gap: 8px; align-content: start; padding-top: 14px; border-top: 2px solid var(--fg) }
+.brief p { font-size: 15px }
+.never h3 { color: var(--ko) }
+.apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; align-items: end }
+.apps figure { display: grid; gap: 8px; min-width: 0 }
+.kak { aspect-ratio: 2 / 5; width: 62%; justify-self: center; display: flex; flex-direction: column; justify-content: space-between; padding: 14% 9%; overflow: hidden; position: relative }
+.kw .wm { width: 100% }
+.kl { font: 900 clamp(1.9rem, 3.4vw, 2.6rem)/.88 var(--fd); font-stretch: 85% }
+.ksym .sy { width: 150%; height: auto; margin-left: -25%; margin-bottom: -40% }
+.avs { display: flex; gap: 14px; justify-content: center; padding: 30px 0 }
+.av { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center }
+.av .sy { width: 58%; height: auto }
+.end { aspect-ratio: 16 / 9; display: grid; place-items: center; align-content: center; gap: 10px }
+.end .sy { width: 64px; height: 64px }
+.end p { color: var(--x) }
+.case { aspect-ratio: 4 / 3; background: #23262B; color: #F3F5F2; position: relative; display: grid; align-content: center; justify-items: center; gap: 4px; box-shadow: inset 0 0 0 6px #33373D }
+.rv { position: absolute; width: 18px; height: 18px; background: #6E747B; clip-path: polygon(0 0, 100% 0, 0 100%) }
+.r1 { left: 6px; top: 6px } .r2 { right: 6px; top: 6px; transform: scaleX(-1) } .r3 { left: 6px; bottom: 6px; transform: scaleY(-1) } .r4 { right: 6px; bottom: 6px; transform: scale(-1) }
+.stn { font: 800 clamp(1.6rem, 3vw, 2.2rem)/1 var(--fm); letter-spacing: .14em; opacity: .92 }
+.stn.s2, .stn.s3 { font-size: 11px; letter-spacing: .12em; font-weight: 600 }
+
+/* ---- maquette ---- */
+.site[data-lang="fr"] [lang="en"], .site[data-lang="en"] [lang="fr"] { display: none !important }
+.sbar { box-shadow: 0 1px 0 var(--rule) }
+.sbar .wrap { display: flex; align-items: center; gap: 16px; padding-block: 12px; flex-wrap: wrap }
+.slg .wm { height: 18px; width: auto }
+.sbar nav { display: flex; gap: 6px 18px; margin-left: auto; font: 500 14px/1 var(--ft); flex-wrap: wrap }
+.sbar nav a { text-decoration: none }
+.sbar nav a:hover { color: var(--x) }
+.hero { padding-block: clamp(28px, 6vw, 72px) clamp(28px, 5vw, 56px); cursor: crosshair }
+.hw { display: grid; gap: clamp(24px, 5vw, 64px) }
+.hst { padding-block: clamp(10px, 3vw, 40px) }
+.hbot { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 24px 40px; align-items: end }
+.manif { font-size: clamp(1.4rem, 3vw, 2.4rem); line-height: 1.02 }
+.hctl { display: grid; gap: 12px; justify-items: start; cursor: auto }
+.fire { font-size: 16px; padding: 18px 22px }
+.snd-b[aria-pressed="true"] { border-color: var(--x); color: var(--x) }
+.hint { color: var(--mut); font-size: 11px }
+.s-thesis { padding-block: clamp(56px, 10vw, 140px); display: grid; gap: 24px; overflow: hidden }
+.kin { font: 900 clamp(3.4rem, 15vw, 15rem)/.82 var(--fd); font-stretch: 100%; letter-spacing: -.035em; white-space: nowrap }
+.sh { display: grid; gap: 14px; margin-bottom: clamp(24px, 4vw, 48px) }
+.s-poles, .s-work, .s-method { padding-block: clamp(56px, 8vw, 110px); border-top: 1px solid var(--rule) }
+.console { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.25fr); gap: 2px; background: var(--rule) }
+.strip { background: var(--bg); display: grid; grid-template-rows: auto 160px auto; grid-template-columns: 22px minmax(0, 1fr); gap: 14px 16px; padding: 16px; transition: background .25s var(--e-out) }
+.strip > button { grid-column: 1 / -1; all: unset; grid-column: 1 / -1; display: grid; gap: 6px; cursor: pointer }
+.strip > button:focus-visible { outline: 2px solid var(--xt); outline-offset: 4px }
+.chn { color: var(--mut); font-size: 11px }
+.chname { font: 800 1.15rem/1.05 var(--fd); font-stretch: 100%; min-height: 2.2em }
+.meter { display: flex; flex-direction: column-reverse; gap: 3px }
+.meter i { flex: 1; background: var(--rule); transition: background .2s }
+.strip.on .meter i { background: var(--fg) }
+.strip.on .meter i:nth-child(n+8) { background: var(--x) }
+.strip:not(.on) .meter i:nth-child(-n+3) { background: var(--mut) }
+.fader { position: relative; display: grid; justify-items: start }
+.slot { width: 4px; height: 100%; background: var(--rule); margin-left: 14px }
+.knob { position: absolute; left: 0; width: 32px; height: 18px; background: var(--fg); bottom: 18%; transition: bottom .45s var(--e-out); box-shadow: inset 0 -3px 0 var(--x) }
+.strip.on .knob { bottom: calc(var(--lvl) * 1%) }
+.chbody { grid-column: 1 / -1; display: grid; gap: 8px }
+.chline { font: 900 clamp(1.25rem, 2vw, 1.7rem)/1 var(--fd); font-stretch: 105% }
+.strip.on { background: var(--surf) }
+.strip.master { background: var(--fg); color: var(--bg); --rule: rgba(128,128,128,.35) }
+.strip.master .chn, .strip.master .small { color: inherit; opacity: .75 }
+.strip.master .knob { background: var(--x) }
+.strip.master .meter i { background: rgba(128,128,128,.35) }
+.strip.master.on .meter i { background: var(--bg) } .strip.master.on .meter i:nth-child(n+8) { background: var(--x) }
+.sheet { list-style: none; padding: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; background: #16181C; color: #F3F5F2 }
+.fr { display: grid; gap: 6px; position: relative }
+.frimg { aspect-ratio: 3 / 2; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #2A2E34 0 10px, #24272C 10px 20px); transition: filter .2s }
+.fr:nth-child(odd) .frimg { background: repeating-linear-gradient(45deg, #D9DCD8 0 10px, #CED2CD 10px 20px) }
+.fs { width: 28%; height: auto }
+.fr:hover .frimg { filter: brightness(1.35) contrast(1.1) }
+.fr .mono { display: flex; justify-content: space-between; color: #F3B13B; font-size: 10px }
+.frl { font-size: 13px; color: #8A9196 }
+.fr.mark::after { content: ""; position: absolute; inset: -8px -8px 18px; border: 3px solid var(--x); border-radius: 50%; pointer-events: none; transform: rotate(-3deg) }
+.steps { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 2px solid var(--fg) }
+.steps li { display: grid; gap: 10px; align-content: start; padding: 16px 16px 0 0; border-right: 1px solid var(--rule) }
+.steps li + li { padding-left: 16px }
+.steps li:last-child { border-right: 0 }
+.tc { color: var(--xt); font-size: 11px }
+.steps p { font-size: 15px; max-width: 30ch }
+.s-contact { padding-top: clamp(56px, 9vw, 120px) }
+.cw { display: grid; gap: 32px }
+.mega { font: 900 clamp(3.4rem, 13vw, 12rem)/.82 var(--fd); font-stretch: 118%; letter-spacing: -.035em }
+.form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; max-width: 620px }
+.form label { font: 600 11px/1.3 var(--fm); text-transform: uppercase; letter-spacing: .08em; color: var(--mut); margin-top: 10px }
+.form input, .form textarea, .form select { font: 400 17px/1.4 var(--ft); color: var(--fg); background: transparent; border: 0; border-bottom: 1px solid var(--rule); padding: 10px 0; border-radius: 0 }
+.form select option { background: #16181C }
+.form input:focus-visible, .form textarea:focus-visible, .form select:focus-visible { outline: none; border-bottom: 2px solid var(--x) }
+.form .btn { justify-self: start; margin-top: 18px }
+.fstate { padding: 12px 14px; border: 1px solid var(--x); color: var(--x); font-size: 15px }
+.foot { padding-block: 64px 40px; display: grid; gap: 28px; margin-top: 72px; border-top: 1px solid var(--rule) }
+.fwm .wm { width: 100% }
+.fcols { display: flex; flex-wrap: wrap; gap: 10px 32px; color: var(--mut) }
+.fcols p:first-child { color: var(--fg); font-weight: 600 }
+
+@media (max-width: 900px) {
+  .cols, .tyw, .hbot { grid-template-columns: 1fr }
+  .console { grid-template-columns: 1fr 1fr }
+  .steps { grid-template-columns: 1fr 1fr; row-gap: 24px }
+  .steps li:nth-child(2) { border-right: 0 } .steps li:nth-child(3) { padding-left: 0 }
+  .sheet { grid-template-columns: 1fr 1fr }
+}
+@media (max-width: 560px) {
+  .console { grid-template-columns: 1fr }
+  .strip { grid-template-rows: auto 90px auto }
+  .steps { grid-template-columns: 1fr } .steps li { padding-left: 0 !important; border-right: 0 }
+  .snd { grid-template-columns: 1fr } .small-st { justify-self: start }
+  .lvi { grid-column: span 6 } .lvi.sq { grid-column: span 2 }
+}
+
+.steps h3 { font-size: clamp(1.5rem, 2.6vw, 2.4rem) }
+</style>
+<header class="bar"><div class="wrap"><a class="lg" href="#identite" aria-label="Strobe, identité"><svg class="wm" viewBox="-110 0 9051 1470" role="img" aria-label="Strobe"><path fill="currentColor" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></svg></a>
+<nav class="sw" aria-label="Parties"><a href="#identite" data-v="identite">Brand book</a><a href="#site" data-v="site">Maquette du site</a></nav>
+<button class="tg" type="button" id="themeBtn">Thème</button></div></header>
+<main>
+<!-- =================== BRAND BOOK =================== -->
+<div class="view" id="v-identite">
+<section class="night cover"><div class="wrap cvw">
+<p class="eyebrow">Brand book v2 · condensé · 10 novembre 2026</p>
+<div class="stage frozen" id="sigCover" data-rest="frozen"><svg class="stg" viewBox="-260 0 9351 1470" role="img" aria-label="Strobe"><defs><clipPath id="cvc0"><rect x="-520" y="0.0" width="9871" height="490.6"/></clipPath><clipPath id="cvc1"><rect x="-520" y="490.0" width="9871" height="490.6"/></clipPath><clipPath id="cvc2"><rect x="-520" y="980.0" width="9871" height="490.6"/></clipPath></defs><g class="ghost"><path fill="#22E1FF" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g><g clip-path="url(#cvc0)"><g class="bd b0"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g></g><g clip-path="url(#cvc1)"><g class="bd b1"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g></g><g clip-path="url(#cvc2)"><g class="bd b2"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g></g></svg></div>
+<div class="cvb"><p class="d3">Ça marque. <span class="x">Burned in.</span></p>
+<div class="btns"><button class="btn" type="button" data-replay="#sigCover">Rejouer la signature</button><button class="btn ghostb" type="button" data-replay="#sigCover" data-sound>Avec le son</button></div></div>
+</div></section>
+
+<div class="wrap">
+<section class="sec" id="idee"><header><p class="eyebrow">L’idée</p><h2 class="d1">Une marque a une seconde.</h2></header>
+<div class="cols"><p class="lead">Un stroboscope, c’est une lumière qui fige le mouvement. Ce qui bouge devient net, l’espace d’un éclair, puis l’image reste sur la rétine. Strobe fait ça pour les marques : on conçoit l’image qui tient dans la seconde où on la voit, et qui reste après.</p>
+<ul class="senses"><li><b>Photo.</b> En studio, le flash s’appelle un strobe.</li><li><b>Scène.</b> Le stroboscope est la lumière du direct.</li><li><b>Animation.</b> Des images fixes, montrées vite, deviennent un mouvement : c’est le principe même du motion.</li><li><b>Mémoire.</b> L’image rémanente, c’est le travail du brand design.</li></ul></div></section>
+
+<section class="sec" id="logo"><header><p class="eyebrow">Logo</p><h2 class="d2">Le disque décalé.</h2><p class="small">Le même dessin sert de symbole, de O dans le logotype et de point de départ de l’animation.</p></header>
+<div class="cols"><figure class="pane"><svg class="cons" viewBox="-6 4 112 92" role="img" aria-label="Construction du symbole">
+<circle cx="38.44" cy="50" r="34" fill="none" stroke="var(--mut)" stroke-width=".35" stroke-dasharray="1.2 1.2"/>
+<circle cx="61.56" cy="50" r="34" fill="none" stroke="var(--mut)" stroke-width=".35" stroke-dasharray="1.2 1.2"/>
+<g opacity=".9"><path fill="var(--fg)" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></g>
+<line x1="-2" y1="50" x2="102" y2="50" stroke="#22E1FF" stroke-width=".5"/>
+<circle cx="38.44" cy="50" r="1.1" fill="#22E1FF"/><circle cx="61.56" cy="50" r="1.1" fill="#22E1FF"/>
+<g class="cl"><text x="-4" y="10">r 34 · carré de 100</text><text x="40" y="95">chaque moitié glisse de 17 % du diamètre</text></g></svg><figcaption>Un disque coupé à l’horizontale ; la moitié haute glisse à gauche, la basse à droite, chacune de 17 % du diamètre. Deux images d’un même objet, figées par le flash, et le décalage dessine un S. Dans le logotype, le glissement passe à 12 % pour laisser respirer le R et le B.</figcaption></figure>
+<div class="lv">
+<div class="night lvi"><svg class="wm" viewBox="-110 0 9051 1470" role="img" aria-label="Strobe"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></svg></div><div class="day lvi bd1"><svg class="wm" viewBox="-110 0 9051 1470" role="img" aria-label="Strobe"><path fill="#0B0C0E" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></svg></div>
+<div class="night lvi sq"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></div><div class="day lvi sq bd1"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#0B0C0E" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></div><div class="lvi sq xb"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#0B0C0E" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></div>
+<div class="rules"><h3 class="eyebrow">Règles</h3><ul><li><b>Zone de protection :</b> la hauteur d’une moitié de disque, tout autour.</li><li><b>Tailles minimales :</b> symbole 16 px ou 5 mm ; logotype 72 px ou 20 mm de large.</li><li><b>Interdits :</b> recaler les deux moitiés, les colorer différemment, tourner le symbole, l’entourer d’un cercle ou d’un carré arrondi.</li></ul></div>
+</div></div></section>
+
+<section class="sec" id="couleurs"><header><p class="eyebrow">Couleurs</p><h2 class="d2">Noir, blanc, un seul flash.</h2>
+<p class="small">Avant : graphite, lin, cuivre et bleu, deux accents qui se disputaient la vedette. Après : un seul accent, et il a une raison d’exister. Pourquoi : un flash ne se partage pas.</p></header>
+<div class="pal"><div class="pc" style="background:#0B0C0E;color:#F3F5F2"><b>Noir salle</b><code>#0B0C0E</code><span class="pp">55 %</span><span>La salle avant que la lumière arrive. Fond principal, scène, vidéo.</span><span class="ct">Blanc flash dessus : 17,9:1</span></div><div class="pc" style="background:#F3F5F2;color:#0B0C0E"><b>Blanc flash</b><code>#F3F5F2</code><span class="pp">35 %</span><span>Un blanc légèrement froid, comme la lumière d’un tube au xénon. Fond clair, texte sur noir.</span><span class="ct">Noir salle dessus : 17,9:1</span></div><div class="pc" style="background:#22E1FF;color:#0B0C0E"><b>Xénon</b><code>#22E1FF</code><span class="pp">7 %</span><span>Le flash et la rémanence. Action, signature, moment fort. Jamais en texte sur blanc.</span><span class="ct">Sur noir : 12,4:1 · sur blanc : 1,4:1</span></div><div class="pc" style="background:#006F84;color:#F3F5F2"><b>Xénon profond</b><code>#006F84</code><span class="pp">texte</span><span>Le xénon pour les textes et liens en mode clair.</span><span class="ct">Sur blanc flash : 5,3:1</span></div><div class="pc" style="background:#8A9196;color:#0B0C0E"><b>Câble</b><code>#8A9196</code><span class="pp">3 %</span><span>Texte secondaire et filets sur noir. En mode clair : #596066.</span><span class="ct">Sur noir : 6,1:1 · #596066 sur blanc : 5,8:1</span></div></div>
+<div class="prop" role="img" aria-label="Proportions : noir 55 %, blanc 35 %, xénon 7 %, câble 3 %"><i style="flex:55;background:#0B0C0E"></i><i style="flex:35;background:#F3F5F2"></i><i style="flex:7;background:#22E1FF"></i><i style="flex:3;background:#8A9196"></i></div>
+<p class="small">Mode sombre par défaut à l’écran (la salle), mode clair pour les documents et le jour. Le xénon reste le même dans les deux ; en mode clair, il passe en aplat derrière du noir, jamais en texte.</p></section>
+
+<section class="sec" id="typo"><header><p class="eyebrow">Typographie</p><h2 class="d2">Une fonte qui s’étire.</h2>
+<p class="small">Avant : Big Shoulders et IBM Plex, la « tech premium » de 2020. Après : Anybody et Schibsted Grotesk. Pourquoi : Anybody va de 50 à 150 % de largeur sur un seul fichier, donc la typo peut bouger comme un objet sous le stroboscope ; Schibsted Grotesk est un texte de presse, net et chaleureux, peu vu dans les studios.</p></header>
+<div class="tyw"><div class="tys"><p id="wdthSample" class="wsamp">Ça marque.</p>
+<label class="rng" for="wdth"><span class="mono">Largeur <b id="wdthVal">100</b> %</span><input id="wdth" type="range" min="50" max="150" value="100"></label></div>
+<div class="tyl"><div><p class="eyebrow">Titrage · Anybody 800 à 900</p><p class="tA">Chaque image frappe.</p></div>
+<div><p class="eyebrow">Texte · Schibsted Grotesk 400 à 600</p><p class="tB">On conçoit l’image qui tient dans la seconde où on la voit, et qui reste après. Identité, motion, web : le même trait partout.</p></div>
+<div><p class="eyebrow">Données · Martian Mono</p><p class="tC">TC 01:00:12:08 · 5600 K · −14 LUFS · 1/8000 s</p></div></div></div>
+<p class="small">Règle cinétique : la largeur est réservée au mouvement (s’étirer, c’est aller vite). On n’anime jamais la couleur et la largeur en même temps.</p></section>
+
+<section class="sec" id="motion"><header><p class="eyebrow">Motion</p><h2 class="d2">Le flash, en 900 ms.</h2><p class="small">Avant : un « allumage » sans séquence. Après : une signature codée, la même partout, de l’intro vidéo au bouton du site.</p></header>
+<div class="tbl"><table><thead><tr><th>Phase</th><th>Temps</th><th>Courbe</th><th>Ce qui se passe</th></tr></thead><tbody><tr><th scope="row">1 · Dérive</th><td class="n">en continu</td><td><code>ease-in-out, 7 à 11 s</code></td><td>Le mot glisse en trois bandes : l’objet bouge, la lumière est continue.</td></tr><tr><th scope="row">2 · Charge</th><td class="n">0 → 600 ms avec le son, 0 → 140 ms sans</td><td><code>cubic-bezier(.7, 0, .84, 0)</code></td><td>Les bandes accélèrent. Le sifflement de charge monte.</td></tr><tr><th scope="row">3 · Flash</th><td class="n">à 600 ms, une image</td><td><code>coupe franche</code></td><td>Les bandes se calent net. Un seul flash blanc à 92 %, qui retombe en 260 ms.</td></tr><tr><th scope="row">4 · Rémanence</th><td class="n">600 → 1 500 ms</td><td><code>cubic-bezier(.16, 1, .3, 1)</code></td><td>Une copie xénon décalée s’efface derrière le mot. C’est l’image qui reste.</td></tr></tbody></table></div>
+<ul class="mrules"><li>Un flash au maximum par séquence, jamais plus de trois par seconde (seuil WCAG 2.3.1), jamais de clignotement en boucle.</li><li>Mouvement réduit demandé : aucun flash, le logo apparaît calé.</li><li>Coupes franches plutôt que fondus. Les éléments entrent par bandes, jamais en rebond.</li></ul></section>
+
+<section class="sec" id="son"><header><p class="eyebrow">Son</p><h2 class="d2">La signature sonore.</h2><p class="small">Le studio est né sur le terrain du son. Aucun studio de design ne signe au son : c’est la place à prendre.</p></header>
+<div class="snd night"><div class="stage small-st" id="sigStage"><svg class="sy sst" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></div>
+<div class="sndr"><div class="btns"><button class="btn" type="button" data-play="full">Écouter · 1,5 s</button><button class="btn ghostb" type="button" data-play="short">Version courte · 0,4 s</button></div>
+<div class="tl" aria-hidden="true"><span class="seg s1">Charge</span><span class="seg s2">Flash</span><span class="seg s3">Rémanence</span><i id="playhead"></i></div>
+<p class="small">Prototype synthétisé dans la page (Web Audio), sans fichier.</p></div></div>
+<div class="grid brief">
+<article><h3 class="d3">1 · Charge</h3><p>0 à 0,6 s. Un sifflement qui monte de 1,4 à 5,2 kHz, très bas : le son du flash de studio qui se charge, reconnu par tous les photographes.</p></article>
+<article><h3 class="d3">2 · Flash</h3><p>À 0,6 s. Un clac de bruit filtré autour de 2,6 kHz et un coup sourd de 140 à 42 Hz : la sono qu’on met sous tension.</p></article>
+<article><h3 class="d3">3 · Rémanence</h3><p>0,6 à 1,5 s. Une quinte (la, mi, la) dont le filtre se ferme de 5 kHz à 500 Hz : l’image qui reste.</p></article>
+<article><h3 class="d3">Usages</h3><p>Fin de chaque vidéo, ouverture d’événement, début de présentation, réseaux. Sur le site : coupé par défaut, jamais en lecture automatique. Version finale à produire et mixer par le studio : −14 LUFS, compatible mono.</p></article>
+</div></section>
+
+<section class="sec" id="ton"><header><p class="eyebrow">Images et ton</p><h2 class="d2">Net. Court. Vrai.</h2><p class="small">Gardé du v1 : la lumière de travail, le ton direct et technique sans jargon. Durci : règles plus précises et une liste « jamais ».</p></header>
+<div class="grid tw">
+<article><h3 class="d3">Images</h3><ul><li>Un flash, dur. Ombres nettes, le fond tombe au noir.</li><li>Le geste exact, figé net : la main sur le fader, le câble qu’on branche, l’écran qui s’allume.</li><li>Cadre serré, matières vraies : métal, câble, peau, papier.</li><li>Un accent xénon au maximum par image : une gélatine, un écran.</li><li>Les personnes en action, de dos ou de profil.</li></ul></article>
+<article><h3 class="d3">Voix</h3><ul><li>Titres de deux à six mots. Un verbe par phrase.</li><li>« On » en français, « we » en anglais.</li><li>Des chiffres réels, ou aucun chiffre.</li><li>Ni point d’exclamation, ni superlatif.</li><li>Rien de tiède.</li></ul></article>
+<article class="never"><h3 class="d3">Jamais</h3><ul><li>Banques d’images, poignées de main, sourires face caméra, drone sur la ville.</li><li>Wax, masques, cartes ou silhouettes du continent, globes, ampoules « idée ».</li><li>Flou de bougé décoratif, néons « good vibes », images générées présentées comme de vrais projets.</li><li>« Solutions », « innovant », « passion », « 360° », « élever », « créons ensemble ».</li></ul></article></div>
+<div class="tbl"><table><thead><tr><th>Avant</th><th>Après</th></tr></thead><tbody>
+<tr><td>Nous accompagnons les marques dans leur transformation digitale.</td><td><b>On rend votre marque visible en une seconde.</b></td></tr>
+<tr><td>Une équipe passionnée à votre écoute.</td><td><b>Un brief, une réponse, une date.</b></td></tr>
+<tr><td>Des solutions créatives sur-mesure.</td><td><b>Identité, motion, web. Le même trait partout.</b></td></tr></tbody></table></div></section>
+
+<section class="sec" id="applications"><header><p class="eyebrow">Applications</p><h2 class="d2">Sur le terrain.</h2></header>
+<div class="apps">
+<figure><div class="night kak"><span class="kw"><svg class="wm" viewBox="-110 0 9051 1470" role="img" aria-label="Strobe"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></svg></span><b class="kl">Ça<br>marque.</b><span class="ksym"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#22E1FF" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><figcaption>Kakémono 80 × 200 cm, lisible à 20 m.</figcaption></figure>
+<figure><div class="avs"><span class="av night"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span><span class="av xb"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#0B0C0E" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><figcaption>Avatars : noir par défaut, xénon pour les lancements.</figcaption></figure>
+<figure><div class="night end"><span><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span><p class="mono">Burned in. · strobe.design</p></div><figcaption>Carte de fin vidéo 16:9, calée sur la signature sonore.</figcaption></figure>
+<figure><div class="case"><span class="rv r1"></span><span class="rv r2"></span><span class="rv r3"></span><span class="rv r4"></span><p class="stn">STROBE</p><p class="stn s2">CH 1 · 2 · 3 · MASTER</p><p class="stn s3">FRAGILE · HAUT ↑</p></div><figcaption>Flight case, pochoir blanc : la marque voyage avec le matériel.</figcaption></figure>
+</div></section>
+</div></div>
+
+<!-- =================== MAQUETTE DU SITE =================== -->
+<div class="view site" id="v-site" data-lang="fr" lang="fr" hidden>
+<div class="sbar night"><div class="wrap"><span class="slg"><svg class="wm" viewBox="-110 0 9051 1470" role="img" aria-label="Strobe"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></svg></span>
+<nav aria-label="Site"><a href="#s-poles"><span lang="fr">Pôles</span><span lang="en">Practice</span></a><a href="#s-travaux"><span lang="fr">Travaux</span><span lang="en">Work</span></a><a href="#s-methode"><span lang="fr">Méthode</span><span lang="en">Process</span></a><a href="#s-contact">Contact</a></nav>
+<button class="tg" type="button" id="langBtn">EN</button></div></div>
+
+<section class="night hero" aria-label="Accueil"><div class="wrap hw">
+<div class="stage hst" id="heroStage"><svg class="stg" viewBox="-260 0 9351 1470" role="img" aria-label="Strobe"><defs><clipPath id="hsc0"><rect x="-520" y="0.0" width="9871" height="490.6"/></clipPath><clipPath id="hsc1"><rect x="-520" y="490.0" width="9871" height="490.6"/></clipPath><clipPath id="hsc2"><rect x="-520" y="980.0" width="9871" height="490.6"/></clipPath></defs><g class="ghost"><path fill="#22E1FF" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g><g clip-path="url(#hsc0)"><g class="bd b0"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g></g><g clip-path="url(#hsc1)"><g class="bd b1"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g></g><g clip-path="url(#hsc2)"><g class="bd b2"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></g></g></svg></div>
+<div class="hbot"><div class="manif d3"><span lang="fr">Une marque a une seconde.<br>On en fait un flash.<br><span class="x">Celui qu’on voit encore les yeux fermés.</span></span><span lang="en">A brand gets one second.<br>We make it a flash.<br><span class="x">The one you still see with your eyes shut.</span></span></div>
+<div class="hctl"><button class="btn fire" type="button" id="fireBtn"><span lang="fr">Déclencher le flash</span><span lang="en">Fire the flash</span></button>
+<button class="tg snd-b" type="button" id="soundBtn" aria-pressed="false"><span data-s="off"><span lang="fr">Son coupé</span><span lang="en">Sound off</span></span><span data-s="on" hidden><span lang="fr">Son activé</span><span lang="en">Sound on</span></span></button>
+<p class="mono hint"><span lang="fr">ou touchez la scène</span><span lang="en">or tap the stage</span> · 1/8000 s · 5600 K</p></div></div></div></section>
+
+<section class="wrap s-thesis"><p class="kin" data-kin><span lang="fr">Une seconde.</span><span lang="en">One second.</span></p>
+<p class="lead"><span lang="fr">Sur un téléphone, dans une salle, sur un kakémono au bord de la route : une seconde. On conçoit chaque image pour cette seconde-là, et pour ce qui reste après.</span><span lang="en">On a phone, in a venue, on a banner by the road: one second. We design every image for that second, and for what stays after it.</span></p></section>
+
+<section class="wrap s-poles" id="s-poles"><header class="sh"><p class="eyebrow"><span lang="fr">Pôles</span><span lang="en">Practice</span></p><h2 class="d2"><span lang="fr">Trois canaux.<br>Un bus master.</span><span lang="en">Three channels.<br>One master bus.</span></h2></header>
+<ol class="console"><li class="strip on" data-ch="1" style="--lvl:72">
+<button type="button" aria-pressed="false"><span class="chn mono">CH 1</span>
+<span class="chname"><span lang="fr">Communication visuelle et audiovisuel</span><span lang="en">Visual communication and AV</span></span></button>
+<div class="meter" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i></div>
+<div class="fader" aria-hidden="true"><span class="slot"></span><span class="knob"></span></div>
+<div class="chbody"><p class="chline"><span lang="fr">Pas de deuxième prise.</span><span lang="en">No second takes.</span></p><p class="small"><span lang="fr">Affiches, édition, photo · Captation, son, projection · Location de matériel</span><span lang="en">Posters, print, photography · Filming, sound, projection · Equipment rental</span></p></div></li><li class="strip" data-ch="2" style="--lvl:64">
+<button type="button" aria-pressed="false"><span class="chn mono">CH 2</span>
+<span class="chname"><span lang="fr">Motion design</span><span lang="en">Motion design</span></span></button>
+<div class="meter" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i></div>
+<div class="fader" aria-hidden="true"><span class="slot"></span><span class="knob"></span></div>
+<div class="chbody"><p class="chline"><span lang="fr">Chaque image frappe.</span><span lang="en">Every frame hits.</span></p><p class="small"><span lang="fr">Génériques, logos animés, contenus pour les réseaux, habillage des écrans d’événement</span><span lang="en">Title sequences, animated logos, social content, event screen graphics</span></p></div></li><li class="strip" data-ch="3" style="--lvl:58">
+<button type="button" aria-pressed="false"><span class="chn mono">CH 3</span>
+<span class="chname"><span lang="fr">Sites web</span><span lang="en">Websites</span></span></button>
+<div class="meter" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i></div>
+<div class="fader" aria-hidden="true"><span class="slot"></span><span class="knob"></span></div>
+<div class="chbody"><p class="chline"><span lang="fr">Vite chargé, dur à oublier.</span><span lang="en">Loads fast. Lands hard.</span></p><p class="small"><span lang="fr">Sites de marque, portfolios, pages de lancement, maintenance</span><span lang="en">Brand sites, portfolios, launch pages, maintenance</span></p></div></li><li class="strip master" data-ch="M" style="--lvl:80">
+<button type="button" aria-pressed="false"><span class="chn mono">MASTER</span>
+<span class="chname"><span lang="fr">Brand design</span><span lang="en">Brand design</span></span></button>
+<div class="meter" aria-hidden="true"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><i style="--k:5"></i><i style="--k:6"></i><i style="--k:7"></i><i style="--k:8"></i><i style="--k:9"></i></div>
+<div class="fader" aria-hidden="true"><span class="slot"></span><span class="knob"></span></div>
+<div class="chbody"><p class="chline"><span lang="fr">Ça marque.</span><span lang="en">Burned in.</span></p><p class="small"><span lang="fr">Tout passe par le bus master : stratégie, nom, logo, règles. C’est lui qui fait sonner les trois canaux comme une seule marque.</span><span lang="en">Everything runs through the master bus: strategy, naming, logo, rules. It makes three channels sound like one brand.</span></p></div></li></ol></section>
+
+<section class="wrap s-work" id="s-travaux"><header class="sh"><p class="eyebrow"><span lang="fr">Travaux</span><span lang="en">Work</span></p><h2 class="d2"><span lang="fr">Planche contact.</span><span lang="en">Contact sheet.</span></h2>
+<p class="small"><span lang="fr">Emplacements d’exemple. Les vrais projets arrivent ici avec l’accord de publication des clients.</span><span lang="en">Example slots. Real projects go here once clients approve publication.</span></p></header>
+<ol class="sheet"><li class="fr"><div class="frimg" aria-hidden="true"><span class="sy-w"><svg class="fs" viewBox="0 0 100 100" role="img" aria-label=""><path fill="#0B0C0E" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><p class="mono"><span>12</span><span>12A</span></p><p class="frl"><span lang="fr">Exemple · Identité</span><span lang="en">Example · Identity</span></p></li><li class="fr"><div class="frimg" aria-hidden="true"><span class="sy-w"><svg class="fs" viewBox="0 0 100 100" role="img" aria-label=""><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><p class="mono"><span>13</span><span>13A</span></p><p class="frl"><span lang="fr">Exemple · Motion</span><span lang="en">Example · Motion</span></p></li><li class="fr mark"><div class="frimg" aria-hidden="true"><span class="sy-w"><svg class="fs" viewBox="0 0 100 100" role="img" aria-label=""><path fill="#0B0C0E" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><p class="mono"><span>14</span><span>14A</span></p><p class="frl"><span lang="fr">Exemple · Site web</span><span lang="en">Example · Website</span></p></li><li class="fr"><div class="frimg" aria-hidden="true"><span class="sy-w"><svg class="fs" viewBox="0 0 100 100" role="img" aria-label=""><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><p class="mono"><span>15</span><span>15A</span></p><p class="frl"><span lang="fr">Exemple · Événement</span><span lang="en">Example · Event</span></p></li><li class="fr"><div class="frimg" aria-hidden="true"><span class="sy-w"><svg class="fs" viewBox="0 0 100 100" role="img" aria-label=""><path fill="#0B0C0E" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><p class="mono"><span>16</span><span>16A</span></p><p class="frl"><span lang="fr">Exemple · Affiche</span><span lang="en">Example · Poster</span></p></li><li class="fr"><div class="frimg" aria-hidden="true"><span class="sy-w"><svg class="fs" viewBox="0 0 100 100" role="img" aria-label=""><path fill="#F3F5F2" d="M4.4 50.0A34.0 34.0 0 0 1 72.4 50.0ZM27.6 50.0A34.0 34.0 0 0 0 95.6 50.0Z"/></svg></span></div><p class="mono"><span>17</span><span>17A</span></p><p class="frl"><span lang="fr">Exemple · Captation</span><span lang="en">Example · Filming</span></p></li></ol></section>
+
+<section class="wrap s-method" id="s-methode"><header class="sh"><p class="eyebrow"><span lang="fr">Méthode</span><span lang="en">Process</span></p><h2 class="d2"><span lang="fr">Quatre temps.</span><span lang="en">Four beats.</span></h2></header><ol class="steps"><li><span class="tc mono">01:00:00:00</span><h3 class="d2"><span lang="fr">Écouter</span><span lang="en">Listen</span></h3><p><span lang="fr">Un échange pour comprendre la marque, le public, l’objectif.</span><span lang="en">One conversation to understand the brand, the audience, the goal.</span></p></li><li><span class="tc mono">02:00:00:00</span><h3 class="d2"><span lang="fr">Concevoir</span><span lang="en">Design</span></h3><p><span lang="fr">Une direction claire, validée avec vous avant toute production.</span><span lang="en">One clear direction, signed off before production starts.</span></p></li><li><span class="tc mono">03:00:00:00</span><h3 class="d2"><span lang="fr">Produire</span><span lang="en">Make</span></h3><p><span lang="fr">Identité, mouvement, interface, avec des points d’étape réguliers.</span><span lang="en">Identity, motion, interface, with regular check-ins.</span></p></li><li><span class="tc mono">04:00:00:00</span><h3 class="d2"><span lang="fr">Livrer</span><span lang="en">Deliver</span></h3><p><span lang="fr">Fichiers prêts, site en ligne, suivi après le lancement.</span><span lang="en">Files ready, site live, support after launch.</span></p></li></ol></section>
+
+<section class="night s-contact" id="s-contact"><div class="wrap cw">
+<h2 class="mega"><span lang="fr">On tourne ?</span><span lang="en">Ready to roll?</span></h2>
+<form id="briefForm" class="form" novalidate>
+<p class="lead"><span lang="fr">Dites-nous ce que vous lancez, et pour quand.</span><span lang="en">Tell us what you’re launching, and when.</span></p>
+<label for="f-name"><span lang="fr">Nom</span><span lang="en">Name</span></label><input id="f-name" name="name" autocomplete="name" required value="">
+<label for="f-mail">E-mail</label><input id="f-mail" name="email" type="email" autocomplete="email" required>
+<label for="f-brief"><span lang="fr">Le projet</span><span lang="en">The project</span></label><textarea id="f-brief" name="brief" rows="3" required></textarea>
+<label for="f-when"><span lang="fr">Échéance</span><span lang="en">Deadline</span></label><select id="f-when" name="when"><option data-fr="Moins d’un mois" data-en="Under a month">Moins d’un mois</option><option data-fr="Un à trois mois" data-en="One to three months">Un à trois mois</option><option data-fr="Plus tard" data-en="Later">Plus tard</option></select>
+<button class="btn fire" type="submit"><span lang="fr">Envoyer le brief</span><span lang="en">Send the brief</span></button>
+<p id="formState" class="fstate" tabindex="-1" hidden><span lang="fr">Maquette : ce formulaire n’envoie rien. Sur le vrai site, le brief part au studio.</span><span lang="en">Mock-up: this form sends nothing. On the real site, the brief goes to the studio.</span></p>
+</form></div>
+<footer class="wrap foot"><div class="fwm"><svg class="wm" viewBox="-110 0 9051 1470" role="img" aria-label="Strobe"><path fill="#F3F5F2" d="M734 1417Q1132 1417 1265.0 1281.0Q1398 1145 1398 954Q1398 781 1291.5 711.5Q1185 642 866 584Q700 556 598.0 537.5Q496 519 496 446Q496 395 560.5 374.0Q625 353 720 353Q803 353 871.0 379.0Q939 405 939 527H1396Q1396 332 1257.5 189.5Q1119 47 725 47Q329 47 192.0 180.5Q55 314 55 499Q55 677 165.5 754.0Q276 831 583 889Q752 915 850.5 935.0Q949 955 949 1019Q949 1075 884.5 1093.0Q820 1111 730 1111Q641 1111 575.5 1084.5Q510 1058 510 934H54Q54 1142 189.5 1279.5Q325 1417 734 1417ZM1919 1410H2376V368H2767V60H1527V368H1919ZM2917 1410H3375V907H3774Q4032 907 4119.0 788.0Q4206 669 4206 494Q4206 316 4124.0 188.0Q4042 60 3793 60H2917ZM3745 1410H4240L3895 773L3443 788ZM3375 630V368H3640Q3701 368 3724.5 400.0Q3748 432 3748 500Q3748 567 3725.0 598.5Q3702 630 3640 630ZM4355.9 735.0A691.2 691.2 0 0 1 5738.3 735.0ZM4687.7 735.0A691.2 691.2 0 0 0 6070.1 735.0ZM6212 1410H7092Q7390 1410 7453.5 1295.5Q7517 1181 7517 1021Q7517 884 7448.0 791.5Q7379 699 7246 692Q7380 688 7431.0 595.0Q7482 502 7482 390Q7482 277 7415.5 168.5Q7349 60 7060 60H6212ZM6669 1102V835H6975Q7036 835 7048.5 867.5Q7061 900 7061 973Q7061 1046 7048.5 1074.0Q7036 1102 6976 1102ZM6669 562V366H6946Q6995 366 7008.5 387.5Q7022 409 7022 458Q7022 508 7009.0 535.0Q6996 562 6945 562ZM7684 1410H8752V1102H8141V878H8701V585H8141V368H8752V60H7684Z"/></svg></div>
+<div class="fcols"><p><span lang="fr">Basés à Cotonou. Clients partout.</span><span lang="en">Based in Cotonou. Working everywhere.</span></p>
+<p class="mono">strobe.design · <span lang="fr">domaine à réserver</span><span lang="en">domain to register</span></p><p class="mono">@strobe.design · <span lang="fr">compte à vérifier</span><span lang="en">handle to check</span></p>
+<p class="mono"><span lang="fr">Contenus d’exemple signalés · aucun client cité</span><span lang="en">Example content flagged · no clients named</span></p></div></footer></section>
+</div>
+</main>
+<script>(() => {
+  const R = document.documentElement, $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  const store = { get: k => { try { return localStorage.getItem(k) } catch (e) { return null } }, set: (k, v) => { try { localStorage.setItem(k, v) } catch (e) {} } };
+
+  /* ---------- thème ---------- */
+  const tb = $('#themeBtn');
+  const cur = () => R.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const lab = () => { tb.textContent = cur() === 'dark' ? 'Clair' : 'Sombre'; tb.setAttribute('aria-label', cur() === 'dark' ? 'Passer en thème clair' : 'Passer en thème sombre') };
+  const t0 = store.get('st-theme'); if (t0) R.dataset.theme = t0; lab();
+  tb.addEventListener('click', () => { R.dataset.theme = cur() === 'dark' ? 'light' : 'dark'; store.set('st-theme', R.dataset.theme); lab() });
+
+  /* ---------- vues (hash) ---------- */
+  const views = { identite: $('#v-identite'), site: $('#v-site') };
+  const show = () => {
+    const h = location.hash.slice(1), v = views[h] ? h : (h && $('#' + CSS.escape(h)) && $('#' + CSS.escape(h)).closest('.view') ? $('#' + CSS.escape(h)).closest('.view').id.slice(2) : 'identite');
+    Object.entries(views).forEach(([k, el]) => { el.hidden = k !== v });
+    $$('.sw a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
+    if (views[h]) scrollTo(0, 0);
+  };
+  addEventListener('hashchange', show); show();
+
+  /* ---------- langue ---------- */
+  const lb = $('#langBtn'), site = $('#v-site');
+  const setLang = l => { site.dataset.lang = l; site.setAttribute('lang', l); lb.textContent = l === 'fr' ? 'EN' : 'FR'; lb.setAttribute('aria-label', l === 'fr' ? 'Switch to English' : 'Passer en français'); $$('option[data-fr]', site).forEach(o => o.textContent = o.dataset[l]); store.set('st-lang', l) };
+  setLang(store.get('st-lang') || 'fr');
+  lb.addEventListener('click', () => setLang(site.dataset.lang === 'fr' ? 'en' : 'fr'));
+
+  /* ---------- son : signature de marque (Web Audio, aucun fichier) ---------- */
+  let AC;
+  const ac = () => { if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); return AC };
+  // Renvoie le délai (ms) avant le déclenchement, pour caler le flash visuel.
+  function sting(full = true) {
+    const a = ac(), t = a.currentTime + .03, out = a.createGain(), comp = a.createDynamicsCompressor();
+    out.gain.value = .85; out.connect(comp); comp.connect(a.destination);
+    const T = full ? .6 : 0;
+    if (full) { // 1. charge du flash : le sifflement qui monte
+      const o = a.createOscillator(), g = a.createGain(); o.type = 'sine';
+      o.frequency.setValueAtTime(1400, t); o.frequency.exponentialRampToValueAtTime(5200, t + T);
+      g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.045, t + T * .85); g.gain.exponentialRampToValueAtTime(.0001, t + T + .02);
+      o.connect(g).connect(out); o.start(t); o.stop(t + T + .05);
+    }
+    const k = t + T;
+    // 2. déclenchement : clac (bruit filtré) + coup sourd (mise sous tension de la sono)
+    const len = Math.floor(a.sampleRate * .08), buf = a.createBuffer(1, len, a.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+    const n = a.createBufferSource(), bp = a.createBiquadFilter(), ng = a.createGain();
+    n.buffer = buf; bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = .8; ng.gain.value = .6;
+    n.connect(bp).connect(ng).connect(out); n.start(k);
+    const b = a.createOscillator(), bg = a.createGain(); b.type = 'sine';
+    b.frequency.setValueAtTime(140, k); b.frequency.exponentialRampToValueAtTime(42, k + .25);
+    bg.gain.setValueAtTime(.0001, k); bg.gain.exponentialRampToValueAtTime(.9, k + .008); bg.gain.exponentialRampToValueAtTime(.0001, k + .45);
+    b.connect(bg).connect(out); b.start(k); b.stop(k + .5);
+    // 3. rémanence : une quinte (la, mi) qui s'assombrit et s'éteint
+    const tail = full ? .9 : .35, lp = a.createBiquadFilter();
+    lp.type = 'lowpass'; lp.frequency.setValueAtTime(5000, k); lp.frequency.exponentialRampToValueAtTime(500, k + tail); lp.connect(out);
+    [[220, 'triangle', .1], [329.63, 'triangle', .07], [440, 'sine', .05], [221.2, 'sawtooth', .012]].forEach(([f, ty, v]) => {
+      const o = a.createOscillator(), g = a.createGain(); o.type = ty; o.frequency.value = f;
+      g.gain.setValueAtTime(.0001, k); g.gain.exponentialRampToValueAtTime(v, k + .012); g.gain.exponentialRampToValueAtTime(.0001, k + tail);
+      o.connect(g).connect(lp); o.start(k); o.stop(k + tail + .05);
+    });
+    return (k - a.currentTime) * 1000;
+  }
+
+  /* ---------- le flash : un seul par séquence, jamais plus de 3 par seconde ---------- */
+  function fire(stage, { sound = false, full = true } = {}) {
+    if (stage.dataset.busy) return; stage.dataset.busy = '1';
+    const delay = sound ? Math.max(0, sting(full)) : 140;
+    stage.classList.remove('frozen'); stage.classList.add('charge');
+    setTimeout(() => {
+      stage.classList.remove('charge'); stage.classList.add('frozen');
+      if (!RM.matches) { stage.classList.remove('fl'); void stage.offsetWidth; stage.classList.add('fl') }
+    }, delay);
+    setTimeout(() => { delete stage.dataset.busy }, delay + 1200);
+    clearTimeout(stage._t); stage._t = setTimeout(() => { stage.classList.remove('fl'); if (!stage.dataset.rest) stage.classList.remove('frozen') }, delay + 4200);
+  }
+
+  // Identité : rejouer la signature
+  $$('[data-replay]').forEach(btn => btn.addEventListener('click', () => fire($(btn.dataset.replay), { sound: btn.hasAttribute('data-sound'), full: true })));
+  // Son seul (version longue et courte) avec tête de lecture
+  $$('[data-play]').forEach(btn => btn.addEventListener('click', () => {
+    const full = btn.dataset.play === 'full', ms = sting(full), ph = $('#playhead');
+    if (ph && !RM.matches) { ph.style.transition = 'none'; ph.style.left = full ? '0%' : '40%'; void ph.offsetWidth; ph.style.transition = `left ${(full ? 1500 : 400) + ms - (full ? 600 : 0)}ms linear`; ph.style.left = '100%' }
+    const st = $('#sigStage'); if (st) setTimeout(() => { if (!RM.matches) { st.classList.remove('fl'); void st.offsetWidth; st.classList.add('fl') } }, ms);
+  }));
+
+  // Site : hero à déclencher (bouton, clic dans la scène, touche Entrée sur le bouton)
+  const hero = $('#heroStage'), sb = $('#soundBtn');
+  let snd = false;
+  sb.addEventListener('click', () => { snd = !snd; sb.setAttribute('aria-pressed', snd); sb.querySelectorAll('[data-s]').forEach(s => s.hidden = (s.dataset.s === 'on') !== snd); if (snd) ac() });
+  $('#fireBtn').addEventListener('click', e => { e.stopPropagation(); fire(hero, { sound: snd }) });
+  hero.addEventListener('click', e => { if (!e.target.closest('button, a')) fire(hero, { sound: snd }) });
+
+  /* ---------- typo : curseur de largeur ---------- */
+  const wr = $('#wdth'), ws = $('#wdthSample'), wv = $('#wdthVal');
+  if (wr) wr.addEventListener('input', () => { ws.style.fontStretch = wr.value + '%'; wv.textContent = wr.value });
+
+  /* ---------- typo cinétique au défilement ---------- */
+  const kin = $$('[data-kin]');
+  let raf = 0;
+  const kinUpd = () => { raf = 0; const vh = innerHeight; kin.forEach(el => { if (el.closest('[hidden]')) return; const r = el.getBoundingClientRect(); const p = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))); el.style.fontStretch = (60 + p * 90).toFixed(1) + '%' }) };
+  if (!RM.matches) { addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(kinUpd) }, { passive: true }); addEventListener('hashchange', kinUpd); kinUpd() }
+
+  /* ---------- console : un canal à la fois au maximum ---------- */
+  const strips = $$('.strip[data-ch]');
+  const pick = s => strips.forEach(x => { const on = x === s; x.classList.toggle('on', on); x.querySelector('button').setAttribute('aria-pressed', on) });
+  strips.forEach(s => { const b = s.querySelector('button'); b.addEventListener('click', () => pick(s)); s.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') pick(s) }) });
+
+  /* ---------- formulaire (maquette) ---------- */
+  const f = $('#briefForm');
+  f.addEventListener('submit', e => {
+    e.preventDefault();
+    const ok = f.reportValidity(); const st = $('#formState');
+    if (!ok) return;
+    st.hidden = false; st.focus();
+  });
+})();
+</script>

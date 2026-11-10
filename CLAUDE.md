@@ -33,6 +33,13 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
   - Correction demandée et non terminée : le X (symbole) n'est pas centré dans le mot NEXORA de l'atelier ; recadrer le symbole sur sa forme réelle (boîte ~215–983 × 273–927 dans le repère 1200) et l'espacer comme une lettre.
 - Rebranding complet (nouveau nom) : `NEXORA-BRAND/07-REBRANDING/rebrand-3-propositions.html` (Volta, Sillage, Avant ; « Next Studio » écarté) et `volta-identite-et-maquette.html` (identité complète + maquette d'accueil clair/sombre). **Recommandation : Volta**, tagline « On met le courant. / We switch brands on. », symbole à trois faisceaux en V. **En attente de décision des associés.**
   - Domaines testés (RDAP, 9 nov. 2026) : .com et .studio exacts des trois noms pris ; thevoltastudio.com, maisonvolta.com, maisonvolta.studio libres à cette date. Restent à vérifier par l'utilisateur : .bj, réseaux sociaux, OAPI/WIPO/EUIPO/INPI/USPTO (classes 35, 41, 42), sens en fon, yoruba, espagnol, portugais, arabe.
+- **Audit v2 (10 nov. 2026) : Volta abandonné, recommandation STROBE.** Fichiers dans `NEXORA-BRAND/07-REBRANDING/v2/` (`Volta_v2_audit.html`, `Volta_v2_identité_et_site.html`, sources Python/CSS/JS dans `v2/sources/`, générer avec `python3 audit.py` et `python3 site.py`).
+  - Raison : au moins six studios de design s'appellent déjà Volta (Porto, Berne, Utrecht, Anvers, Sheffield, Toronto/Québec) ; Haute-Volta coloniale ; volta.design pris. Écartés aussi : Takt (agence Vancouver), Gobo (Studio Gobo, Brighton). Alternative francophone : Raccord.
+  - Strobe : concept « le flash qui fige le mouvement, l'image qui reste ». Domaine principal visé strobe.design (RDAP registre 404 = libre le 10 nov. 2026), thisisstrobe.com et strobe-studio.com libres ; strobe.com/.studio/.co pris ; strobe.bj sans délégation DNS (à vérifier). Compte visé @strobe.design (non vérifié).
+  - Logo : disque décalé (disque coupé à l'horizontale, moitiés glissées de 17 % du diamètre, forme un S), sert de O dans le logotype (Anybody 900, wdth 100). Version animée : mot en trois bandes qui se calent au flash.
+  - Slogans : maîtresse « Ça marque. / Burned in. » ; pôles : « Pas de deuxième prise. / No second takes. », « Chaque image frappe. / Every frame hits. », « Vite chargé, dur à oublier. / Loads fast. Lands hard. » ; CTA « On tourne ? / Ready to roll? », bouton « Envoyer le brief ».
+  - Identité : noir salle #0B0C0E, blanc flash #F3F5F2, xénon #22E1FF (jamais en texte sur blanc), xénon profond #006F84 (texte en clair) ; Anybody + Schibsted Grotesk (+ Martian Mono pour les données). Motion « le flash » 900 ms (dérive, charge, flash unique, rémanence), max 3 flashs/s. Signature sonore 1,5 s (charge, clac + coup sourd, quinte qui s'éteint), prototype Web Audio.
+  - **En attente de décision des associés.** Rien n'est intégré au site.
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
@@ -40,6 +47,8 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
 - Atelier 4 directions : https://claude.ai/artifact/CTrTexL7UF3dQzfMrE2BZU
 - Rebranding 3 propositions : https://claude.ai/artifact/8JhJxGKmC5z2rK4f55k8pJ
 - Identité Volta + maquette : https://claude.ai/artifact/F2bvJF72i1eu61WpWSPGj7
+- Audit v2 (Volta → Strobe) : https://claude.ai/artifact/KjG6PnY4nG3A2hoHEvGdGX
+- Identité Strobe + maquette du site : https://claude.ai/artifact/CLyyn7L7bPa7hNubkHJMpj
 
 ## Prochaines étapes probables
 
