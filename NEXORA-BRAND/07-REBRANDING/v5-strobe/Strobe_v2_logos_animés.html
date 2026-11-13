@@ -1,0 +1,258 @@
+<title>Strobe v2, logos animés</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,400..900&family=Schibsted+Grotesk:wght@400..700&family=Martian+Mono:wdth,wght@75..112.5,400..700&display=swap">
+<style>/* Strobe v2 : chambre noire, argentique, ambre de révélation. Planche éditoriale, grille de planche contact. */
+:root {
+  --bg: #0F0F11; --fg: #F1F1EE; --mut: #8E8B84; --surf: #1A1A1D; --surf2: #26262A; --rule: rgba(241,241,238,.14);
+  --acc: #FFAE42; --acct: #FFAE42; --onacc: #0F0F11; --ok: #6EE7A0; --ko: #FF8A80; --mid: #F5C451;
+  --fd: "Anybody", "Arial Black", "Helvetica Neue", sans-serif; --ft: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif; --fm: "Martian Mono", ui-monospace, Menlo, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg: #F1F1EE; --fg: #0F0F11; --mut: #64625C; --surf: #E8E6E0; --surf2: #D9D7D0; --rule: rgba(15,15,17,.14); --acct: #7A4205; --ok: #0A7F45; --ko: #B42318; --mid: #8A5A00; color-scheme: light } }
+:root[data-theme="light"] { --bg: #F1F1EE; --fg: #0F0F11; --mut: #64625C; --surf: #E8E6E0; --surf2: #D9D7D0; --rule: rgba(15,15,17,.14); --acct: #7A4205; --ok: #0A7F45; --ko: #B42318; --mid: #8A5A00; color-scheme: light }
+* { box-sizing: border-box }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 400 16px/1.55 var(--ft); -webkit-font-smoothing: antialiased; overflow-x: hidden }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg) }
+h1, h2, h3, p, ul, ol, figure, table, dl, dd { margin: 0 }
+h1, h2, h3 { text-wrap: balance }
+a { color: inherit } code, .mono { font-family: var(--fm); font-size: .76rem; letter-spacing: .02em }
+.wrap { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1320px; margin-inline: auto }
+:focus-visible { outline: 2px solid var(--acct); outline-offset: 3px }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); box-shadow: 0 1px 0 var(--rule) }
+.bar .wrap { display: flex; align-items: center; gap: 10px 18px; padding-block: 10px; flex-wrap: wrap }
+.bar .lg svg { height: 22px; width: auto; display: block }
+.bar nav { display: flex; gap: 4px 14px; flex-wrap: wrap; margin-left: auto; font: 500 13px/1 var(--ft) }
+.bar nav a { text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent } .bar nav a:hover { border-color: var(--acct) }
+.tg { font: 600 11px/1 var(--fm); background: none; color: var(--fg); border: 1px solid var(--rule); padding: 8px 10px; cursor: pointer }
+.eyebrow { font: 500 10.5px/1.3 var(--fm); letter-spacing: .1em; text-transform: uppercase; color: var(--mut) }
+.d1 { font: 800 clamp(3rem, 10vw, 9rem)/.86 var(--fd); font-stretch: 112.5%; letter-spacing: -.03em }
+.d2 { font: 800 clamp(2rem, 5.4vw, 4.6rem)/.92 var(--fd); font-stretch: 112.5%; letter-spacing: -.02em }
+.d3 { font: 700 clamp(1.2rem, 2.1vw, 1.65rem)/1.1 var(--fd); font-stretch: 100% }
+.lead { font-size: clamp(1.08rem, 1.7vw, 1.35rem); line-height: 1.45; max-width: 62ch }
+.small { font-size: 13.5px; color: var(--mut) }
+.sec { padding-block: clamp(56px, 8vw, 110px); display: grid; gap: clamp(22px, 3.5vw, 44px); border-top: 1px solid var(--rule) }
+.sec > * { min-width: 0 }
+.sec > header { display: grid; gap: 12px; max-width: 900px }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)) } .grid > * { min-width: 0 }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(22px, 4vw, 52px); align-items: start } .cols > * { min-width: 0 }
+.tbl { overflow-x: auto; border-top: 2px solid var(--fg) }
+table { border-collapse: collapse; width: 100%; font-size: 14px; min-width: 640px }
+th, td { text-align: left; vertical-align: top; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule) }
+th { font: 600 10.5px/1.3 var(--fm); letter-spacing: .06em; text-transform: uppercase; color: var(--mut) }
+th[scope="row"] { font: 600 13.5px/1.35 var(--ft); text-transform: none; letter-spacing: 0; color: var(--fg) }
+td.n { font: 600 13px var(--fm); white-space: nowrap }
+.tag { display: inline-block; font: 600 10px/1 var(--fm); letter-spacing: .06em; text-transform: uppercase; padding: 4px 6px; border: 1px solid currentColor; white-space: nowrap }
+.t-ok { color: var(--ok) } .t-ko { color: var(--ko) } .t-mid { color: var(--mid) } .t-acc { background: var(--acc); color: var(--onacc); border-color: var(--acc) }
+.wm, .sy { display: block } .wm { height: auto }
+figcaption { font-size: 12.5px; color: var(--mut) }
+.dk { --bg: #0F0F11; --fg: #F1F1EE; --mut: #8E8B84; --surf: #1A1A1D; --rule: rgba(241,241,238,.16); --acct: #FFAE42; background: var(--bg); color: var(--fg) }
+.lt { --bg: #F1F1EE; --fg: #0F0F11; --mut: #64625C; --surf: #E8E6E0; --rule: rgba(15,15,17,.14); --acct: #7A4205; background: var(--bg); color: var(--fg) }
+.bd { box-shadow: inset 0 0 0 1px var(--rule) }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important } }
+@media (max-width: 820px) { .cols { grid-template-columns: 1fr } }
+:root { --stage: #0F0F11; --ink: #F1F1EE; --gacc: #FFAE42; --gacct: #FFAE42; --avbg: #1A1A1D; --mutc: #8E8B84 }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --stage: #F1F1EE; --ink: #0F0F11; --gacc: #A65A00; --gacct: #7A4205; --avbg: #E8E6E0; --mutc: #64625C } }
+:root[data-theme="light"] { --stage: #F1F1EE; --ink: #0F0F11; --gacc: #A65A00; --gacct: #7A4205; --avbg: #E8E6E0; --mutc: #64625C }
+.lock { display: inline-flex; align-items: center; gap: .32em; height: 26px } .lock .sy { height: 100%; width: auto; aspect-ratio: 1 } .lock .wm { height: 64%; width: auto }
+.hero0 { padding-block: clamp(40px, 7vw, 96px); display: grid; gap: 26px }
+.cmp { display: grid; gap: 16px }
+.lane { position: relative; height: 54px; border-bottom: 1px solid var(--rule); overflow: hidden }
+.dot { position: absolute; left: 0; top: 6px; width: 42px; height: 42px } .dot .sy { width: 100%; height: 100% }
+.s12 { animation: lane 2s steps(24) infinite } .sfl { animation: lane 2s cubic-bezier(.65,0,.35,1) infinite }
+@keyframes lane { 0% { transform: translateX(0) } 50% { transform: translateX(calc(min(46vw, 560px) - 60px)) } 100% { transform: translateX(0) } }
+@media (prefers-reduced-motion: reduce) { .s12, .sfl { animation: none } }
+.rules { padding-left: 1.15em; display: grid; gap: 7px; font-size: 14.5px; max-width: 90ch }
+.anim header { display: grid; gap: 8px }
+.ag { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 20px; align-items: start }
+.stage svg { width: 100%; height: auto; display: block; box-shadow: inset 0 0 0 1px var(--rule); outline: 1px solid var(--rule) }
+.side { display: grid; gap: 16px }
+.spec { display: grid; grid-template-columns: minmax(0, 6.5em) minmax(0, 1fr); font-size: 13.5px }
+.spec dt, .spec dd { padding: 7px 0; border-bottom: 1px solid var(--rule) } .spec dt { font: 600 10.5px/1.5 var(--fm); text-transform: uppercase; letter-spacing: .05em; color: var(--mut) }
+.ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center }
+.btn { font: 700 14px/1 var(--ft); padding: 13px 16px; border: 0; background: var(--acc); color: var(--onacc); cursor: pointer }
+.btn.ghost { background: none; color: var(--fg); box-shadow: inset 0 0 0 1px var(--rule) }
+.clock { color: var(--mut); font-size: 12px; min-width: 5em }
+.strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px }
+.strip figure { display: grid; gap: 4px; min-width: 0 } .strip svg { width: 100%; height: auto; display: block; outline: 1px solid var(--rule) }
+.strip figcaption { font: 500 9.5px var(--fm); color: var(--mut) }
+.anim .tbl table { min-width: 520px }
+@media (max-width: 900px) { .ag { grid-template-columns: 1fr } .strip { grid-template-columns: repeat(4, minmax(0, 1fr)) } }
+</style>
+<header class="bar"><div class="wrap"><a class="lg" href="#top" aria-label="Strobe"><span class="lock"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path class="h-top" fill="var(--acc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="h-bot" fill="var(--acc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></svg><svg class="wm" viewBox="-60 0 9412 1470" role="img" aria-label="Strobe"><path class="l-S" fill="currentColor" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/><path class="l-T" fill="currentColor" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/><path class="l-R" fill="currentColor" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/><path class="l-B" fill="currentColor" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/><path class="l-E" fill="currentColor" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/><path class="o-top" fill="var(--acc)" transform="translate(-85.3 0)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path class="o-bot" fill="var(--acc)" transform="translate(85.3 0)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/></svg></span></a>
+<nav aria-label="Animations"><a href="#a-reveal">Révélation</a><a href="#a-loop">Boucle</a><a href="#a-wipe">Transition</a><a href="#a-end">Carte</a><a href="#a-avatar">Micro-animation</a><a href="#a-loader">Chargement</a></nav>
+<button class="tg" type="button" id="themeBtn">Thème</button></div></header>
+<main id="top">
+<section class="wrap hero0"><p class="eyebrow">Strobe · logos animés · 13 novembre 2026</p><h1 class="d1">Arrêter,<br>puis enchaîner.</h1>
+<div class="cols"><p class="lead">Un principe moteur : le mouvement de Strobe obéit au disque de 1833. Il avance par images tenues (12 par seconde), s’arrête net sur l’instant, puis s’enchaîne. Le fluide est réservé à ce qui suit l’arrêt : un écho qui s’éteint, un mot qui sort de la fente.</p>
+<div class="cmp"><div><p class="eyebrow">12 images par seconde : la marque</p><div class="lane"><span class="dot s12"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path class="h-top" fill="var(--acc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="h-bot" fill="var(--acc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></svg></span></div></div><div><p class="eyebrow">Fluide : l’interface</p><div class="lane"><span class="dot sfl"><svg class="sy" viewBox="0 0 100 100" role="img" aria-label="Symbole Strobe"><path class="h-top" fill="var(--acc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="h-bot" fill="var(--acc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></svg></span></div></div></div></div>
+<ul class="rules"><li>Aucun flash, aucune image blanche : rien ne clignote, jamais plus de trois changements de luminosité forts par seconde.</li><li>Mouvement réduit demandé : chaque logo s’affiche dans son état final, immobile, et la lecture est désactivée.</li><li>Chaque animation se rejoue, fonctionne en clair et en sombre, et sa frise montre 8 images clés tirées de la même fonction de rendu.</li><li>Le son de la v1 est recalé sur la révélation : le clac tombe à 0,90 s, au moment où le disque s’arrête.</li></ul></section>
+<section class="wrap anim sec" id="a-reveal" data-anim="reveal" data-frames="8">
+<header><p class="eyebrow">Logo animé 1 sur 6</p><h2 class="d2">Révélation d’ouverture</h2></header>
+<div class="ag"><div class="stage"><svg id="st-reveal" viewBox="0 0 640 360" role="img" aria-label="Logo animé"><rect width="640" height="360" fill="var(--stage)"/><g class="ring" visibility="hidden"><circle cx="50" cy="50" r="58" fill="none" stroke="var(--ink)" stroke-width="5" stroke-dasharray="24.4 6" opacity=".55"/></g><g class="sym" transform="translate(250 110) scale(1.4)"><path class="ht" fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="hb" fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g><g class="wecho" opacity="0" transform="translate(146.0 151.7) scale(0.03852)"><g><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g></g><path  fill="var(--ink)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path  fill="var(--ink)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g><g class="wecho" opacity="0" transform="translate(158.0 151.7) scale(0.03852)"><g><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g></g><path  fill="var(--ink)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path  fill="var(--ink)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g><g class="wmk" transform="translate(170.0 151.7) scale(0.03852)"><g class="L"><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g class="L"><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g class="L"><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g class="L"></g><path class="ot" fill="var(--gacc)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path class="ob" fill="var(--gacc)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g class="L"><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g class="L"><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g></svg></div>
+<div class="side"><dl class="spec"><dt>Durée</dt><dd>2,2 s</dd><dt>Cadence</dt><dd>12 i/s, puis fluide (dernière phase)</dd><dt>Courbes</dt><dd><code>cubic-bezier(.16, 1, .3, 1) pour l’extinction des échos ; le reste en images tenues</code></dd><dt>Calques</dt><dd>Anneau à 12 fentes · moitié haute · moitié basse · lettres S, T, R, B, E · anneau du O (2 moitiés) · 2 échos du mot</dd></dl>
+<div class="ctrl"><button class="btn replay" type="button">Rejouer</button><button class="btn ghost withsound" type="button">Avec le son</button><span class="clock mono" aria-live="off">0,00 s</span></div></div></div>
+<p class="eyebrow">Frise d’images clés</p><div class="strip"></div>
+<div class="tbl"><table><thead><tr><th>Temps</th><th>Séquence</th></tr></thead><tbody><tr><td class="n">0,00 → 0,90 s</td><td>L’anneau à fentes tourne de 30° par image ; derrière, les moitiés du disque parcourent 8 positions (−1, −0,5, 0, 0,5, 1…) : un mouvement vu à travers les fentes.</td></tr><tr><td class="n">0,90 s</td><td>Coupe : l’anneau disparaît, les moitiés s’arrêtent net à ± 5,6. C’est l’instant. Le clac de la signature sonore tombe ici.</td></tr><tr><td class="n">0,90 → 1,25 s</td><td>Le symbole glisse en 4 images vers sa place de logo, en se réduisant de moitié.</td></tr><tr><td class="n">1,00 → 1,50 s</td><td>Les lettres apparaissent une par image : S, T, R, O, B, E.</td></tr><tr><td class="n">1,50 → 2,20 s</td><td>Deux échos du mot (35 % et 12 %, décalés de 24 et 12 px) s’éteignent, fluide.</td></tr></tbody></table></div><p class="small"><b>Export :</b> After Effects : effet « Posterize Time » à 12 i/s sur les calques de la phase saccadée ; images clés tenues (« hold »). Lottie : images clés tenues, export à 24 i/s.</p></section><section class="wrap anim sec" id="a-loop" data-anim="loop" data-frames="8">
+<header><p class="eyebrow">Logo animé 2 sur 6</p><h2 class="d2">Boucle discrète</h2></header>
+<div class="ag"><div class="stage"><svg id="st-loop" viewBox="0 0 640 360" role="img" aria-label="Logo animé"><rect width="640" height="360" fill="var(--stage)"/><g class="sym" transform="translate(82 145) scale(0.7)"><path class="ht" fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="hb" fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g><g class="wecho" opacity="0" transform="translate(146.0 151.7) scale(0.03852)"><g><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g></g><path  fill="var(--ink)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path  fill="var(--ink)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g><g class="wecho" opacity="0" transform="translate(158.0 151.7) scale(0.03852)"><g><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g></g><path  fill="var(--ink)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path  fill="var(--ink)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g><g class="wmk" transform="translate(170.0 151.7) scale(0.03852)"><g class="L"><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g class="L"><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g class="L"><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g class="L"></g><path class="ot" fill="var(--gacc)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path class="ob" fill="var(--gacc)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g class="L"><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g class="L"><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g></svg></div>
+<div class="side"><dl class="spec"><dt>Durée</dt><dd>2,4 s, en boucle</dd><dt>Cadence</dt><dd>12 i/s</dd><dt>Courbes</dt><dd><code>sinusoïde quantifiée à 12 i/s</code></dd><dt>Calques</dt><dd>Moitié haute · moitié basse · anneau du O</dd></dl>
+<div class="ctrl"><button class="btn replay" type="button">Rejouer</button><span class="clock mono" aria-live="off">0,00 s</span></div></div></div>
+<p class="eyebrow">Frise d’images clés</p><div class="strip"></div>
+<div class="tbl"><table><thead><tr><th>Temps</th><th>Séquence</th></tr></thead><tbody><tr><td class="n">0 → 2,4 s</td><td>Les moitiés du symbole et du O s’écartent et se rapprochent de ± 1,6 autour de leur position de repos.</td></tr><tr><td class="n">Survol</td><td>La boucle se lance au survol de l’en-tête, et s’arrête hors de l’écran.</td></tr></tbody></table></div><p class="small"><b>Export :</b> Un seul calque de contrôle (expression sinus) relié aux deux moitiés ; « Posterize Time » 12. Lottie : 29 images clés tenues.</p></section><section class="wrap anim sec" id="a-wipe" data-anim="wipe" data-frames="8">
+<header><p class="eyebrow">Logo animé 3 sur 6</p><h2 class="d2">Transition entre séquences</h2></header>
+<div class="ag"><div class="stage"><svg id="st-wipe" viewBox="0 0 640 360" role="img" aria-label="Logo animé"><rect width="640" height="360" fill="var(--stage)"/><g class="scB"><rect width="640" height="360" fill="var(--gacc)"/><text x="320" y="192" text-anchor="middle" font-family="Anybody" font-weight="800" font-size="40" fill="var(--stage)">Séquence B</text></g>
+<defs><clipPath id="cA"><rect width="640" height="180"/></clipPath><clipPath id="cB"><rect y="180" width="640" height="180"/></clipPath></defs>
+<g class="pa"><g clip-path="url(#cA)"><rect width="640" height="360" fill="var(--stage)"/><text x="320" y="192" text-anchor="middle" font-family="Anybody" font-weight="800" font-size="40" fill="var(--ink)">Séquence A</text></g></g>
+<g class="pb"><g clip-path="url(#cB)"><rect width="640" height="360" fill="var(--stage)"/><text x="320" y="192" text-anchor="middle" font-family="Anybody" font-weight="800" font-size="40" fill="var(--ink)">Séquence A</text></g></g>
+<rect class="slit" x="0" y="180" width="640" height="0" fill="var(--gacc)"/></svg></div>
+<div class="side"><dl class="spec"><dt>Durée</dt><dd>0,6 s</dd><dt>Cadence</dt><dd>Fluide</dd><dt>Courbes</dt><dd><code>cubic-bezier(.16, 1, .3, 1) pour la fente ; cubic-bezier(.7, 0, .2, 1) pour le glissement</code></dd><dt>Calques</dt><dd>Séquence A (moitié haute, moitié basse) · fente ambre · séquence B</dd></dl>
+<div class="ctrl"><button class="btn replay" type="button">Rejouer</button><span class="clock mono" aria-live="off">0,00 s</span></div></div></div>
+<p class="eyebrow">Frise d’images clés</p><div class="strip"></div>
+<div class="tbl"><table><thead><tr><th>Temps</th><th>Séquence</th></tr></thead><tbody><tr><td class="n">0,00 → 0,15 s</td><td>Une fente ambre de 14 px s’ouvre au milieu de l’image.</td></tr><tr><td class="n">0,12 → 0,60 s</td><td>La moitié haute de la séquence A glisse à gauche, la moitié basse à droite : le symbole appliqué à l’image entière. La fente se referme en même temps.</td></tr></tbody></table></div><p class="small"><b>Export :</b> Deux précompositions masquées par moitié, déplacées en X ; la fente est un solide de 14 px. Aucune image blanche, aucun flash.</p></section><section class="wrap anim sec" id="a-end" data-anim="end" data-frames="8">
+<header><p class="eyebrow">Logo animé 4 sur 6</p><h2 class="d2">Carte de fin</h2></header>
+<div class="ag"><div class="stage"><svg id="st-end" viewBox="0 0 640 360" role="img" aria-label="Logo animé"><rect width="640" height="360" fill="var(--stage)"/><g class="esym" transform="translate(285 46) scale(0.7)"><path fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g><g class="esym" transform="translate(285 46) scale(0.7)"><path fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g><g class="sym" transform="translate(285 46) scale(0.7)"><path class="ht" fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="hb" fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g><defs><clipPath id="cW"><rect class="clipr" x="0" y="138" width="640" height="80"/></clipPath></defs><g clip-path="url(#cW)"><g class="wmk" transform="translate(182.3 156.2) scale(0.02963)"><g class="L"><path fill="var(--ink)" d="M796 1417Q1184 1417 1345.5 1292.5Q1507 1168 1507 967Q1507 792 1383.5 720.5Q1260 649 920 596Q728 568 603.0 543.5Q478 519 478 445Q478 389 564.0 359.5Q650 330 781 330Q899 330 988.5 367.0Q1078 404 1078 532H1506Q1506 313 1339.0 180.0Q1172 47 786 47Q400 47 234.0 169.5Q68 292 68 485Q68 665 196.0 743.5Q324 822 648 873Q845 901 967.0 925.0Q1089 949 1089 1020Q1089 1081 1003.5 1107.5Q918 1134 792 1134Q666 1134 580.0 1096.0Q494 1058 494 928H67Q67 1158 230.5 1287.5Q394 1417 796 1417Z"/></g><g class="L"><path fill="var(--ink)" d="M2146 1410H2574V345H3040V60H1679V345H2146Z"/></g><g class="L"><path fill="var(--ink)" d="M3198 1410H3627V907H4105Q4361 907 4465.5 792.5Q4570 678 4570 490Q4570 301 4471.0 180.5Q4372 60 4126 60H3198ZM4134 1410H4604L4200 771L3773 782ZM3627 647V345H3990Q4073 345 4107.0 383.0Q4141 421 4141 497Q4141 572 4107.5 609.5Q4074 647 3990 647Z"/></g><g class="L"></g><path class="ot" fill="var(--gacc)" d="M4798.847 672.142A695.25 695.25 0 1 1 6183.653 672.142L5881.470 672.142A395.25 395.25 0 1 0 5101.030 672.142Z"/><path class="ob" fill="var(--gacc)" d="M4798.847 797.858A695.25 695.25 0 1 0 6183.653 797.858L5881.470 797.858A395.25 395.25 0 1 1 5101.030 797.858Z"/><g class="L"><path fill="var(--ink)" d="M6399.5 1410H7352.5Q7644.5 1410 7722.5 1301.0Q7800.5 1192 7800.5 1026Q7800.5 877 7715.5 790.0Q7630.5 703 7503.5 696Q7630.5 692 7695.0 602.0Q7759.5 512 7759.5 387Q7759.5 260 7678.5 160.0Q7597.5 60 7307.5 60H6399.5ZM6828.5 1125V826H7241.5Q7325.5 826 7349.0 862.5Q7372.5 899 7372.5 977Q7372.5 1056 7351.0 1090.5Q7329.5 1125 7252.5 1125ZM6828.5 579V344H7215.5Q7283.5 344 7305.5 371.0Q7327.5 398 7327.5 454Q7327.5 513 7304.0 546.0Q7280.5 579 7208.5 579Z"/></g><g class="L"><path fill="var(--ink)" d="M8006.5 1410H9188.5V1125H8434.5V864H9127.5V595H8434.5V345H9188.5V60H8006.5Z"/></g></g></g><text class="slogan" x="320" y="262" text-anchor="middle" font-family="Anybody" font-weight="800" font-size="30" fill="var(--ink)"><tspan>Ç</tspan><tspan>a</tspan><tspan> </tspan><tspan>m</tspan><tspan>a</tspan><tspan>r</tspan><tspan>q</tspan><tspan>u</tspan><tspan>e</tspan><tspan>.</tspan></text><text class="url" x="320" y="300" text-anchor="middle" font-family="Martian Mono" font-size="13" fill="var(--gacct)" letter-spacing="1">strobe.design</text></svg></div>
+<div class="side"><dl class="spec"><dt>Durée</dt><dd>4 s (dont 1,2 s tenue)</dd><dt>Cadence</dt><dd>12 i/s, sortie du mot fluide</dd><dt>Courbes</dt><dd><code>cubic-bezier(.16, 1, .3, 1) pour la sortie du mot</code></dd><dt>Calques</dt><dd>Échos du symbole ×2 · symbole · mot (masque de fente) · slogan (lettre par lettre) · adresse</dd></dl>
+<div class="ctrl"><button class="btn replay" type="button">Rejouer</button><span class="clock mono" aria-live="off">0,00 s</span></div></div></div>
+<p class="eyebrow">Frise d’images clés</p><div class="strip"></div>
+<div class="tbl"><table><thead><tr><th>Temps</th><th>Séquence</th></tr></thead><tbody><tr><td class="n">0,00 → 0,75 s</td><td>Trois positions du symbole (12 %, 35 %, 100 %) convergent image par image : une chronophotographie qui se referme.</td></tr><tr><td class="n">0,75 → 1,50 s</td><td>Le mot sort de la fente : un masque s’ouvre verticalement depuis la ligne médiane.</td></tr><tr><td class="n">1,50 → 2,30 s</td><td>« Ça marque. » s’écrit une lettre par image.</td></tr><tr><td class="n">2,40 s</td><td>L’adresse apparaît. Tenue jusqu’à 4 s.</td></tr></tbody></table></div><p class="small"><b>Export :</b> Masque de calque animé en hauteur ; texte animé par « Range Selector » en mode image par image. Pour la version anglaise, « Burned in. ».</p></section><section class="wrap anim sec" id="a-avatar" data-anim="avatar" data-frames="8">
+<header><p class="eyebrow">Logo animé 5 sur 6</p><h2 class="d2">Micro-animation d’avatar</h2></header>
+<div class="ag"><div class="stage"><svg id="st-avatar" viewBox="0 0 640 360" role="img" aria-label="Logo animé"><rect width="640" height="360" fill="var(--stage)"/><circle cx="320" cy="180" r="92" fill="var(--avbg)"/><g class="sym" transform="translate(265 125) scale(1.1)"><path class="ht" fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="hb" fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g></svg></div>
+<div class="side"><dl class="spec"><dt>Durée</dt><dd>0,8 s</dd><dt>Cadence</dt><dd>3 images à 12 i/s, puis fluide</dd><dt>Courbes</dt><dd><code>cubic-bezier(.16, 1, .3, 1) pour le retour</code></dd><dt>Calques</dt><dd>Moitié haute · moitié basse</dd></dl>
+<div class="ctrl"><button class="btn replay" type="button">Rejouer</button><span class="clock mono" aria-live="off">0,00 s</span></div></div></div>
+<p class="eyebrow">Frise d’images clés</p><div class="strip"></div>
+<div class="tbl"><table><thead><tr><th>Temps</th><th>Séquence</th></tr></thead><tbody><tr><td class="n">0,00 → 0,25 s</td><td>Les moitiés traversent l’instant en trois images : décalées, alignées, décalées dans l’autre sens.</td></tr><tr><td class="n">0,25 → 0,80 s</td><td>Retour fluide à la position de repos.</td></tr></tbody></table></div><p class="small"><b>Export :</b> Pour avatars animés et favicon au survol. Lottie très léger : deux calques, six images clés.</p></section><section class="wrap anim sec" id="a-loader" data-anim="loader" data-frames="8">
+<header><p class="eyebrow">Logo animé 6 sur 6</p><h2 class="d2">Chargement</h2></header>
+<div class="ag"><div class="stage"><svg id="st-loader" viewBox="0 0 640 360" role="img" aria-label="Logo animé"><rect width="640" height="360" fill="var(--stage)"/><g class="sym" transform="translate(270 130) scale(1)"><path class="ht" fill="var(--gacc)" transform="translate(-5.6 0)" d="M13.649 46.700A36.5 36.5 0 1 1 86.351 46.700Z"/><path class="hb" fill="var(--gacc)" transform="translate(5.6 0)" d="M13.649 53.300A36.5 36.5 0 1 0 86.351 53.300Z"/></g><text x="320" y="292" text-anchor="middle" font-family="Martian Mono" font-size="12" fill="var(--mutc)" letter-spacing="2">CHARGEMENT</text></svg></div>
+<div class="side"><dl class="spec"><dt>Durée</dt><dd>1 s par tour, en boucle</dd><dt>Cadence</dt><dd>12 i/s</dd><dt>Courbes</dt><dd><code>rotation tenue, 30° par image</code></dd><dt>Calques</dt><dd>Symbole complet</dd></dl>
+<div class="ctrl"><button class="btn replay" type="button">Rejouer</button><span class="clock mono" aria-live="off">0,00 s</span></div></div></div>
+<p class="eyebrow">Frise d’images clés</p><div class="strip"></div>
+<div class="tbl"><table><thead><tr><th>Temps</th><th>Séquence</th></tr></thead><tbody><tr><td class="n">Chaque image</td><td>Le symbole tourne de 30° : 12 images par tour, comme un disque de 1833 vu à travers ses fentes.</td></tr></tbody></table></div><p class="small"><b>Export :</b> Une rotation de 360° en 12 images tenues. Jamais plus vite : au-delà, l’œil y voit un clignotement.</p></section>
+</main>
+<script>(() => {
+  const $ = (s, c = document) => c.querySelector(s), $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  const D = 5.6;                       // décalage de repos de chaque moitié (unités du symbole)
+  const q12 = t => Math.floor(t * 12) / 12;   // cadence 12 images par seconde
+  const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+  const bez = (x1, y1, x2, y2) => t => { // courbe de Bézier cubique (comme en CSS)
+    if (t <= 0) return 0; if (t >= 1) return 1;
+    let u = t; for (let i = 0; i < 8; i++) { const x = 3*(1-u)*(1-u)*u*x1 + 3*(1-u)*u*u*x2 + u*u*u - t; const dx = 3*(1-u)*(1-u)*x1 + 6*(1-u)*u*(x2-x1) + 3*u*u*(1-x2); if (Math.abs(dx) < 1e-6) break; u = cl(u - x / dx) }
+    return 3*(1-u)*(1-u)*u*y1 + 3*(1-u)*u*u*y2 + u*u*u;
+  };
+  const OUT = bez(.16, 1, .3, 1), INOUT = bez(.7, 0, .2, 1);
+  const ph = (t, a, b) => cl((t - a) / (b - a));     // avancement 0..1 d'une phase
+
+  // Calques d'une scène
+  const L = svg => ({
+    sym: $('.sym', svg), ht: $('.sym .ht', svg), hb: $('.sym .hb', svg), ring: $('.ring', svg),
+    e: $$('.esym', svg), wm: $('.wmk', svg), letters: $$('.wmk .L', svg), ot: $('.wmk .ot', svg), ob: $('.wmk .ob', svg),
+    we: $$('.wecho', svg), slogan: $('.slogan', svg), sl: $$('.slogan tspan', svg), url: $('.url', svg), clip: $('.clipr', svg),
+    pa: $('.pa', svg), pb: $('.pb', svg), slit: $('.slit', svg), scB: $('.scB', svg)
+  });
+  const show = (el, v) => el && el.setAttribute('visibility', v ? 'visible' : 'hidden');
+  const op = (el, v) => el && el.setAttribute('opacity', v.toFixed(3));
+  const off = (l, d, o = 1) => { l.ht.setAttribute('transform', `translate(${-d} 0)`); l.hb.setAttribute('transform', `translate(${d} 0)`); if (l.ot) { l.ot.setAttribute('transform', `translate(${-d * o * 15.24} 0)`); l.ob.setAttribute('transform', `translate(${d * o * 15.24} 0)`) } };
+  const place = (el, x, y, s, r = 0) => el.setAttribute('transform', `translate(${x} ${y}) rotate(${r} ${50*s} ${50*s}) scale(${s})`);
+
+  const ANIMS = {
+    // 1. Révélation d'ouverture : le disque tourne image par image derrière ses fentes, s'arrête net, puis le mot s'enchaîne.
+    reveal: { dur: 2.2, render(l, t) {
+      const tq = q12(t);
+      const k = Math.round(tq * 12);
+      if (t < 0.9) {
+        show(l.ring, 1); place(l.ring, 250, 110, 1.4, k * 30);
+        const seq = [-1, -.5, 0, .5, 1, .5, 0, -.5];                     // phases du mouvement, une par image
+        off(l, D * 2 * seq[k % 8]); place(l.sym, 250, 110, 1.4);
+        l.letters.forEach(x => show(x, 0)); show(l.ot, 0); show(l.ob, 0); l.we.forEach(x => op(x, 0));
+      } else {
+        show(l.ring, 0); off(l, D, 0);
+        const m = ph(tq, .9, 1.25);                                       // le symbole glisse à gauche, image par image
+        place(l.sym, 250 - m * 168, 110 + m * 35, 1.4 - m * .7);
+        const n = Math.floor((tq - 1.0) * 12) + 1;                        // une lettre par image
+        l.letters.forEach((x, i) => show(x, i < n)); show(l.ot, n > 3); show(l.ob, n > 3); off(l, D, 1);
+        const e = 1 - OUT(ph(t, 1.5, 2.2));                               // les échos du mot s'éteignent, fluide
+        l.we.forEach((x, i) => op(x, n >= 6 ? e * [.35, .12][i] : 0));
+      }
+    }},
+    // 2. Boucle discrète : les deux moitiés respirent de ± 1,6, à 12 i/s.
+    loop: { dur: 2.4, loop: true, render(l, t) {
+      const d = D + 1.6 * Math.sin(2 * Math.PI * q12(t) / 2.4); off(l, d, 1);
+    }},
+    // 3. Transition : la fente s'ouvre, puis les deux moitiés de l'image glissent en sens contraire.
+    wipe: { dur: 0.6, render(l, t) {
+      const s = OUT(ph(t, 0, .15)), m = INOUT(ph(t, .12, .6));
+      l.slit.setAttribute('height', (14 * s * (1 - m)).toFixed(2)); l.slit.setAttribute('y', (180 - 7 * s * (1 - m)).toFixed(2));
+      l.pa.setAttribute('transform', `translate(${-660 * m} 0)`); l.pb.setAttribute('transform', `translate(${660 * m} 0)`);
+    }},
+    // 4. Carte de fin : trois échos convergent, le mot sort de la fente, le slogan s'écrit image par image.
+    end: { dur: 4, render(l, t) {
+      const tq = q12(t); const a = ph(tq, 0, .75);
+      const xs = [-150, -75, 0].map(x => x * (1 - a));
+      l.e.forEach((g, i) => { place(g, 285 + xs[i], 46, .7); op(g, a < 1 ? [.12, .35][i] : 0) }); off(l, D, 1);
+      place(l.sym, 285 + xs[2], 46, .7);
+      const w = OUT(ph(t, .75, 1.5)); l.clip.setAttribute('y', (178 - 40 * w).toFixed(1)); l.clip.setAttribute('height', (80 * w).toFixed(1));
+      const n = Math.max(0, Math.floor((tq - 1.5) * 12)); l.sl.forEach((x, i) => show(x, i < n));
+      show(l.url, tq >= 2.4);
+    }},
+    // 5. Avatar : les moitiés traversent l'instant (3 images), puis reviennent, fluide.
+    avatar: { dur: 0.8, render(l, t) {
+      let d; if (t < .25) { const f = Math.floor(t * 12); d = D * [1, 0, -1][Math.min(2, f)] } else d = -D + 2 * D * OUT(ph(t, .25, .8));
+      off(l, d, 0);
+    }},
+    // 6. Chargement : le disque tourne de 30° par image, 12 images par tour, comme les disques de 1833.
+    loader: { dur: 1, loop: true, render(l, t) { place(l.sym, 270, 130, 1, Math.floor(t * 12) * 30) } },
+  };
+
+  // Lecture
+  const cards = $$('.anim');
+  const state = new Map();
+  function draw(card, t) { const a = ANIMS[card.dataset.anim]; a.render(L($('.stage svg', card)), a.loop ? t % a.dur : Math.min(t, a.dur)); const c = $('.clock', card); if (c) c.textContent = (a.loop ? t % a.dur : Math.min(t, a.dur)).toFixed(2).replace('.', ',') + ' s' }
+  function play(card, withSound) {
+    const a = ANIMS[card.dataset.anim]; if (RM.matches) { draw(card, a.loop ? 0 : a.dur); return }
+    const st = { t0: performance.now(), raf: 0 }; cancelAnimationFrame((state.get(card) || {}).raf || 0); state.set(card, st);
+    if (withSound) sting(0.9);
+    const step = now => { const t = (now - st.t0) / 1000; draw(card, t); if (a.loop || t < a.dur) st.raf = requestAnimationFrame(step) };
+    st.raf = requestAnimationFrame(step);
+  }
+  // Frises d'images clés (même fonction de rendu, temps figés)
+  cards.forEach(card => {
+    const a = ANIMS[card.dataset.anim], strip = $('.strip', card), src = $('.stage svg', card);
+    const n = +card.dataset.frames || 8;
+    for (let i = 0; i < n; i++) {
+      const t = a.dur * i / (a.loop ? n : n - 1);
+      const f = document.createElement('figure'); const c = src.cloneNode(true); c.removeAttribute('id'); c.setAttribute('aria-hidden', 'true');
+      $$('[id]', c).forEach(x => x.id = x.id + '-f' + i); $$('[clip-path]', c).forEach(x => x.setAttribute('clip-path', x.getAttribute('clip-path').replace(')', '-f' + i + ')')));
+      f.appendChild(c); const cap = document.createElement('figcaption'); cap.textContent = String(i + 1).padStart(2, '0') + ' · ' + t.toFixed(2).replace('.', ',') + ' s'; f.appendChild(cap);
+      strip.appendChild(f); a.render(L(c), t);
+    }
+    draw(card, a.loop ? 0 : a.dur);                                         // repos : image finale, complète
+    $('.replay', card).addEventListener('click', () => play(card, false));
+    const sb = $('.withsound', card); if (sb) sb.addEventListener('click', () => play(card, true));
+  });
+  // Les boucles tournent seulement à l'écran
+  const io = new IntersectionObserver(es => es.forEach(e => { const card = e.target; if (!ANIMS[card.dataset.anim].loop) return; if (e.isIntersecting) play(card); else cancelAnimationFrame((state.get(card) || {}).raf || 0) }), { threshold: .2 });
+  cards.forEach(c => io.observe(c));
+  $$('.anim[data-anim="avatar"] .stage').forEach(s => s.addEventListener('pointerenter', () => play(s.closest('.anim'))));
+
+  // Signature sonore (v1), recalée : le déclenchement tombe sur l'arrêt du disque.
+  let AC; const ac = () => { if (!AC) AC = new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === 'suspended') AC.resume(); return AC };
+  function sting(T) {
+    const a = ac(), t = a.currentTime + .02, out = a.createGain(), comp = a.createDynamicsCompressor(); out.gain.value = .8; out.connect(comp); comp.connect(a.destination);
+    const o = a.createOscillator(), g = a.createGain(); o.type = 'sine'; o.frequency.setValueAtTime(1400, t); o.frequency.exponentialRampToValueAtTime(4800, t + T);
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.035, t + T * .85); g.gain.exponentialRampToValueAtTime(.0001, t + T + .02); o.connect(g).connect(out); o.start(t); o.stop(t + T + .05);
+    const k = t + T, len = Math.floor(a.sampleRate * .07), buf = a.createBuffer(1, len, a.sampleRate), dd = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+    const n = a.createBufferSource(), bp = a.createBiquadFilter(), ng = a.createGain(); n.buffer = buf; bp.type = 'bandpass'; bp.frequency.value = 2400; ng.gain.value = .5; n.connect(bp).connect(ng).connect(out); n.start(k);
+    const lp = a.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(4000, k); lp.frequency.exponentialRampToValueAtTime(500, k + 1.2); lp.connect(out);
+    [[220, .09], [329.63, .06], [440, .04]].forEach(([f, v]) => { const o2 = a.createOscillator(), g2 = a.createGain(); o2.type = 'triangle'; o2.frequency.value = f; g2.gain.setValueAtTime(.0001, k); g2.gain.exponentialRampToValueAtTime(v, k + .012); g2.gain.exponentialRampToValueAtTime(.0001, k + 1.2); o2.connect(g2).connect(lp); o2.start(k); o2.stop(k + 1.25) });
+  }
+
+  // Thème
+  const r = document.documentElement, tb = $('#themeBtn');
+  const cur = () => r.dataset.theme || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const lab = () => { tb.textContent = cur() === 'dark' ? 'Thème clair' : 'Thème sombre' };
+  try { const t = localStorage.getItem('s5'); if (t) r.dataset.theme = t } catch (e) {} lab();
+  tb.addEventListener('click', () => { r.dataset.theme = cur() === 'dark' ? 'light' : 'dark'; lab(); try { localStorage.setItem('s5', r.dataset.theme) } catch (e) {} });
+})();
+</script>

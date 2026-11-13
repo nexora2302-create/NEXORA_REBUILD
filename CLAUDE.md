@@ -53,6 +53,14 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
   - Finalistes : Effata (Mc 7:34-37 ; connu du rite catholique), Mahir (Pr 22:29 ; prénom courant, domaines pris). Écartés notables : Qeren (« Karen », Keren Kayemet), Betsalel (Académie Bezalel), Tav (X de Twitter, TAV), Chotam (khatam en arabe), Ramkol.
   - Domaines (RDAP, 10 nov. 2026) : keraia.studio, keraia.design, keraiastudio.com libres ; keraia.com et keraia.gr pris. À vérifier : .bj, comptes, marques, hellénophone, arabophone (proximité « karāhiya »), locuteurs fon/yoruba.
 
+- **DÉCISION (13 nov. 2026) : le nom est STROBE.** Ne plus rouvrir le débat du nom. Identité v2 dans `NEXORA-BRAND/07-REBRANDING/v5-strobe/` (`Strobe_v2_identité.html`, `Strobe_v2_logos_animés.html`, sources `v5-strobe/sources/` : `marks5.py`, `ident.py`, `anim.py`, `anim.js`).
+  - Sens : le stroboscope (strobos « tourbillon » + skopein « regarder ») ; disques stroboscopiques de Plateau et Stampfer (fin 1832, début 1833, brevet Stampfer 7 mai 1833) ; Muybridge 1878 ; Marey ; Edgerton (MIT, vers 1931). Idée : arrêter le mouvement pour le faire voir, puis l'enchaîner pour lui donner vie. Fusil de Marey 1882 : à vérifier.
+  - Logo v2 : « disque à fente » (disque r 36,5, fente horizontale 6,6 = 9 % du diamètre, moitiés décalées de ± 5,6) ; vit seul en icône ; le O du logotype est un anneau fendu (Anybody 800, largeur 112,5, crénage fait main). Écho et chronophotographie = dispositifs, pas logos. Favicon : fente 12, décalage 8, r 40.
+  - Palette recommandée B « Révélateur » : chambre noire #0F0F11 (60), ambre #FFAE42 (10, jamais en texte sur clair), ambre brûlé #7A4205 (texte sur clair), nuances argentique #1A1A1D → #E8E6E0 (30), plaque #F1F1EE. Palette A (xénon pâle #9AE3EE) non retenue.
+  - Typo : Anybody 800 (112,5) + Schibsted Grotesk + Martian Mono. Slogans : « Ça marque. / Burned in. » gardé ; ligne parallèle « L'arrêt, puis la vie. / Still. Then alive. ».
+  - Motion : 12 i/s (images tenues) puis fluide après l'arrêt ; aucun flash. 6 logos animés (révélation 2,2 s avec clac sonore à 0,90 s, boucle 2,4 s, transition 0,6 s, carte de fin 4 s, avatar 0,8 s, chargement 1 s/tour).
+  - Domaine visé strobe.design : re-vérifié libre le 13 nov. 2026 (RDAP registre 404).
+
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
 - Planche logo : https://claude.ai/artifact/SsBfugxB9n33WY8H44C9yo
@@ -64,9 +72,11 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
 - Propositions de nom v3 : https://claude.ai/artifact/UP5iJ6DBqS5RRkRChtpHkK
 - Identité Rhythmos + maquette du site : https://claude.ai/artifact/Je7ZA4EwjgrjrekBUE44fY
 - Nom v4 Keraia : https://claude.ai/artifact/RuVE6f8coVCJgngHArSgUo
+- Strobe v2, identité : https://claude.ai/artifact/Eww6RbDgLDRiNCAGygo39E
+- Strobe v2, logos animés : https://claude.ai/artifact/EGmpeLNWCiun9dY3GQYj3L
 
 ## Prochaines étapes probables
 
-1. Décision des associés sur le nom (Volta ou autre) et la direction de couleurs.
+1. Nom décidé : Strobe. Valider la palette (B recommandée) et le logo v2 (disque à fente).
 2. Finaliser le logo choisi, puis l'intégrer au site (en-tête, pied de page, favicon, icône Apple, image de partage) sans toucher au reste.
 3. Mettre à jour le brand book et les fichiers de logo.

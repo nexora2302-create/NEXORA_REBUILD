@@ -1,0 +1,80 @@
+.hero0 { padding-block: clamp(40px, 7vw, 100px) }
+.h0 { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(20px, 4vw, 56px); align-items: center }
+.h0s { width: clamp(90px, 18vw, 260px); height: auto; aspect-ratio: 1 }
+.h0 > div { display: grid; gap: 22px }
+.lock { display: inline-flex; align-items: center; gap: .32em; height: 26px } .lock .sy { height: 100%; width: auto; aspect-ratio: 1 } .lock .wm { height: 64%; width: auto }
+.acc { color: var(--acct) }
+.hyp, .dec, .kin, .story { display: grid; gap: 12px; align-content: start }
+.hyp ul, .dec ul, .kin ul { padding-left: 1.15em; display: grid; gap: 9px; font-size: 15px }
+.refs { list-style: none; padding: 0 !important; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px }
+.refs li { display: grid; padding: 6px 0; border-bottom: 1px solid var(--rule) } .refs span { font-size: 12.5px; color: var(--mut) }
+.facts { list-style: none; padding: 0; display: grid; gap: 10px }
+.facts li { display: grid; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--rule); font-size: 14.5px } .facts .tag { justify-self: start }
+.story { padding: 20px; background: var(--surf) } .story > p:nth-child(2) { font-size: 17.5px; line-height: 1.55 }
+.ln { font: 600 1.1rem/1.4 var(--ft) }
+.pis { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)) }
+.pi { display: grid; grid-template-rows: auto 1fr; border: 1px solid var(--rule) } .pi.win { border: 2px solid var(--acc) }
+.pv { display: grid; place-items: center; min-height: 170px; padding: 20px; background: var(--surf); color: var(--fg) }
+.pv .sy { width: 110px; height: 110px } .pv .wm { width: 100% }
+.pi.win .pv { color: var(--acc) }
+.pt { display: grid; gap: 8px; padding: 16px; align-content: start } .pt p { font-size: 14.5px } .pt .tag { justify-self: start }
+.pane { background: var(--surf); padding: clamp(14px, 3vw, 26px); display: grid; gap: 10px }
+.cons { width: 100%; max-width: 440px; justify-self: center; height: auto }
+.cl text { font: 500 3px var(--fm); fill: var(--mut) }
+.vars { display: grid; gap: 10px; grid-template-columns: repeat(4, minmax(0, 1fr)) }
+.vf { display: grid; gap: 6px; min-width: 0 }
+.vf:has(.wide) { grid-column: span 2 }
+.vb { display: grid; place-items: center; min-height: 130px; padding: 18px }
+.vb .lock { height: 34px } .vb .sy { width: 70px; height: 70px } .vb .wm { width: min(100%, 300px) }
+.stack { display: grid; justify-items: center; gap: 10px } .stack .sy { width: 54px; height: 54px } .stack .wm { width: 140px }
+.seal { width: 110px !important; height: 110px !important }
+.fav { display: flex; gap: 16px; align-items: center } .f12 { width: 12px; height: 12px } .f16 { width: 16px; height: 16px } .f32 { width: 32px; height: 32px }
+.av { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; background: var(--bg) } .av .sy { width: 62% !important; height: auto !important }
+.vb .av { background: #0F0F11; color: #FFAE42 }
+.poles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 2px; padding: 2px; background: rgba(241,241,238,.12) }
+.pole { display: flex; align-items: center; gap: 12px; padding: 22px 18px; background: #0F0F11; color: #F1F1EE }
+.pole .wm { height: 22px; width: auto } .pole i { width: 1px; height: 22px; background: rgba(241,241,238,.35) } .pole b { font: 500 12px var(--fm); letter-spacing: .08em; text-transform: uppercase }
+.pole.sec { color: #8E8B84 } .pole.sec .wm { opacity: .75 }
+.rules3 article, .prin article { display: grid; gap: 8px; align-content: start; padding-top: 12px; border-top: 2px solid var(--fg) }
+.rules3 p, .prin p { font-size: 14.5px }
+.prin .mono { color: var(--acct) }
+.pals { display: grid; gap: 18px }
+.palx { display: grid; gap: 14px; padding: clamp(16px, 3vw, 28px); border: 1px solid var(--rule) } .palx.rec { border: 2px solid var(--acc) }
+.palx header { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline } .palx header .eyebrow { flex-basis: 100% }
+.pms { display: grid; gap: 8px; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) }
+.pm { min-height: 200px; padding: 16px; display: grid; align-content: end; gap: 4px; box-shadow: inset 0 0 0 1px var(--rule) }
+.pm b { font: 800 1.5rem/1 var(--fd); font-stretch: 112.5% } .pm code { font-size: 11px } .pm .pp { font: 800 2rem/1 var(--fd); margin-block: 6px } .pm span { font-size: 13px } .pm .ct { font: 500 11px var(--fm); opacity: .85 }
+.scale { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)) }
+.scale div { padding: 12px 8px; min-height: 84px; display: grid; align-content: end; gap: 2px } .scale b { font: 600 11px var(--ft) } .scale code { font-size: 9.5px }
+.spec { display: grid; gap: 14px }
+.sp { display: grid; gap: 8px; padding: 18px; background: var(--surf) }
+.s1 { font: 800 clamp(2.4rem, 6vw, 5rem)/.95 var(--fd); font-stretch: 112.5%; letter-spacing: -.02em }
+.s2 { font: 700 clamp(1.5rem, 3vw, 2.4rem)/1 var(--fd); font-stretch: 100%; color: var(--acct) }
+.s3 { font: 600 1.4rem/1.2 var(--fd) } .s4 { font-size: 17px; max-width: 62ch } .s5 { font: 500 13px var(--fm) }
+.never h3 { color: var(--ko) }
+.apps { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end }
+.apps figure { display: grid; gap: 8px; min-width: 0 }
+.ap { position: relative; overflow: hidden }
+.car { aspect-ratio: 4 / 5; padding: 9%; display: grid; grid-template-rows: auto 1fr auto auto; gap: 10px }
+.cn { color: #FFAE42 } .cs { width: 38%; height: auto; color: #FFAE42 } .ct2 { font: 800 clamp(1.1rem, 2vw, 1.5rem)/1.05 var(--fd); font-stretch: 112.5% } .cw .wm { width: 50% }
+.title { aspect-ratio: 16 / 9; display: grid; place-items: center; align-content: center; gap: 10px }
+.echo { position: relative; width: 66%; height: 54px } .echo span { position: absolute; inset: 0; display: grid; place-items: center } .echo .wm { width: 100% }
+.tcn { position: absolute; top: 8px; left: 10px; color: #8E8B84; font-size: 9px } .tsub { color: #8E8B84; font-size: 10px }
+.kak { aspect-ratio: 2 / 5; width: 56%; justify-self: center; padding: 12% 10%; display: flex; flex-direction: column; justify-content: space-between }
+.kak .wm { width: 100% } .kl { font: 800 clamp(1.7rem, 3vw, 2.3rem)/.9 var(--fd); font-stretch: 112.5% } .kchrono { display: flex; gap: 2px; color: #FFAE42 } .kchrono .sy { width: 34px; height: 34px } .ku { color: #FFAE42; font-size: 9px }
+.hero { aspect-ratio: 16 / 10; padding: 5%; display: grid; grid-template-rows: auto 1fr auto; gap: 8px }
+.hbar { display: flex; justify-content: space-between; align-items: center } .hbar .lock { height: 16px } .hbar .mono { font-size: 8px; color: var(--mut) }
+.hh { font: 800 clamp(1.6rem, 3.4vw, 2.6rem)/.9 var(--fd); font-stretch: 112.5%; align-self: center }
+.hstrip { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px } .hstrip span { aspect-ratio: 4/3; background: var(--surf2); position: relative } .hstrip i { position: absolute; left: 3px; bottom: 2px; font-size: 7px; font-style: normal; color: var(--mut) }
+.hstrip span:nth-child(4) { background: #FFAE42 }
+.cards { display: grid; gap: 8px; justify-items: center }
+.bc { width: min(100%, 250px); aspect-ratio: 85 / 55; display: grid; place-items: center; padding: 14px; position: relative }
+.bc .sy { width: 30%; height: auto; color: #FFAE42 }
+.bc.lt { place-items: start; align-content: end; gap: 2px; font-size: 13px } .bc.lt b { font: 800 1rem var(--fd) } .bc .mono { font-size: 9.5px; color: var(--acct) } .bcl { position: absolute; top: 12px; right: 12px } .bcl .wm { width: 70px }
+.avs { display: flex; gap: 12px; justify-content: center; padding: 28px 0 }
+.avs .av .sy { color: #FFAE42 } .avs .lt .sy { color: #0F0F11 }
+.src { padding-block: 0 48px } .src a { color: var(--acct) }
+@media (max-width: 960px) { .vars { grid-template-columns: repeat(2, minmax(0, 1fr)) } .apps { grid-template-columns: repeat(2, minmax(0, 1fr)) } }
+@media (max-width: 560px) { .h0 { grid-template-columns: 1fr } .vars, .apps { grid-template-columns: 1fr } .vf:has(.wide) { grid-column: auto } .pms { grid-template-columns: 1fr } .scale { grid-template-columns: repeat(4, minmax(0, 1fr)) } .refs { grid-template-columns: 1fr } }
+.vb.dk, .ap.dk, .bc.dk, .av.dk, .pv { box-shadow: inset 0 0 0 1px rgba(241,241,238,.16) }
+.lt .pv, .pv { box-shadow: inset 0 0 0 1px var(--rule) }
