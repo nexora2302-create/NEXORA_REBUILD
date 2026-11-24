@@ -6,9 +6,9 @@ import { ProjectsIndex } from '@/components/nexora/projects-index'
 import { Reveal, SplitWords } from '@/components/nexora/reveal'
 
 export const metadata: Metadata = {
-  title: 'Réalisations, concepts du studio | NEXORA',
+  title: 'Réalisations, motion design et sites web | NEXORA',
   description:
-    'Identité visuelle, motion design et sites web : les concepts d’exploration du studio NEXORA à Cotonou, présentés projet par projet.',
+    'Films en motion design et sites web réalisés par le studio NEXORA à Cotonou pour des institutions, des entreprises et des marques, présentés projet par projet.',
   alternates: { canonical: '/realisations' },
   openGraph: { url: '/realisations', title: 'Réalisations | NEXORA' },
 }
@@ -31,7 +31,7 @@ export default function RealisationsPage() {
               <SplitWords text="Réalisations" />
             </h1>
             <p className="max-w-md text-[17px] leading-relaxed text-foreground/85 md:col-span-5 md:text-lg">
-              Huit concepts d’exploration imaginés par le studio pour montrer sa façon de travailler, en identité, en motion et sur le web. Ils laisseront bientôt leur place aux projets clients.
+              Des films en motion design et des sites web, pour des institutions, des entreprises et des marques. Chaque image est tirée d’un projet réel.
             </p>
           </Reveal>
         </section>

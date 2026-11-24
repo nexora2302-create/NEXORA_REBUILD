@@ -12,13 +12,13 @@ import { Reveal, SplitWords } from './reveal'
  * chacune grandit à sa vitesse ; l'image centrale finit plein écran, les autres sortent du cadre.
  */
 const LAYOUT: { slug: string; box: string; scale: number }[] = [
-  { slug: 'ganvie-heure-bleue', box: 'h-[25vh] w-[25vw]', scale: 4 },
-  { slug: 'kpevi-records', box: 'h-[30vh] w-[35vw] -translate-y-[30vh] translate-x-[5vw]', scale: 5 },
-  { slug: 'sons-d-ancetres', box: 'h-[45vh] w-[20vw] -translate-y-[10vh] -translate-x-[25vw]', scale: 6 },
-  { slug: 'atelier-daxo', box: 'h-[25vh] w-[25vw] translate-x-[27.5vw]', scale: 5 },
-  { slug: 'kora-cafe', box: 'h-[25vh] w-[20vw] translate-y-[27.5vh] translate-x-[5vw]', scale: 6 },
-  { slug: 'biennale-cotonou-design', box: 'h-[25vh] w-[30vw] translate-y-[27.5vh] -translate-x-[22.5vw]', scale: 8 },
-  { slug: 'flux', box: 'h-[15vh] w-[15vw] translate-y-[22.5vh] translate-x-[25vw]', scale: 9 },
+  { slug: 'sin-nunu', box: 'h-[25vh] w-[25vw]', scale: 4 },
+  { slug: 'inf', box: 'h-[30vh] w-[35vw] -translate-y-[30vh] translate-x-[5vw]', scale: 5 },
+  { slug: 'cnsr', box: 'h-[45vh] w-[20vw] -translate-y-[10vh] -translate-x-[25vw]', scale: 6 },
+  { slug: 'nexora', box: 'h-[25vh] w-[25vw] translate-x-[27.5vw]', scale: 5 },
+  { slug: 'bluestone-connect', box: 'h-[25vh] w-[20vw] translate-y-[27.5vh] translate-x-[5vw]', scale: 6 },
+  { slug: 'mara-academy', box: 'h-[25vh] w-[30vw] translate-y-[27.5vh] -translate-x-[22.5vw]', scale: 8 },
+  { slug: 'agis-concept', box: 'h-[15vh] w-[15vw] translate-y-[22.5vh] translate-x-[25vw]', scale: 9 },
 ]
 
 export function Work() {
@@ -57,7 +57,7 @@ export function Work() {
           <SplitWords text="Réalisations" />
         </h2>
         <p className="max-w-sm text-[17px] leading-relaxed text-foreground/80 md:col-span-4">
-          {fr('Huit concepts d’exploration conçus par le studio pour montrer sa démarche, en attendant les premiers projets clients.')}
+          {fr('Films en motion design et sites web, pour des institutions, des entreprises et des marques au Bénin. Les images sont tirées des projets livrés.')}
         </p>
       </Reveal>
 
@@ -77,7 +77,7 @@ export function Work() {
                   style={{ viewTransitionName: `work-${slug}` }}
                   aria-label={`${p.title}, ${p.tag}`}
                 >
-                  <div className="absolute inset-0" style={p.crop ? { transform: `scale(${p.crop})` } : undefined}>
+                  <div className="absolute inset-0">
                   <Image
                     src={p.img}
                     alt={p.alt}
@@ -102,7 +102,7 @@ export function Work() {
       </div>
 
       <div className="flex flex-col items-start gap-6 px-4 py-20 md:flex-row md:items-center md:justify-between md:px-8 md:py-24">
-        <p className="t-card max-w-[18ch]">Chaque concept, en détail.</p>
+        <p className="t-card max-w-[18ch]">Chaque projet, en détail.</p>
         <a
           href="/realisations"
           className="group inline-flex min-h-14 items-center gap-4 rounded-full bg-accent pl-7 pr-2 text-[16px] font-semibold text-accent-foreground transition-transform duration-500 hover:scale-[1.03]"

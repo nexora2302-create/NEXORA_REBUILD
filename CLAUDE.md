@@ -1,6 +1,6 @@
 # Mémoire du projet NEXORA
 
-Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
+Fichier de contexte pour les sessions Claude. Mis à jour le 24 novembre 2026.
 
 ## Le studio
 
@@ -60,6 +60,15 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 10 novembre 2026.
   - Typo : Anybody 800 (112,5) + Schibsted Grotesk + Martian Mono. Slogans : « Ça marque. / Burned in. » gardé ; ligne parallèle « L'arrêt, puis la vie. / Still. Then alive. ».
   - Motion : 12 i/s (images tenues) puis fluide après l'arrêt ; aucun flash. 6 logos animés (révélation 2,2 s avec clac sonore à 0,90 s, boucle 2,4 s, transition 0,6 s, carte de fin 4 s, avatar 0,8 s, chargement 1 s/tour).
   - Domaine visé strobe.design : re-vérifié libre le 13 nov. 2026 (RDAP registre 404).
+
+## Catalogue et réalisations (24 nov. 2026)
+
+- Pour le catalogue, l'utilisateur garde le nom **NEXORA** (identité « Braise »), en français, motion design et sites web seulement : pas d'audiovisuel ni d'identité visuelle pour l'instant, pas d'offre non tranchée.
+- PDF : `NEXORA-BRAND/08-CATALOGUE/NEXORA-Catalogue-2026.pdf` (15 pages 16:9). Sources : `08-CATALOGUE/sources/catalogue.py` + `catalogue.css` puis `node pdf.js [dossier_captures]` ; images dans `08-CATALOGUE/img/`.
+- Projets réels (présentation NEXORA du 17 nov. 2026 et dépôt motion-design-brain) : INF (1 min 43), Mara Academy (1 min 59), CNSR Code de la route (9:16, 1 min 08), SIN NUNU (1 min 20), Blue'Ston Connect, Flore Djinou (série 16 jours d'activisme, sans image de visage), Aurélia (sans image). Web : site NEXORA, maquette AGIS Concept (en cours).
+- Écartés faute de certitude : ADPME, Next Impact, STARFLOW. À confirmer par l'utilisateur.
+- Prix : politique tarifaire 1.0 (prix recommandés), à confirmer. Contact : WhatsApp +229 01 51 33 74 15 et le site ; pas d'e-mail contenant un nom d'associé.
+- Site : `lib/projects.ts` contient désormais les 7 projets réels (5 motion, 2 web), filtres Motion design / Sites web ; images dans `public/work/`. Sur la branche de travail seulement, pas sur `main`.
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 

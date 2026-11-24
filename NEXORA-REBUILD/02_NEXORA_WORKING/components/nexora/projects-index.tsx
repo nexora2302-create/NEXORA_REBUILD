@@ -69,7 +69,7 @@ export function ProjectsIndex() {
                   style={{ viewTransitionName: `work-${p.slug}` }}
                 >
                   <div className="rv-curtain absolute inset-0">
-                    <div className="absolute inset-0" style={p.crop ? { transform: `scale(${p.crop})` } : undefined}>
+                    <div className="absolute inset-0">
                     <Image
                       src={p.img}
                       alt={p.alt}
@@ -90,11 +90,13 @@ export function ProjectsIndex() {
                   <h2 id={`t-${p.slug}`} className="t-card mt-3">
                     {p.title}
                   </h2>
-                  <p className="mt-3 text-[14px] text-muted-foreground">Concept studio, {p.year}</p>
+                  <p className="mt-3 text-[14px] text-muted-foreground">
+                    {p.client}, {p.year}
+                  </p>
                   <p className="mt-6 text-[17px] leading-relaxed text-foreground/85">{fr(p.idea)}</p>
-                  <h3 className="mt-8 text-[15px] font-semibold">Pistes explorées</h3>
+                  <h3 className="mt-8 text-[15px] font-semibold">{p.status ? 'Ce que nous préparons' : 'Ce que nous avons livré'}</h3>
                   <ul className="mt-3 flex flex-wrap gap-2">
-                    {p.explored.map((e) => (
+                    {p.done.map((e) => (
                       <li key={e} className="rounded-full border border-line px-3.5 py-1.5 text-[14px] text-foreground/85">
                         {e}
                       </li>
