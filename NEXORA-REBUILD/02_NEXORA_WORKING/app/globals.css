@@ -539,6 +539,89 @@ body::after {
 [data-reveal][data-inview='true'] .rv-curtain img {
   transform: scale(1);
 }
+/* Images d'une même rangée : le rideau s'ouvre en cascade */
+[data-reveal] .rv-curtain,
+[data-reveal] .rv-curtain img {
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+/* Extraits vidéo : l'affiche et la vidéo glissent ensemble */
+[data-reveal] .rv-curtain .lv-inner img {
+  transform: none;
+}
+[data-reveal] .rv-curtain .lv-inner {
+  transform: scale(1.12);
+  transition: transform 1.6s var(--ease-out-expo);
+}
+[data-reveal][data-inview='true'] .rv-curtain .lv-inner {
+  transform: scale(1);
+}
+
+/* Pastille « Lecture » qui suit le pointeur sur les films */
+.film-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: -3.25rem 0 0 -3.25rem;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+  transform: translate3d(var(--mx, 0), var(--my, 0), 0) scale(0);
+  transition: transform 0.55s var(--ease-out-expo);
+}
+.film-pill {
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .film-cursor {
+    display: flex;
+  }
+  .film-media {
+    cursor: none;
+  }
+  .film-media:hover .film-cursor {
+    transform: translate3d(var(--mx, 0), var(--my, 0), 0) scale(1);
+  }
+  .film-media:hover .film-pill {
+    opacity: 0;
+  }
+}
+
+/* Lecteur plein écran */
+.film-dialog::backdrop {
+  background: rgb(13 12 11 / 0.94);
+  backdrop-filter: blur(6px);
+}
+.film-dialog[open],
+.film-dialog[open]::backdrop {
+  animation: dlg-in 0.45s var(--ease-out-expo);
+}
+.film-dialog[open] .film-box {
+  animation: film-rise 0.8s var(--ease-out-expo);
+}
+@keyframes dlg-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes film-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2rem, 0) scale(0.97);
+  }
+}
+html:has(.film-dialog[open]) {
+  overflow: hidden;
+}
 
 /* ---------- FAQ ---------- */
 details::details-content {
@@ -601,10 +684,25 @@ details[open]::details-content {
     opacity: 1;
   }
   [data-reveal].rv-curtain,
-  [data-reveal] .rv-curtain img {
+  [data-reveal] .rv-curtain,
+  [data-reveal] .rv-curtain img,
+  [data-reveal] .rv-curtain .lv-inner,
+  .film-dialog[open],
+  .film-dialog[open]::backdrop,
+  .film-dialog[open] .film-box {
+    animation: none;
     clip-path: none;
     transform: none;
     transition: none;
+  }
+  .film-cursor {
+    display: none !important;
+  }
+  .film-media {
+    cursor: pointer !important;
+  }
+  .film-media:hover .film-pill {
+    opacity: 1 !important;
   }
   .mf-word {
     opacity: 1;

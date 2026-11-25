@@ -79,15 +79,14 @@ export function Work() {
                 >
                   <div className="absolute inset-0">
                   <Image
-                    src={p.img}
+                    src={p.poster.src}
                     alt={p.alt}
                     fill
                     placeholder="blur"
-                    blurDataURL={p.blur}
+                    blurDataURL={p.poster.blur}
                     quality={82}
                     sizes={i === 0 ? '100vw' : '(min-width: 768px) 40vw, 60vw'}
                     className="object-cover transition-transform duration-[1.2s] ease-[var(--ease-out-expo)] group-hover:scale-[1.06]"
-                    style={{ objectPosition: p.pos }}
                   />
                   </div>
                 </a>

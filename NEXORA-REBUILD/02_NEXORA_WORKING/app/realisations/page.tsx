@@ -30,9 +30,14 @@ export default function RealisationsPage() {
             <h1 className="t-section md:col-span-7">
               <SplitWords text="Réalisations" />
             </h1>
-            <p className="max-w-md text-[17px] leading-relaxed text-foreground/85 md:col-span-5 md:text-lg">
-              Des films en motion design et des sites web, pour des institutions, des entreprises et des marques. Chaque image est tirée d’un projet réel.
-            </p>
+            <div className="md:col-span-5">
+              <p className="max-w-md text-[17px] leading-relaxed text-foreground/85 md:text-lg">
+                Des films en motion design et des sites web, pour des institutions, des entreprises et des marques. Chaque image, chaque extrait vient d’un projet livré.
+              </p>
+              <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.08em] text-muted-foreground">
+                5 films · 2 sites · 2026
+              </p>
+            </div>
           </Reveal>
         </section>
 

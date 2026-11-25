@@ -32,3 +32,19 @@ export function StarIcon({ className }: P) {
     </svg>
   )
 }
+
+export function PlayIcon({ className }: P) {
+  return (
+    <svg viewBox="0 0 16 16" aria-hidden className={className}>
+      <path d="M5 3.2v9.6a.6.6 0 0 0 .9.5l7.6-4.8a.6.6 0 0 0 0-1L5.9 2.7a.6.6 0 0 0-.9.5z" fill="currentColor" />
+    </svg>
+  )
+}
+
+export function CloseIcon({ className }: P) {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden className={className}>
+      <path d="M4 4l8 8M12 4l-8 8" />
+    </svg>
+  )
+}
