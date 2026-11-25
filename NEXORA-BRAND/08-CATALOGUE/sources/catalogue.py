@@ -31,7 +31,7 @@ MOTION = [
  ('Habillage vidéo', 'Intro, outro, deux bandeaux de titre et des transitions, réutilisables.', '7 jours', '130 000'),
  ('Vidéo pour les réseaux', '15 à 30 s. Motion typographique et graphique sur votre script.', '7 à 10 jours', '150 000'),
  ('Vidéo promotionnelle', '30 à 60 s. Script, storyboard validé, éléments graphiques, musique.', '12 à 15 jours', '300 000'),
- ('Film explicatif illustré', '60 à 90 s. Script, storyboard, illustrations sur mesure, voix off.', '3 à 5 semaines', 'dès 600 000'),
+ ('Vidéo explicative illustrée', '60 à 90 s. Script, storyboard, illustrations sur mesure, voix off.', '3 à 5 semaines', 'dès 600 000'),
 ]
 WEB = [
  ('Landing page', 'Une page en 5 à 7 sections, maquette sur mesure, formulaire, WhatsApp et carte, référencement de base.', '2 à 3 semaines', '250 000'),
@@ -67,24 +67,24 @@ HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEX
 <li><b>Une idée d’abord.</b><span>Chaque projet part d’une idée tirée de votre marque, jamais d’une tendance du moment.</span></li>
 <li><b>Un seul interlocuteur.</b><span>Du script à la mise en ligne, la même équipe porte votre projet.</span></li>
 <li><b>D’ici, pour partout.</b><span>Institutions, entreprises et créateurs, au Bénin et à l’international.</span></li></ul></div>
-<div class="duo"><div><span class="mono">01</span><b>Motion design</b><span>Films de présentation, vidéos pour les réseaux, animation de logo, habillage vidéo.</span></div><div><span class="mono">02</span><b>Sites web</b><span>Landing pages, sites vitrines et sites institutionnels, mis en ligne et suivis.</span></div></div>
+<div class="duo"><div><span class="mono">01</span><b>Motion design</b><span>Vidéos de présentation, vidéos pour les réseaux, animation de logo, habillage vidéo.</span></div><div><span class="mono">02</span><b>Sites web</b><span>Landing pages, sites vitrines et sites institutionnels, mis en ligne et suivis.</span></div></div>
 </section>
 
 <section class="pg dark refs">{head(3, 'Motion design')}
 <h2 class="big">Ils nous ont<br>fait <em class="serif">confiance.</em></h2>
 <ul class="names">
-<li><b>Institut National de la Femme</b><span>Film de présentation</span></li>
+<li><b>Institut National de la Femme</b><span>Vidéo de présentation</span></li>
 <li><b>Mara Academy</b><span>Vidéo de présentation</span></li>
 <li><b>CNSR</b><span>Le nouveau Code de la route</span></li>
-<li><b>SIN NUNU</b><span>Film de marque</span></li>
-<li><b>Blue’Ston Connect</b><span>Film motion design</span></li>
+<li><b>SIN NUNU</b><span>Vidéo de marque</span></li>
+<li><b>Blue’Ston Connect</b><span>Vidéo de lancement</span></li>
 <li><b>Flore Djinou</b><span>Série vidéo</span></li>
 <li><b>Aurélia</b><span>Vidéos produit</span></li></ul>
 <p class="mono note">Réalisations 2026. Les pages suivantes montrent des images tirées des vidéos livrées.</p>
 </section>
 
 {case(4, 'Motion design · Institution', 'Écouter, accompagner, défendre.', 'Institut National de la Femme (INF) · Bénin · 2026',
-  'Un film d’animation pour faire connaître l’accompagnement des femmes victimes de violences : le numéro 114, l’écoute, l’orientation et la défense en justice.',
+  'Une vidéo d’animation pour faire connaître l’accompagnement des femmes victimes de violences : le numéro 114, l’écoute, l’orientation et la défense en justice.',
   [('Format', '16:9'), ('Durée', '1 min 43'), ('Avec', 'voix off, sous-titres')],
   ['inf-presentation-02', 'inf-presentation-03', 'inf-presentation-05', 'inf-presentation-10'])}
 
@@ -99,12 +99,12 @@ HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEX
   ['cnsr-code-route-00', 'cnsr-code-route-01', 'cnsr-code-route-03', 'cnsr-code-route-04', 'cnsr-code-route-09'], 'v')}
 
 {case(7, 'Motion design · Marque', 'L’eau de qualité pour tous.', 'SIN NUNU · Abomey-Calavi · 2026',
-  'Le film de marque d’une eau minérale béninoise : l’ambition, les trois formats et la promesse, entre animation et photographies du produit.',
+  'La vidéo de marque d’une eau minérale béninoise : l’ambition, les trois formats et la promesse, entre animation et photographies du produit.',
   [('Format', '16:9'), ('Durée', '1 min 20'), ('Avec', 'photos produit, musique')],
   ['sin-nunu-09', 'sin-nunu-00', 'sin-nunu-02', 'sin-nunu-07', 'sin-nunu-11'], 'c', 'light')}
 
 {case(8, 'Motion design · Produit', 'La carte de visite, ici et maintenant.', 'Blue’Ston Connect · Bénin · 2026',
-  'Le film de lancement d’une carte de visite intelligente (NFC et QR code) : le problème, le geste, les fonctions, les offres. Une version horizontale et une version courte verticale.',
+  'La vidéo de lancement d’une carte de visite intelligente (NFC et QR code) : le problème, le geste, les fonctions, les offres. Une version horizontale et une version courte verticale.',
   [('Formats', '16:9 et 9:16'), ('Écrans', '9 scènes'), ('Avec', 'voix off, musique')],
   ['blueston-intelligente', 'blueston-perd', 'blueston-seconde', 'blueston-appeler', 'blueston-fin'], 'c')}
 
@@ -130,7 +130,7 @@ HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEX
 </section>
 
 <section class="pg light price">{head(12, 'Tarifs · Motion design')}
-<div class="prh"><h2>Motion design</h2><p>Le prix suit le travail, pas la durée : écriture, storyboard, illustrations, complexité de l’animation, son et formats. Deux séries de retours incluses, trois pour la vidéo promotionnelle et le film explicatif.</p></div>
+<div class="prh"><h2>Motion design</h2><p>Le prix suit le travail, pas la durée : écriture, storyboard, illustrations, complexité de l’animation, son et formats. Deux séries de retours incluses, trois pour la vidéo promotionnelle et la vidéo explicative.</p></div>
 <ul class="plist"><li class="hd"><span class="mono">Prestation</span><span class="mono">Délai, jours ouvrés</span><span class="mono">FCFA</span></li>{rows(MOTION)}</ul>
 <p class="mono foot">Prix en FCFA, hors TVA éventuelle. Voix off au coût réel. Au-delà de 90 s, le devis s’ajuste à la durée et aux illustrations.</p>
 </section>

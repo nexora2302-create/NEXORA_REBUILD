@@ -556,7 +556,7 @@ body::after {
   transform: scale(1);
 }
 
-/* Pastille « Lecture » qui suit le pointeur sur les films */
+/* Pastille « Lecture » qui suit le pointeur sur les vidéos */
 .film-cursor {
   position: absolute;
   left: 0;

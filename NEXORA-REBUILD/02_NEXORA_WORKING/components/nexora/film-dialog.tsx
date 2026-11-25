@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
 import type { Project } from '@/lib/projects'
 import { CloseIcon } from './icons'
 
-/* Le film complet, avec le son, en plein écran. Il ne se charge qu'à l'ouverture. */
+/* La vidéo complète, avec le son, en plein écran. Il ne se charge qu'à l'ouverture. */
 export function FilmDialog({ project, onClose }: { project: Project | null; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null)
 
@@ -39,7 +39,7 @@ export function FilmDialog({ project, onClose }: { project: Project | null; onCl
               className="grid size-12 shrink-0 place-items-center rounded-full border border-line transition-colors duration-300 hover:border-foreground/60 hover:bg-foreground/5"
             >
               <CloseIcon className="size-4" />
-              <span className="sr-only">Fermer le film</span>
+              <span className="sr-only">Fermer la vidéo</span>
             </button>
           </div>
           <video

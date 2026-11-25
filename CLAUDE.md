@@ -70,10 +70,11 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 25 novembre 2026.
 - Prix : politique tarifaire 1.0 (prix recommandés), à confirmer. Contact : WhatsApp +229 01 51 33 74 15 et le site ; pas d'e-mail contenant un nom d'associé.
 - Site : `lib/projects.ts` contient les 7 projets réels (5 motion, 2 web), filtres Motion design / Sites web. Flore Djinou laissée de côté pour l'instant (visage), décision de l'utilisateur.
 - Portfolio = page `/realisations` du site (recommandé à l'utilisateur, pas de lien séparé) ; le PDF sert à l'envoi.
-- Page `/realisations` (25 nov. 2026) : chaque film a un extrait muet en boucle (lancé seulement à l'écran, coupé si animations réduites ou économie de données), une pastille « Lecture » qui suit le pointeur, 3 images fixes et le film complet dans un lecteur plein écran (`film-dialog.tsx`, chargé au clic). Sites : vidéo de défilement dans un cadre de navigateur. Composants `loop-video.tsx`, `film-dialog.tsx`, `projects-index.tsx`.
-- Fichiers : affiches `public/work/<slug>-affiche.webp` (changer le nom si l'image change, à cause des caches), images `<slug>-1..3.webp`, vidéos `public/work/video/` (extraits 0,2 à 1 Mo, films 7 à 18,5 Mo, 1080p, AAC). Films sources dans le Drive (partagés par lien).
+- Page `/realisations` (25 nov. 2026) : chaque vidéo a un extrait muet en boucle (lancé seulement à l'écran, coupé si animations réduites ou économie de données), une pastille « Lecture » qui suit le pointeur, 3 images fixes et la vidéo complète dans un lecteur plein écran (`film-dialog.tsx`, chargé au clic). Sites : vidéo de défilement dans un cadre de navigateur. Composants `loop-video.tsx`, `film-dialog.tsx`, `projects-index.tsx`.
+- Fichiers : affiches `public/work/<slug>-affiche.webp` (changer le nom si l'image change, à cause des caches), images `<slug>-1..3.webp`, vidéos `public/work/video/` (extraits 0,2 à 1 Mo, vidéos complètes 7 à 18,5 Mo, 1080p, AAC). Vidéos sources dans le Drive (partagés par lien).
 - Vidéos de défilement : `NEXORA-BRAND/08-CATALOGUE/sources/scrollrec.js` (capture image par image en temps virtuel, sans saccade).
-- `next build` affiche parfois une alerte de sécurité Next.js 16.4.3 et s'arrête ; relancer passe. Mise à jour de Next.js à proposer à l'utilisateur, pas faite.
+- Vocabulaire : l'utilisateur veut « vidéo », jamais « film » (bouton « Voir la vidéo », « Vidéo de marque », « Vidéo explicative illustrée »…). Fichiers complets : `public/work/video/<slug>-video.mp4`.
+- Sécurité (25 nov. 2026) : Next.js 16.4.3 → 16.4.6 (failles corrigées à partir de 16.4.5) ; surcharges pnpm dans `pnpm-workspace.yaml` pour nanoid, browserslist, source-map-js, baseline-browser-mapping. `pnpm audit` : aucune faille connue. Poussé sur `main` à la demande de l'utilisateur.
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 

@@ -57,7 +57,7 @@ export function Work() {
           <SplitWords text="Réalisations" />
         </h2>
         <p className="max-w-sm text-[17px] leading-relaxed text-foreground/80 md:col-span-4">
-          {fr('Films en motion design et sites web, pour des institutions, des entreprises et des marques au Bénin. Les images sont tirées des projets livrés.')}
+          {fr('Vidéos en motion design et sites web, pour des institutions, des entreprises et des marques au Bénin. Les images sont tirées des projets livrés.')}
         </p>
       </Reveal>
 

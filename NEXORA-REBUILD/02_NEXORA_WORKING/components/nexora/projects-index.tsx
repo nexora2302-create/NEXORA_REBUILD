@@ -139,7 +139,7 @@ function Info({ p, onPlay, className = '' }: { p: Project; onPlay?: Play; classN
             <span className="grid size-10 place-items-center rounded-full bg-accent-foreground text-accent transition-transform duration-500 group-hover:scale-110">
               <PlayIcon className="size-3.5 translate-x-px" />
             </span>
-            Voir le film
+            Voir la vidéo
             <span className="font-normal opacity-75">{p.film.duration}</span>
           </button>
         </div>
@@ -148,7 +148,7 @@ function Info({ p, onPlay, className = '' }: { p: Project; onPlay?: Play; classN
   )
 }
 
-/* Le média d'un film : extrait en boucle, pastille « Lecture » qui suit le pointeur. */
+/* Le média d'une vidéo : extrait en boucle, pastille « Lecture » qui suit le pointeur. */
 function FilmMedia({ p, onPlay, className = '', frame, sizes }: { p: Project; onPlay: Play; className?: string; frame: string; sizes: string }) {
   const follow = (e: PointerEvent<HTMLButtonElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -163,7 +163,7 @@ function FilmMedia({ p, onPlay, className = '', frame, sizes }: { p: Project; on
         onClick={() => onPlay(p)}
         onPointerEnter={follow}
         onPointerMove={follow}
-        aria-label={`Voir le film ${p.title}, ${p.film.duration}`}
+        aria-label={`Voir la vidéo ${p.title}, ${p.film.duration}`}
         className="film-media group relative block w-full text-left outline-offset-4 focus-visible:outline-2 focus-visible:outline-accent"
       >
         <div className={`rv-curtain relative overflow-hidden bg-card ${frame}`} style={{ viewTransitionName: `work-${p.slug}` }}>
@@ -179,7 +179,7 @@ function FilmMedia({ p, onPlay, className = '', frame, sizes }: { p: Project; on
           <span className="grid size-6 place-items-center rounded-full bg-accent text-accent-foreground">
             <PlayIcon className="size-2.5 translate-x-px" />
           </span>
-          Voir le film · {p.film.duration}
+          Voir la vidéo · {p.film.duration}
         </span>
         <span className="film-cursor" aria-hidden>
           <PlayIcon className="size-4" />

@@ -8,7 +8,7 @@ import { Reveal, SplitWords } from '@/components/nexora/reveal'
 export const metadata: Metadata = {
   title: 'Réalisations, motion design et sites web | NEXORA',
   description:
-    'Films en motion design et sites web réalisés par le studio NEXORA à Cotonou pour des institutions, des entreprises et des marques, présentés projet par projet.',
+    'Vidéos en motion design et sites web réalisés par le studio NEXORA à Cotonou pour des institutions, des entreprises et des marques, présentés projet par projet.',
   alternates: { canonical: '/realisations' },
   openGraph: { url: '/realisations', title: 'Réalisations | NEXORA' },
 }
@@ -32,10 +32,10 @@ export default function RealisationsPage() {
             </h1>
             <div className="md:col-span-5">
               <p className="max-w-md text-[17px] leading-relaxed text-foreground/85 md:text-lg">
-                Des films en motion design et des sites web, pour des institutions, des entreprises et des marques. Chaque image, chaque extrait vient d’un projet livré.
+                Des vidéos en motion design et des sites web, pour des institutions, des entreprises et des marques. Chaque image, chaque extrait vient d’un projet livré.
               </p>
               <p className="mt-6 font-mono text-[12px] uppercase tracking-[0.08em] text-muted-foreground">
-                5 films · 2 sites · 2026
+                5 vidéos · 2 sites · 2026
               </p>
             </div>
           </Reveal>
