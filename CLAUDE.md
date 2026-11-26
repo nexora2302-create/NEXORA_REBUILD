@@ -76,6 +76,12 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 25 novembre 2026.
 - Vocabulaire : l'utilisateur veut « vidéo », jamais « film » (bouton « Voir la vidéo », « Vidéo de marque », « Vidéo explicative illustrée »…). Fichiers complets : `public/work/video/<slug>-video.mp4`.
 - Sécurité (25 nov. 2026) : Next.js 16.4.3 → 16.4.6 (failles corrigées à partir de 16.4.5) ; surcharges pnpm dans `pnpm-workspace.yaml` pour nanoid, browserslist, source-map-js, baseline-browser-mapping. `pnpm audit` : aucune faille connue. Poussé sur `main` à la demande de l'utilisateur.
 
+## Nouvelle piste de nom (26 nov. 2026, remplace Strobe si validée)
+
+- L'utilisateur propose **NEXORA Studio** (NEXORA en typo forte mais moins lourde que l'Archivo 125/900 actuelle, type Impact ou Unbounded ; « Studio » en écriture calligraphique ou dessinée, comme les titres de montage) ou **Next Studio** écrit **Nextudio** (le T de NEXT sert aussi à studio ; « le studio de demain »). Couleurs Braise gardées ; typo et DA actuelles rejetées (« fait IA »). Ne rien appliquer au site avant validation.
+- Planche : https://claude.ai/artifact/RjQ2FzrFPTvZWTt1odANy1 (A Unbounded + Mr Dafoe, B Anton + Mrs Saint Delafield, C Michroma + Yellowtail, D NEXT + « udio » manuscrit, E « nextudio » au t braise, mises en situation de A et D).
+- Noms (recherche web 26 nov. 2026) : « Nexora Studio » déjà utilisé (agence au Kosovo sur nexora.studio, modèles Framer, Wix, Webflow) ; « Nextudio » sans résultat ; « NextStudio » = logiciel de musique libre. Marques non vérifiées.
+
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
 - Planche logo : https://claude.ai/artifact/SsBfugxB9n33WY8H44C9yo
