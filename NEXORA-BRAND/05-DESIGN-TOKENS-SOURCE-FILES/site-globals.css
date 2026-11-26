@@ -14,7 +14,8 @@
 
 @theme inline {
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-serif: var(--font-dafoe), cursive;
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   --color-background: var(--background);
@@ -84,31 +85,51 @@
 
 /* Échelle typographique : 6 niveaux, pas un de plus. */
 @utility t-section {
-  font-variation-settings: 'wdth' 125;
-  font-stretch: 125%;
-  font-weight: 900;
-  font-size: clamp(2.6rem, 6vw, 6.5rem);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.6vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
 }
 @utility t-card {
-  font-variation-settings: 'wdth' 112;
-  font-stretch: 112%;
-  font-weight: 800;
-  font-size: clamp(2.25rem, 4vw, 4rem);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 3.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 @utility t-lead {
-  font-family: var(--font-instrument), ui-serif, Georgia, serif;
-  font-style: italic;
-  font-size: clamp(1.6rem, 2.2vw, 1.875rem);
-  line-height: 1.15;
+  font-family: var(--font-dafoe), cursive;
+  font-size: clamp(2.1rem, 2.9vw, 2.5rem);
+  line-height: 1.05;
+}
+
+@utility t-wordmark {
+  /* « NEXORA » mesure environ 5,3 em en Unbounded 700, approche -0,01 em : il remplit la largeur utile. */
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-size: calc((100vw - 2rem) / 2.95);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 0.8;
+  text-transform: uppercase;
+  @media (min-width: 768px) {
+    font-size: calc((100vw - 4rem) / 5.52);
+  }
+  @media (max-height: 560px) {
+    font-size: 12vw;
+  }
+}
+
+@utility t-lead-hero {
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.7rem, 2.7vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
 }
 
 @utility font-wide {
-  font-variation-settings: 'wdth' 125;
-  font-stretch: 125%;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -187,22 +208,35 @@ body::after {
 }
 
 /* ---------- Hero ---------- */
-.hero-letter {
-  display: inline-block;
-  font-variation-settings:
-    'wdth' var(--wdth),
-    'wght' var(--wght);
-  line-height: 0.8;
-  transform: translateY(110%);
-  animation: letter-rise 1.3s var(--ease-out-expo) forwards;
-  animation-delay: calc(var(--i) * 70ms + 200ms);
-  transition:
-    --wdth 0.6s var(--ease-out-expo),
-    --wght 0.6s var(--ease-out-expo);
+.sculpt-poster {
+  opacity: 0;
+  transform: scale(0.6) rotate(-14deg);
+  animation: sculpt-in 1.8s var(--ease-out-expo) 0.45s forwards;
+}
+@keyframes sculpt-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-line {
+  transform: translate3d(0, 105%, 0);
+  animation: letter-rise 1.2s var(--ease-out-expo) forwards;
+  animation-delay: calc(var(--i) * 110ms + 250ms);
+}
+/* « Studio » du hero : écrit de gauche à droite, après l'arrivée des lettres */
+.hero-studio {
+  clip-path: inset(-0.4em 100% -0.4em -0.4em);
+  animation: studio-write 1.3s var(--ease-in-out-quint) 0.95s forwards;
+}
+@keyframes studio-write {
+  to {
+    clip-path: inset(-0.4em -0.4em -0.4em -0.4em);
+  }
 }
 @keyframes letter-rise {
   to {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -271,6 +305,96 @@ body::after {
   opacity: clamp(0.5, calc((var(--p, 0) - var(--w)) * 18 + 0.5), 1);
 }
 
+/* Les images s'ouvrent dans la phrase quand la lecture les atteint */
+.mf-open {
+  --k: clamp(0, calc((var(--p, 0) - var(--w)) * 9), 1);
+  width: calc(var(--k) * 2.1em);
+  margin-right: calc(var(--k) * 0.28em);
+}
+.mf-open img {
+  transform: scale(calc(1.5 - var(--k) * 0.5));
+}
+
+/* Apparition échelonnée des éléments d'un bloc */
+[data-reveal] .rv-up {
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: calc(var(--i, 0) * 90ms + 80ms);
+}
+[data-reveal][data-inview='true'] .rv-up {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero : le cadre se resserre à la sortie */
+.hero-frame {
+  transform-origin: 50% 0%;
+  will-change: transform;
+}
+
+/* Expertises : cartes empilées */
+.stack-item {
+  transform: scale(var(--s, 1));
+  transform-origin: 50% 0%;
+}
+.stack-dim {
+  opacity: var(--dim, 0);
+}
+[data-reveal].stack-card {
+  opacity: 0;
+  transform: translate3d(0, 4rem, 0);
+  transition:
+    opacity 1s var(--ease-out-expo),
+    transform 1.2s var(--ease-out-expo);
+}
+[data-reveal][data-inview='true'].stack-card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Méthode : panneaux qui s'ouvrent */
+.method-dot {
+  color: var(--accent);
+}
+@media (min-width: 1024px) {
+  .method-panel[data-on='true'] .method-dot {
+    color: #ff4a1c;
+  }
+  .method-panel .method-copy {
+    opacity: 0;
+    transform: translate3d(0, 1rem, 0);
+    transition:
+      opacity 0.35s var(--ease-out-expo),
+      transform 0.35s var(--ease-out-expo);
+  }
+  .method-title {
+    transition: opacity 0.4s var(--ease-out-expo);
+  }
+  .method-panel[data-on='true'] .method-title {
+    opacity: 0;
+  }
+  .method-panel[data-on='true'] .method-copy {
+    opacity: 1;
+    transform: none;
+    transition-duration: 0.8s;
+    transition-delay: 0.25s;
+  }
+}
+.method-progress {
+  animation: method-progress var(--dur, 5s) linear forwards;
+}
+@keyframes method-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* ---------- Marquee ---------- */
 .marquee-track {
   animation: marquee 42s linear infinite;
@@ -281,29 +405,7 @@ body::after {
   }
 }
 
-/* ---------- Expertises : spotlight + visuels ---------- */
-/* taste-skill-ignore : halo d'interaction demandé (spotlight), pas un décor au repos */
-.spot {
-  --mx: 50%;
-  --my: 50%;
-  background:
-    radial-gradient(520px circle at var(--mx) var(--my), rgb(255 74 28 / 0.09), transparent 60%),
-    var(--card);
-}
-.spot::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: radial-gradient(360px circle at var(--mx) var(--my), rgb(255 74 28 / 0.55), rgb(236 229 216 / 0.1) 55%);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
+/* ---------- Expertises : visuels ---------- */
 
 
 /* Voir : construction d'une marque */
@@ -418,17 +520,6 @@ body::after {
   }
 }
 
-/* Apparition 3D liée au scroll (expertises) */
-.rise-stage {
-  perspective: 1400px;
-}
-.rise {
-  transform-origin: 50% 0%;
-  transform: translate3d(0, calc((1 - var(--rise)) * 140px), 0) rotateX(calc((1 - var(--rise)) * 16deg))
-    scale(calc(0.9 + var(--rise) * 0.1));
-  opacity: calc(0.15 + var(--rise) * 0.85);
-  will-change: transform;
-}
 
 /* Visuels en pause tant qu'ils ne sont pas à l'écran (après les raccourcis animation). */
 .viz * {
@@ -452,6 +543,89 @@ body::after {
 }
 [data-reveal][data-inview='true'] .rv-curtain img {
   transform: scale(1);
+}
+/* Images d'une même rangée : le rideau s'ouvre en cascade */
+[data-reveal] .rv-curtain,
+[data-reveal] .rv-curtain img {
+  transition-delay: calc(var(--i, 0) * 110ms);
+}
+/* Extraits vidéo : l'affiche et la vidéo glissent ensemble */
+[data-reveal] .rv-curtain .lv-inner img {
+  transform: none;
+}
+[data-reveal] .rv-curtain .lv-inner {
+  transform: scale(1.12);
+  transition: transform 1.6s var(--ease-out-expo);
+}
+[data-reveal][data-inview='true'] .rv-curtain .lv-inner {
+  transform: scale(1);
+}
+
+/* Pastille « Lecture » qui suit le pointeur sur les vidéos */
+.film-cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6.5rem;
+  height: 6.5rem;
+  margin: -3.25rem 0 0 -3.25rem;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-foreground);
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+  transform: translate3d(var(--mx, 0), var(--my, 0), 0) scale(0);
+  transition: transform 0.55s var(--ease-out-expo);
+}
+.film-pill {
+  transition: opacity 0.4s var(--ease-out-expo);
+}
+@media (hover: hover) and (pointer: fine) {
+  .film-cursor {
+    display: flex;
+  }
+  .film-media {
+    cursor: none;
+  }
+  .film-media:hover .film-cursor {
+    transform: translate3d(var(--mx, 0), var(--my, 0), 0) scale(1);
+  }
+  .film-media:hover .film-pill {
+    opacity: 0;
+  }
+}
+
+/* Lecteur plein écran */
+.film-dialog::backdrop {
+  background: rgb(13 12 11 / 0.94);
+  backdrop-filter: blur(6px);
+}
+.film-dialog[open],
+.film-dialog[open]::backdrop {
+  animation: dlg-in 0.45s var(--ease-out-expo);
+}
+.film-dialog[open] .film-box {
+  animation: film-rise 0.8s var(--ease-out-expo);
+}
+@keyframes dlg-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes film-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 2rem, 0) scale(0.97);
+  }
+}
+html:has(.film-dialog[open]) {
+  overflow: hidden;
 }
 
 /* ---------- FAQ ---------- */
@@ -487,14 +661,18 @@ details[open]::details-content {
   html {
     scroll-behavior: auto;
   }
-  .hero-letter,
+  .hero-studio {
+    animation: none;
+    clip-path: none;
+  }
+  .hero-line,
   .rv-word,
   [data-reveal] .rv-word {
     animation: none;
     transform: none;
     transition: none;
   }
-  .hero-silk,
+  .sculpt-poster,
   .fade-in {
     animation: none;
     opacity: 1;
@@ -515,17 +693,41 @@ details[open]::details-content {
     opacity: 1;
   }
   [data-reveal].rv-curtain,
-  [data-reveal] .rv-curtain img {
+  [data-reveal] .rv-curtain,
+  [data-reveal] .rv-curtain img,
+  [data-reveal] .rv-curtain .lv-inner,
+  .film-dialog[open],
+  .film-dialog[open]::backdrop,
+  .film-dialog[open] .film-box {
+    animation: none;
     clip-path: none;
     transform: none;
     transition: none;
   }
+  .film-cursor {
+    display: none !important;
+  }
+  .film-media {
+    cursor: pointer !important;
+  }
+  .film-media:hover .film-pill {
+    opacity: 1 !important;
+  }
   .mf-word {
     opacity: 1;
   }
-  .rise {
-    transform: none;
+  .mf-open {
+    --k: 1;
+  }
+  [data-reveal] .rv-up,
+  [data-reveal].stack-card,
+  .method-panel .method-copy {
     opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .method-progress {
+    animation: none;
   }
   .zoom-stage {
     height: auto;

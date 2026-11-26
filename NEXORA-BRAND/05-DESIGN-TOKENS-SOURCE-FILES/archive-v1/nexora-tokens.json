@@ -1,0 +1,368 @@
+{
+  "meta": {
+    "marque": "NEXORA",
+    "version": "1.0",
+    "source": "Site nexoraa-nu.vercel.app, fichiers app/globals.css et components/nexora",
+    "note": "Valeurs observées dans le code sauf mention « recommandé »"
+  },
+  "color": {
+    "encre": {
+      "hex": "#0d0c0b",
+      "role": "Fond principal, texte sur fond clair et braise",
+      "statut": "observé",
+      "rgb": "rgb(13, 12, 11)"
+    },
+    "os": {
+      "hex": "#ece5d8",
+      "role": "Texte sur fond sombre, fond des sections claires",
+      "statut": "observé",
+      "rgb": "rgb(236, 229, 216)"
+    },
+    "braise": {
+      "hex": "#ff4a1c",
+      "role": "Accent : action principale, X du logo, bloc contact",
+      "statut": "observé",
+      "rgb": "rgb(255, 74, 28)"
+    },
+    "braise-profonde": {
+      "hex": "#b02f0b",
+      "role": "Accent sur fond os (texte et X du logo)",
+      "statut": "observé",
+      "rgb": "rgb(176, 47, 11)"
+    },
+    "rouille": {
+      "hex": "#7a2410",
+      "role": "Illustration, fond animé, tons secondaires",
+      "statut": "observé",
+      "rgb": "rgb(122, 36, 16)"
+    },
+    "braise-sombre": {
+      "hex": "#5c1a09",
+      "role": "Lueur du hero, profondeur",
+      "statut": "observé",
+      "rgb": "rgb(92, 26, 9)"
+    },
+    "braise-nuit": {
+      "hex": "#3a1206",
+      "role": "Texte secondaire sur fond braise",
+      "statut": "observé",
+      "rgb": "rgb(58, 18, 6)"
+    },
+    "charbon": {
+      "hex": "#161412",
+      "role": "Surfaces surélevées sur fond encre (cartes)",
+      "statut": "observé",
+      "rgb": "rgb(22, 20, 18)"
+    },
+    "sable": {
+      "hex": "#e2dacb",
+      "role": "Surfaces surélevées sur fond os",
+      "statut": "observé",
+      "rgb": "rgb(226, 218, 203)"
+    },
+    "pierre": {
+      "hex": "#9a9386",
+      "role": "Texte secondaire sur fond encre",
+      "statut": "observé",
+      "rgb": "rgb(154, 147, 134)"
+    },
+    "terre": {
+      "hex": "#4f493f",
+      "role": "Texte secondaire sur fond os",
+      "statut": "observé",
+      "rgb": "rgb(79, 73, 63)"
+    },
+    "cendre": {
+      "hex": "#3a3631",
+      "role": "Barre de défilement, éléments inactifs",
+      "statut": "observé",
+      "rgb": "rgb(58, 54, 49)"
+    },
+    "alerte-sombre": {
+      "hex": "#ff8a6b",
+      "role": "Erreur sur fond encre",
+      "statut": "observé",
+      "rgb": "rgb(255, 138, 107)"
+    },
+    "alerte-claire": {
+      "hex": "#9e2a08",
+      "role": "Erreur sur fond os",
+      "statut": "observé",
+      "rgb": "rgb(158, 42, 8)"
+    }
+  },
+  "themes": {
+    "nuit": {
+      "background": "encre",
+      "foreground": "os",
+      "surface": "charbon",
+      "muted": "pierre",
+      "accent": "braise",
+      "onAccent": "encre",
+      "line": "rgb(236 229 216 / 0.14)",
+      "focus": "braise",
+      "logoX": "braise"
+    },
+    "os": {
+      "background": "os",
+      "foreground": "encre",
+      "surface": "sable",
+      "muted": "terre",
+      "accent": "braise-profonde",
+      "onAccent": "os",
+      "line": "rgb(13 12 11 / 0.16)",
+      "focus": "encre",
+      "logoX": "braise-profonde"
+    },
+    "braise": {
+      "background": "braise",
+      "foreground": "encre",
+      "muted": "braise-nuit",
+      "accent": "encre",
+      "onAccent": "braise",
+      "line": "rgb(13 12 11 / 0.28)",
+      "focus": "encre",
+      "logoX": "encre"
+    }
+  },
+  "contrast": [
+    {
+      "texte": "os",
+      "fond": "encre",
+      "ratio": 15.6,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "braise",
+      "fond": "encre",
+      "ratio": 5.81,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "pierre",
+      "fond": "encre",
+      "ratio": 6.41,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "os",
+      "fond": "charbon",
+      "ratio": 14.67,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "encre",
+      "fond": "os",
+      "ratio": 15.6,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "braise-profonde",
+      "fond": "os",
+      "ratio": 5.15,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "terre",
+      "fond": "os",
+      "ratio": 7.11,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "braise",
+      "fond": "os",
+      "ratio": 2.68,
+      "AA_texte": false,
+      "AA_grand_texte": false
+    },
+    {
+      "texte": "encre",
+      "fond": "braise",
+      "ratio": 5.81,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "braise-nuit",
+      "fond": "braise",
+      "ratio": 4.92,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "os",
+      "fond": "braise",
+      "ratio": 2.68,
+      "AA_texte": false,
+      "AA_grand_texte": false
+    },
+    {
+      "texte": "encre",
+      "fond": "sable",
+      "ratio": 14.08,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "alerte-sombre",
+      "fond": "encre",
+      "ratio": 8.47,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    },
+    {
+      "texte": "alerte-claire",
+      "fond": "os",
+      "ratio": 6.01,
+      "AA_texte": true,
+      "AA_grand_texte": true
+    }
+  ],
+  "font": {
+    "display": {
+      "family": "Archivo",
+      "source": "Google Fonts, variable (wdth 62 à 125, wght 100 à 900)",
+      "usage": "Titres, logo-type, navigation, texte courant"
+    },
+    "accent": {
+      "family": "Instrument Serif",
+      "style": "italic",
+      "usage": "Phrases d’accroche, trois moments par page au plus"
+    },
+    "data": {
+      "family": "JetBrains Mono",
+      "weights": [
+        400,
+        500
+      ],
+      "usage": "Données uniquement : heure, compteurs d’étapes"
+    }
+  },
+  "type": {
+    "signature": {
+      "size": "21vw",
+      "weight": 800,
+      "wdth": 100,
+      "lineHeight": 0.8,
+      "tracking": "-0.02em",
+      "usage": "Mot NEXORA du hero"
+    },
+    "section": {
+      "size": "clamp(2.6rem, 6vw, 6.5rem)",
+      "weight": 900,
+      "wdth": 125,
+      "lineHeight": 0.92,
+      "tracking": "-0.04em"
+    },
+    "card": {
+      "size": "clamp(2.25rem, 4vw, 4rem)",
+      "weight": 800,
+      "wdth": 112,
+      "lineHeight": 0.95,
+      "tracking": "-0.03em"
+    },
+    "statement": {
+      "size": "clamp(1.9rem, 3.4vw, 3.6rem)",
+      "weight": 800,
+      "wdth": 125,
+      "lineHeight": 1.04,
+      "tracking": "-0.03em"
+    },
+    "lead": {
+      "family": "Instrument Serif italic",
+      "size": "clamp(1.6rem, 2.2vw, 1.875rem) à 3rem (hero)",
+      "lineHeight": 1.05
+    },
+    "body": {
+      "size": "17px",
+      "weight": 400,
+      "lineHeight": 1.625
+    },
+    "ui": {
+      "size": "15px",
+      "weight": "500 à 600",
+      "lineHeight": 1.5,
+      "usage": "Boutons, navigation, libellés"
+    },
+    "small": {
+      "size": "14px",
+      "weight": 400,
+      "usage": "Puces, métadonnées"
+    },
+    "data": {
+      "family": "JetBrains Mono",
+      "size": "13 à 14px"
+    }
+  },
+  "space": {
+    "unit": "4px",
+    "scale": {
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "6": "24px",
+      "8": "32px",
+      "10": "40px",
+      "12": "48px",
+      "14": "56px",
+      "16": "64px",
+      "24": "96px",
+      "28": "112px",
+      "32": "128px",
+      "36": "144px",
+      "40": "160px"
+    },
+    "gutter": {
+      "mobile": "16px",
+      "desktop": "32px"
+    },
+    "section": {
+      "mobile": "112px",
+      "desktop": "144px"
+    },
+    "grid": "12 colonnes, gouttière 16 à 32px"
+  },
+  "radius": {
+    "none": "0",
+    "focus": "2px",
+    "inner": "16px",
+    "tile": "28px",
+    "pill": "9999px",
+    "note": "Les images restent à angles vifs"
+  },
+  "shadow": {
+    "none": "none",
+    "note": "Aucune ombre au repos : la profondeur vient des pas de ton (encre, charbon) et du halo de pointeur"
+  },
+  "motion": {
+    "easeOutExpo": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "easeInOutQuint": "cubic-bezier(0.83, 0, 0.17, 1)",
+    "duration": {
+      "fast": "300ms",
+      "base": "500ms",
+      "slow": "700ms",
+      "reveal": "1100ms",
+      "curtain": "1200ms",
+      "image": "1600ms"
+    },
+    "stagger": "45 à 70ms par mot ou par élément"
+  },
+  "opacity": {
+    "textSecondary": 0.8,
+    "textTertiary": 0.6,
+    "grain": 0.05
+  },
+  "size": {
+    "touchTarget": "44px",
+    "buttonPrimary": "48px",
+    "buttonLarge": "56px"
+  }
+}

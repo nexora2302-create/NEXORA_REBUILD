@@ -1,4 +1,6 @@
-# NEXORA, Design System v1.0
+# NEXORA Studio, Design System v2.0
+
+> Version 2.0 du 26 novembre 2026 : nom NEXORA Studio, logo en tracés (NEXORA en Unbounded 700, E redessiné, « Studio » manuscrit Mr Dafoe), titres en Unbounded, geste manuscrit en Mr Dafoe à la place de l’Instrument Serif. Couleurs, espacements, rayons et mouvements inchangés. La v1 reste lisible dans l'historique Git.
 
 Documentation des composants, des états, du responsive et du mouvement, telle qu’implémentée sur le site NEXORA (Next.js et Tailwind CSS v4). Les valeurs sont **observées** dans le code, sauf mention **[Recommandé]**.
 
@@ -14,7 +16,7 @@ Fichiers associés :
 ## 1. Principes
 
 1. **Un seul moment fort par écran.** Le reste est calme et discipliné.
-2. **La braise est rare.** Action principale, X du logo, bloc contact. Jamais en décor.
+2. **La braise est rare.** Action principale, « Studio » du logo, bloc contact. Jamais en décor.
 3. **Pas d’ombre au repos, pas de verre, pas de dégradé décoratif.** La profondeur vient des pas de ton.
 4. **Le mouvement répond au scroll ou à la main.** Il ne détourne jamais le défilement et se met en pause hors écran.
 5. **Accessible par défaut.** Contraste AA, focus visible, cibles de 44 px, réduction des animations.
@@ -35,7 +37,7 @@ Fichiers associés :
 | `--nx-on-accent` | encre | os | braise |
 | `--nx-line` | os 14 % | encre 16 % | encre 28 % |
 | `--nx-focus` | braise | encre | encre |
-| `--nx-logo-x` | braise | braise profonde | encre |
+| `--nx-logo-studio` | braise | braise profonde | encre |
 
 Application : la classe `.nx-theme-os` ou `.nx-theme-braise` sur une section redéfinit les rôles pour tout son contenu. Sur le site, ces classes s’appellent `theme-paper` et `theme-signal`.
 
@@ -91,7 +93,7 @@ Voir la section 4 du brand book. Utilitaires du site : `t-section`, `t-card`, `t
 
 ### Navigation (desktop)
 
-- **Disposition** : monogramme NX (3 colonnes), quatre liens calés sur une grille de 4 colonnes égales (6 colonnes), bouton principal (3 colonnes). Liens Archivo 15 px graisse 500.
+- **Disposition** : logo NEXORA Studio (3 colonnes), quatre liens calés sur une grille de 4 colonnes égales (6 colonnes), bouton principal (3 colonnes). Liens Archivo 15 px graisse 500.
 - **Survol** : le libellé « roule » vers le haut et laisse place à son double (500 ms).
 - **Section active** : point braise de 6 px devant le libellé, et `aria-current`.
 - **Barre** :
@@ -102,8 +104,8 @@ Voir la section 4 du brand book. Utilitaires du site : `t-section`, `t-card`, `t
 
 ### Navigation (mobile)
 
-- Monogramme, pastille « Contact » (après le hero), bouton « Menu » de 44 × 44 px.
-- **Menu** : plein écran en thème braise, liens Archivo largeur 125 à 10,5vw, heure de Cotonou, e-mail.
+- Logo NEXORA Studio, pastille « Contact » (après le hero), bouton « Menu » de 44 × 44 px.
+- **Menu** : plein écran en thème braise, liens Unbounded 700 à 9,5vw, heure de Cotonou, e-mail.
 - **Accessibilité** :
   - le focus va sur « Fermer » à l’ouverture et reste piégé dans le menu ;
   - Échap ferme le menu, et le focus revient au bouton « Menu ».
@@ -115,8 +117,8 @@ Voir la section 4 du brand book. Utilitaires du site : `t-section`, `t-card`, `t
 - **Filet** : bordure lumineuse de 1 px, braise près du pointeur.
 - **Contenu** :
   - visuel animé (rayon 16 px) ;
-  - mot-titre Archivo largeur 112, terminé par un point braise ;
-  - sous-titre en serif italique, phrase de 17 px, puces.
+  - mot-titre Unbounded 700, terminé par un point braise ;
+  - sous-titre manuscrit en Mr Dafoe (2,1 à 2,4 rem), phrase de 17 px, puces.
 - **Apparition** : la tuile monte de 140 px, se redresse de 16° (`rotateX`) et passe de 90 à 100 % d’échelle selon sa progression dans l’écran.
 
 ### Puce
@@ -226,11 +228,11 @@ Surfaces du navigateur [Observé] :
 ## 7. Intégration rapide
 
 ```html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..600&family=Unbounded:wght@600;700&family=Mr+Dafoe&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="nexora-tokens.css">
 
 <section class="nx-theme-os">
-  <h2 style="font-family:var(--nx-font-display);font-size:var(--nx-type-section);font-weight:900;font-variation-settings:'wdth' 125;letter-spacing:var(--nx-tracking-display);line-height:var(--nx-leading-display)">Du brief à l’image.</h2>
+  <h2 style="font-family:var(--nx-font-display);font-size:var(--nx-type-section);font-weight:var(--nx-weight-display);letter-spacing:var(--nx-tracking-display);line-height:var(--nx-leading-display)">Du brief à l’image.</h2>
 </section>
 ```
 

@@ -1,0 +1,126 @@
+/* NEXORA, design tokens v1.0
+   Source : site nexoraa-nu.vercel.app (app/globals.css). Valeurs observées. */
+
+:root {
+  --nx-encre: #0d0c0b;
+  --nx-os: #ece5d8;
+  --nx-braise: #ff4a1c;
+  --nx-braise-profonde: #b02f0b;
+  --nx-rouille: #7a2410;
+  --nx-braise-sombre: #5c1a09;
+  --nx-braise-nuit: #3a1206;
+  --nx-charbon: #161412;
+  --nx-sable: #e2dacb;
+  --nx-pierre: #9a9386;
+  --nx-terre: #4f493f;
+  --nx-cendre: #3a3631;
+  --nx-alerte-sombre: #ff8a6b;
+  --nx-alerte-claire: #9e2a08;
+
+  /* Thème nuit (par défaut) */
+  --nx-bg: var(--nx-encre);
+  --nx-fg: var(--nx-os);
+  --nx-surface: var(--nx-charbon);
+  --nx-muted: var(--nx-pierre);
+  --nx-accent: var(--nx-braise);
+  --nx-on-accent: var(--nx-encre);
+  --nx-line: rgb(236 229 216 / 0.14);
+  --nx-focus: var(--nx-braise);
+  --nx-logo-x: var(--nx-braise);
+
+  /* Typographie */
+  --nx-font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --nx-font-accent: 'Instrument Serif', ui-serif, Georgia, serif;
+  --nx-font-data: 'JetBrains Mono', ui-monospace, monospace;
+  --nx-type-signature: 21vw;
+  --nx-type-section: clamp(2.6rem, 6vw, 6.5rem);
+  --nx-type-card: clamp(2.25rem, 4vw, 4rem);
+  --nx-type-statement: clamp(1.9rem, 3.4vw, 3.6rem);
+  --nx-type-lead: clamp(1.6rem, 2.2vw, 1.875rem);
+  --nx-type-body: 17px;
+  --nx-type-ui: 15px;
+  --nx-type-small: 14px;
+  --nx-type-data: 13px;
+  --nx-leading-display: 0.92;
+  --nx-leading-body: 1.625;
+  --nx-tracking-display: -0.04em;
+
+  /* Espacements (base 4px) */
+  --nx-space-1: 4px;
+  --nx-space-2: 8px;
+  --nx-space-3: 12px;
+  --nx-space-4: 16px;
+  --nx-space-6: 24px;
+  --nx-space-8: 32px;
+  --nx-space-12: 48px;
+  --nx-space-16: 64px;
+  --nx-space-24: 96px;
+  --nx-space-28: 112px;
+  --nx-space-36: 144px;
+  --nx-gutter: 16px;
+  --nx-section: 112px;
+
+  /* Rayons, ombres */
+  --nx-radius-focus: 2px;
+  --nx-radius-inner: 16px;
+  --nx-radius-tile: 28px;
+  --nx-radius-pill: 9999px;
+  --nx-shadow: none;
+
+  /* Mouvement */
+  --nx-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --nx-ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+  --nx-dur-fast: 300ms;
+  --nx-dur-base: 500ms;
+  --nx-dur-slow: 700ms;
+  --nx-dur-reveal: 1100ms;
+  --nx-dur-curtain: 1200ms;
+
+  --nx-touch: 44px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nx-gutter: 32px;
+    --nx-section: 144px;
+  }
+}
+
+/* Thème os : sections claires */
+.nx-theme-os {
+  --nx-bg: var(--nx-os);
+  --nx-fg: var(--nx-encre);
+  --nx-surface: var(--nx-sable);
+  --nx-muted: var(--nx-terre);
+  --nx-accent: var(--nx-braise-profonde);
+  --nx-on-accent: var(--nx-os);
+  --nx-line: rgb(13 12 11 / 0.16);
+  --nx-focus: var(--nx-encre);
+  --nx-logo-x: var(--nx-braise-profonde);
+  background: var(--nx-bg);
+  color: var(--nx-fg);
+}
+
+/* Thème braise : un seul moment par page (contact) */
+.nx-theme-braise {
+  --nx-bg: var(--nx-braise);
+  --nx-fg: var(--nx-encre);
+  --nx-muted: var(--nx-braise-nuit);
+  --nx-accent: var(--nx-encre);
+  --nx-on-accent: var(--nx-braise);
+  --nx-line: rgb(13 12 11 / 0.28);
+  --nx-focus: var(--nx-encre);
+  --nx-logo-x: var(--nx-encre);
+  background: var(--nx-bg);
+  color: var(--nx-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --nx-dur-fast: 0ms;
+    --nx-dur-base: 0ms;
+    --nx-dur-slow: 0ms;
+    --nx-dur-reveal: 0ms;
+    --nx-dur-curtain: 0ms;
+  }
+}

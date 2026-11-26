@@ -1,6 +1,6 @@
 # Mémoire du projet NEXORA
 
-Fichier de contexte pour les sessions Claude. Mis à jour le 25 novembre 2026.
+Fichier de contexte pour les sessions Claude. Mis à jour le 26 novembre 2026.
 
 ## Le studio
 
@@ -88,7 +88,8 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 25 novembre 2026.
 - Logo : NEXORA en Unbounded 700 avec un **E redessiné** (fût droit : l'E de l'Unbounded a un fût pincé, l'utilisateur l'a remarqué) + « Studio » manuscrit Mr Dafoe en braise, posé à plat, sans rotation, qui recouvre le bas du mot. Tracés vectoriels générés par `NEXORA-BRAND/13-NEXORA-STUDIO/sources/gen.py` (polices téléchargées depuis Google Fonts, positions mesurées dans le navigateur). Fichiers : `nexora-studio-sombre.svg`, `-clair.svg`, `-braise.svg`, `icon.svg`.
 - Favicon : N de l'Unbounded + S manuscrit de « Studio » en braise qui traverse le N, sur carré encre (`public/icon.svg`, `public/apple-icon.png`). Image de partage `public/og.png`.
 - Site : `components/nexora/logo.tsx` (tracés), polices dans `app/layout.tsx` (Archivo pour le texte, Unbounded pour les titres via `--font-unbounded`, Mr Dafoe pour les accents via `font-serif`), utilitaires `t-section`, `t-card`, `t-lead`, `t-wordmark`, `t-lead-hero`, `font-wide` passés en Unbounded dans `app/globals.css`, graisses allégées (700). Hero : sculpture 3D du X **gardée**, E redessiné (`HeroE`), « Studio » manuscrit qui s'écrit après les lettres (`.hero-studio`). Accents (mot qui change, titres d'expertises, « Mettons-le en mouvement. ») en Mr Dafoe sans italique ; adresses e-mail en Unbounded. Nom « NEXORA Studio » dans les métadonnées, le pied de page, les aria-label, la page Réalisations.
-- Vérifié à 390, 1024, 1440, 1920 px. Pas encore sur `main`. Catalogue passé en NEXORA Studio ; projet « NEXORA Studio » de la page Réalisations refait (affiche `nexora-affiche-v2.webp`, vidéo `site-nexora-v2.mp4`). L'utilisateur valide cette DA (« on garde cette DA-là »). Restent : brand book ; « nexora.studio » est pris par une agence au Kosovo (marque à vérifier).
+- Vérifié à 390, 1024, 1440, 1920 px. Pas encore sur `main`. Catalogue passé en NEXORA Studio ; projet « NEXORA Studio » de la page Réalisations refait (affiche `nexora-affiche-v2.webp`, vidéo `site-nexora-v2.mp4`). L'utilisateur valide cette DA (« on garde cette DA-là »). « nexora.studio » est pris par une agence au Kosovo (marque à vérifier).
+- Brand book v2 (26 nov. 2026) : `NEXORA-BRAND/01-BRAND-BOOK/NEXORA-Studio-Brand-Book-v2.pdf` (25 pages 16:9) et `.md` ; v1 dans `archive-v1/`. Sources `01-BRAND-BOOK/sources-v2/` : `assets.py` + `raster.js` (logos SVG/PNG et favicons dans `02-LOGO-BRAND-ASSETS`), `bb.py` + `bb.css` + `pdf.js` (PDF), `planches.js` (PNG dans `03-COLOR-PALETTE-TYPOGRAPHY`). Tokens v2 dans `05-DESIGN-TOKENS-SOURCE-FILES` (v1 archivée), Design System passé en v2.0. Règles clés : Unbounded 600/700 (jamais 900), Mr Dafoe un à quatre mots, une fois par composition, à plat, jamais en capitales ; sur os, « Studio » en braise profonde ; sur braise, tout en encre (Studio os seulement en grand format) ; zone libre = moitié de la hauteur des capitales ; taille min. 120 px / 30 mm, en dessous symbole N + S.
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
@@ -106,6 +107,6 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 25 novembre 2026.
 
 ## Prochaines étapes probables
 
-1. Nom décidé : Strobe. Valider la palette (B recommandée) et le logo v2 (disque à fente).
-2. Finaliser le logo choisi, puis l'intégrer au site (en-tête, pied de page, favicon, icône Apple, image de partage) sans toucher au reste.
-3. Mettre à jour le brand book et les fichiers de logo.
+1. Pousser la branche de travail sur `main` (NEXORA Studio sur le site) quand l'utilisateur le valide, puis vérifier que Vercel redéploie (le push du 25 nov. n'avait pas été déployé : « Redeploy » ou reconnexion Git dans Vercel, dépôt renommé `NEXORA_REBUILD`).
+2. Vérifier la marque « Nexora Studio » (agence au Kosovo sur nexora.studio) avant tout dépôt ou achat de domaine.
+3. Questions ouvertes : adresse e-mail générique, ADPME / Next Impact, prix définitifs du catalogue.

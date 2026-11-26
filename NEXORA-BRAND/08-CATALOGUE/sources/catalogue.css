@@ -224,3 +224,5 @@ svg.nx.huge { width: 1240px; margin-left: -4px }
 .st { fill: var(--braise) }
 .contact .st { fill: var(--os) }
 .cover .cv-lead { bottom: 470px }
+/* Sur fond clair, « Studio » passe en braise profonde (la braise ne se pose jamais sur l'os) */
+.light .st, .flore .st { fill: var(--braise-p) }

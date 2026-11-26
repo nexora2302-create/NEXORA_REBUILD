@@ -1,5 +1,6 @@
-/* NEXORA, design tokens v1.0
-   Source : site nexoraa-nu.vercel.app (app/globals.css). Valeurs observées. */
+/* NEXORA Studio, design tokens v2.0 (26 novembre 2026)
+   Couleurs inchangées depuis la v1. Typographies : Unbounded (titres), Archivo (texte),
+   Mr Dafoe (geste manuscrit), JetBrains Mono (données). Source : app/globals.css du site. */
 
 :root {
   --nx-encre: #0d0c0b;
@@ -26,24 +27,27 @@
   --nx-on-accent: var(--nx-encre);
   --nx-line: rgb(236 229 216 / 0.14);
   --nx-focus: var(--nx-braise);
-  --nx-logo-x: var(--nx-braise);
+  --nx-logo-studio: var(--nx-braise);
 
   /* Typographie */
-  --nx-font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
-  --nx-font-accent: 'Instrument Serif', ui-serif, Georgia, serif;
+  --nx-font-display: 'Unbounded', ui-sans-serif, system-ui, sans-serif;
+  --nx-font-text: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --nx-font-hand: 'Mr Dafoe', cursive;
   --nx-font-data: 'JetBrains Mono', ui-monospace, monospace;
-  --nx-type-signature: 21vw;
-  --nx-type-section: clamp(2.6rem, 6vw, 6.5rem);
-  --nx-type-card: clamp(2.25rem, 4vw, 4rem);
-  --nx-type-statement: clamp(1.9rem, 3.4vw, 3.6rem);
-  --nx-type-lead: clamp(1.6rem, 2.2vw, 1.875rem);
+  --nx-weight-display: 700;
+  --nx-weight-lead: 600;
+  --nx-type-signature: calc((100vw - 2rem) / 2.95);
+  --nx-type-section: clamp(2.4rem, 5.6vw, 6rem);
+  --nx-type-card: clamp(2rem, 3.6vw, 3.6rem);
+  --nx-type-statement: clamp(1.7rem, 2.7vw, 2.8rem);
+  --nx-type-hand: clamp(2.1rem, 2.9vw, 2.5rem);
   --nx-type-body: 17px;
   --nx-type-ui: 15px;
   --nx-type-small: 14px;
   --nx-type-data: 13px;
-  --nx-leading-display: 0.92;
+  --nx-leading-display: 0.96;
   --nx-leading-body: 1.625;
-  --nx-tracking-display: -0.04em;
+  --nx-tracking-display: -0.025em;
 
   /* Espacements (base 4px) */
   --nx-space-1: 4px;
@@ -96,7 +100,7 @@
   --nx-on-accent: var(--nx-os);
   --nx-line: rgb(13 12 11 / 0.16);
   --nx-focus: var(--nx-encre);
-  --nx-logo-x: var(--nx-braise-profonde);
+  --nx-logo-studio: var(--nx-braise-profonde);
   background: var(--nx-bg);
   color: var(--nx-fg);
 }
@@ -110,7 +114,7 @@
   --nx-on-accent: var(--nx-braise);
   --nx-line: rgb(13 12 11 / 0.28);
   --nx-focus: var(--nx-encre);
-  --nx-logo-x: var(--nx-encre);
+  --nx-logo-studio: var(--nx-encre);
   background: var(--nx-bg);
   color: var(--nx-fg);
 }
