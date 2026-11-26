@@ -84,7 +84,7 @@ export function Method() {
               }`}
               onPointerEnter={(e) => e.pointerType === 'mouse' && choose(i)}
             >
-              <h3 className="font-wide text-[2rem] font-extrabold leading-none tracking-[-0.03em] lg:text-[clamp(1.25rem,2vw,2.4rem)]">
+              <h3 className="font-wide text-[1.8rem] font-bold leading-none tracking-[-0.02em] lg:text-[clamp(1.15rem,1.8vw,2.2rem)]">
                 <button
                   type="button"
                   aria-pressed={on}
@@ -102,7 +102,7 @@ export function Method() {
               </h3>
 
               <div className="method-copy mt-auto px-6 pb-6 lg:w-[min(34rem,40vw)] lg:px-7 lg:pb-8">
-                <p aria-hidden className="font-wide mb-8 hidden text-[clamp(3.5rem,6.4vw,7rem)] font-black leading-[0.9] tracking-[-0.045em] lg:block">
+                <p aria-hidden className="font-wide mb-8 hidden text-[clamp(3.2rem,5.8vw,6.4rem)] font-bold leading-[0.92] tracking-[-0.03em] lg:block">
                   {s.title}
                   <span className="text-[#ff4a1c]">.</span>
                 </p>

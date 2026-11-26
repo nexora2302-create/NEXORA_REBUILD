@@ -104,7 +104,7 @@ export function Header({ base = '' }: { base?: string }) {
         className={`fixed inset-x-0 top-0 z-40 transition-[background-color,color] duration-500 ease-[var(--ease-out-expo)] ${themeClass}`}
       >
         <div className={`grid grid-cols-12 items-center gap-4 px-4 md:px-8 transition-[height] duration-500 ease-[var(--ease-out-expo)] ${solid ? 'h-14' : 'h-16 md:h-20'}`}>
-          <a href={base || '#top'} className="col-span-6 inline-flex min-h-11 items-center md:col-span-3" aria-label="NEXORA, accueil">
+          <a href={base || '#top'} className="col-span-6 inline-flex min-h-11 items-center md:col-span-3" aria-label="NEXORA Studio, accueil">
             <Logo className="text-[0.95rem]" />
           </a>
 
@@ -196,13 +196,13 @@ export function Header({ base = '' }: { base?: string }) {
                   className="block py-3"
                   style={open ? { animation: `word-swap 0.7s cubic-bezier(0.16,1,0.3,1) ${i * 60}ms both` } : undefined}
                 >
-                  <span className="font-wide text-[10.5vw] font-black leading-[0.95] tracking-[-0.03em]">{item.label}</span>
+                  <span className="font-wide text-[9.5vw] font-bold leading-[0.98] tracking-[-0.02em]">{item.label}</span>
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-        <a href="mailto:bonjour@nexora.bj" className="mt-8 inline-flex min-h-11 items-center font-serif text-2xl italic">
+        <a href="mailto:bonjour@nexora.bj" className="mt-8 inline-flex min-h-11 items-center font-display text-xl font-semibold tracking-[-0.02em]">
           bonjour@nexora.bj
         </a>
       </div>

@@ -77,7 +77,7 @@ export function Manifesto() {
 
       <p
         ref={ref}
-        className="font-wide mt-20 text-[clamp(1.85rem,4vw,4.1rem)] font-extrabold leading-[1.08] tracking-[-0.03em] md:mt-32"
+        className="font-wide mt-20 text-[clamp(1.7rem,3.6vw,3.7rem)] font-bold leading-[1.1] tracking-[-0.02em] md:mt-32"
         style={{ '--p': 0 } as React.CSSProperties}
       >
         {TOKENS.map((tok, i) => {
@@ -100,7 +100,7 @@ export function Manifesto() {
       <Reveal as="ul" className="mt-20 grid gap-12 md:mt-28 lg:grid-cols-3 lg:gap-8">
         {PRINCIPLES.map((p, i) => (
           <li key={p.title} className="rv-up" style={{ '--i': i } as React.CSSProperties}>
-            <h3 className="font-wide text-[1.75rem] font-extrabold leading-[1.02] tracking-[-0.025em] md:text-[2rem]">{fr(p.title)}</h3>
+            <h3 className="font-wide text-[1.6rem] font-bold leading-[1.04] tracking-[-0.02em] md:text-[1.85rem]">{fr(p.title)}</h3>
             <p className="mt-4 max-w-sm text-[17px] leading-relaxed">{fr(p.text)}</p>
           </li>
         ))}

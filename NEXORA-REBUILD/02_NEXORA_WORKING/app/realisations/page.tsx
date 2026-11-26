@@ -6,11 +6,11 @@ import { ProjectsIndex } from '@/components/nexora/projects-index'
 import { Reveal, SplitWords } from '@/components/nexora/reveal'
 
 export const metadata: Metadata = {
-  title: 'Réalisations, motion design et sites web | NEXORA',
+  title: 'Réalisations, motion design et sites web | NEXORA Studio',
   description:
-    'Vidéos en motion design et sites web réalisés par le studio NEXORA à Cotonou pour des institutions, des entreprises et des marques, présentés projet par projet.',
+    'Vidéos en motion design et sites web réalisés par NEXORA Studio à Cotonou pour des institutions, des entreprises et des marques, présentés projet par projet.',
   alternates: { canonical: '/realisations' },
-  openGraph: { url: '/realisations', title: 'Réalisations | NEXORA' },
+  openGraph: { url: '/realisations', title: 'Réalisations | NEXORA Studio' },
 }
 
 export default function RealisationsPage() {

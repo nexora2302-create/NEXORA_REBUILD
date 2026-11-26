@@ -85,11 +85,11 @@ export function Hero() {
 
       {/* Le mot, serré comme le logo ; la sculpture 3D tient la place du X. Il s'écarte au scroll. */}
       <h1
-        aria-label="NEXORA"
+        aria-label="NEXORA Studio"
         className="t-wordmark absolute inset-x-0 top-[33svh] z-0 flex -translate-y-1/2 flex-col items-center gap-[0.07em] px-4 md:top-[40%] md:flex-row md:justify-center md:gap-0 md:px-8 [@media(max-height:560px)]:top-[34%] [@media(max-height:560px)]:flex-row"
       >
         {[LETTERS.slice(0, 3), LETTERS.slice(3)].map((group, g) => (
-          <span key={g} aria-hidden className="flex">
+          <span key={g} aria-hidden className={`flex ${g === 1 ? 'relative' : ''}`}>
           {group.map((l) => {
               const i = LETTERS.indexOf(l)
               return (
@@ -125,12 +125,21 @@ export function Hero() {
                 style={{ transform: `translate3d(calc(var(--p) * ${i < 2 ? -1 : 1} * ${10 + Math.abs(i - 2) * 3}vw), 0, 0)` }}
               >
                 <span className="hero-line block" style={{ '--i': i } as React.CSSProperties}>
-                  {l}
+                  {l === 'E' ? <HeroE /> : l}
                 </span>
               </span>
             )
           )
           })}
+          {g === 1 && (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute right-[0.02em] top-[0.52em] z-20 block"
+              style={{ transform: 'translate3d(calc(var(--p) * 16vw), 0, 0)' }}
+            >
+              <span className="hero-studio block font-serif text-[0.86em] font-normal normal-case leading-[0.8] tracking-normal text-accent">Studio</span>
+            </span>
+          )}
           </span>
         ))}
       </h1>
@@ -178,6 +187,15 @@ export function Hero() {
   )
 }
 
+// E redessiné : le E de l'Unbounded a un fût pincé ; celui du logo est droit (unités de 1/1000 em).
+function HeroE() {
+  return (
+    <svg viewBox="0 0 710 750" aria-hidden className="inline-block h-[0.75em] w-auto" style={{ margin: '0 0.044em 0 0.04em' }}>
+      <path fill="currentColor" d="M0 0H710V180H220V285H650V465H220V570H710V750H0Z" />
+    </svg>
+  )
+}
+
 function hasHardwareGL() {
   try {
     const c = document.createElement('canvas')
@@ -204,7 +222,7 @@ function KineticVerb() {
   return (
     <span className="relative inline-flex overflow-hidden pb-[0.12em] pr-[0.1em] align-bottom">
       <span className="sr-only">les marques, les images, le web et les idées.</span>
-      <span key={i} aria-hidden className="word-swap inline-block font-serif font-normal italic tracking-[-0.01em] text-accent" style={{ fontVariationSettings: 'normal' }}>
+      <span key={i} aria-hidden className="word-swap inline-block font-serif text-[1.22em] font-normal leading-[0.9] tracking-normal text-accent">
         {VERBS[i]}.
       </span>
     </span>

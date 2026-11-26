@@ -18,12 +18,12 @@ export function Contact() {
                 </span>
               </span>
               <br />
-              <span className="font-serif font-normal italic tracking-normal">
+              <span className="font-serif text-[1.18em] font-normal tracking-normal text-accent">
                 <SplitWords text="Mettons-le en mouvement." offset={2} />
               </span>
             </h2>
           </Reveal>
-          <a href="mailto:bonjour@nexora.bj" className="link-line mt-10 inline-block font-serif text-3xl italic md:text-4xl">
+          <a href="mailto:bonjour@nexora.bj" className="link-line mt-10 inline-block font-display text-2xl font-semibold tracking-[-0.02em] md:text-3xl">
             bonjour@nexora.bj
           </a>
           <dl className="mt-10 grid max-w-md grid-cols-2 gap-6 text-[15px]">
@@ -62,7 +62,7 @@ export function Footer({ base = '' }: { base?: string }) {
   return (
     <footer className="px-4 pb-8 pt-10 md:px-8">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <a href={base || '#top'} className="inline-flex min-h-11 items-center" aria-label="NEXORA, accueil">
+        <a href={base || '#top'} className="inline-flex min-h-11 items-center" aria-label="NEXORA Studio, accueil">
           <Logo className="text-[0.95rem]" />
         </a>
         <nav aria-label="Pied de page">
@@ -84,7 +84,7 @@ export function Footer({ base = '' }: { base?: string }) {
         </a>
       </div>
       <div className="mt-6 flex flex-col gap-1 border-t border-line pt-6 text-[13px] text-muted-foreground sm:flex-row sm:justify-between">
-        <p>© 2026 NEXORA, studio créatif à Cotonou</p>
+        <p>© 2026 NEXORA Studio, Cotonou</p>
         <a href="mailto:bonjour@nexora.bj" className="link-line self-start">bonjour@nexora.bj</a>
       </div>
     </footer>

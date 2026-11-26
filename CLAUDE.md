@@ -82,6 +82,14 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 25 novembre 2026.
 - Planche : https://claude.ai/artifact/RjQ2FzrFPTvZWTt1odANy1 (A Unbounded + Mr Dafoe, B Anton + Mrs Saint Delafield, C Michroma + Yellowtail, D NEXT + « udio » manuscrit, E « nextudio » au t braise, mises en situation de A et D).
 - Noms (recherche web 26 nov. 2026) : « Nexora Studio » déjà utilisé (agence au Kosovo sur nexora.studio, modèles Framer, Wix, Webflow) ; « Nextudio » sans résultat ; « NextStudio » = logiciel de musique libre. Marques non vérifiées.
 
+## DÉCISION (26 nov. 2026) : NEXORA Studio, appliqué au site (branche de travail)
+
+- Après les pistes Next Studio / Nextudio (dossiers `NEXORA-BRAND/09` à `12`, jugées pas assez fortes), l'utilisateur part sur **NEXORA Studio**. Remplace Strobe.
+- Logo : NEXORA en Unbounded 700 avec un **E redessiné** (fût droit : l'E de l'Unbounded a un fût pincé, l'utilisateur l'a remarqué) + « Studio » manuscrit Mr Dafoe en braise, posé à plat, sans rotation, qui recouvre le bas du mot. Tracés vectoriels générés par `NEXORA-BRAND/13-NEXORA-STUDIO/sources/gen.py` (polices téléchargées depuis Google Fonts, positions mesurées dans le navigateur). Fichiers : `nexora-studio-sombre.svg`, `-clair.svg`, `-braise.svg`, `icon.svg`.
+- Favicon : N de l'Unbounded + S manuscrit de « Studio » en braise qui traverse le N, sur carré encre (`public/icon.svg`, `public/apple-icon.png`). Image de partage `public/og.png`.
+- Site : `components/nexora/logo.tsx` (tracés), polices dans `app/layout.tsx` (Archivo pour le texte, Unbounded pour les titres via `--font-unbounded`, Mr Dafoe pour les accents via `font-serif`), utilitaires `t-section`, `t-card`, `t-lead`, `t-wordmark`, `t-lead-hero`, `font-wide` passés en Unbounded dans `app/globals.css`, graisses allégées (700). Hero : sculpture 3D du X **gardée**, E redessiné (`HeroE`), « Studio » manuscrit qui s'écrit après les lettres (`.hero-studio`). Accents (mot qui change, titres d'expertises, « Mettons-le en mouvement. ») en Mr Dafoe sans italique ; adresses e-mail en Unbounded. Nom « NEXORA Studio » dans les métadonnées, le pied de page, les aria-label, la page Réalisations.
+- Vérifié à 390, 1024, 1440, 1920 px. Pas encore sur `main`. Restent : catalogue PDF et brand book à passer en NEXORA Studio ; « nexora.studio » est pris par une agence au Kosovo (marque à vérifier).
+
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
 - Planche logo : https://claude.ai/artifact/SsBfugxB9n33WY8H44C9yo

@@ -40,7 +40,7 @@ function Copy({ x }: { x: Expertise }) {
           {x.word}. {x.title}
         </span>
       </h3>
-      <p className="mt-4 font-serif text-2xl italic md:text-[1.7rem]">{x.title}</p>
+      <p className="mt-3 font-serif text-[2.1rem] leading-none md:text-[2.4rem]">{x.title}</p>
       <p className="mt-2 max-w-md text-[17px] leading-relaxed text-foreground/80">{fr(x.line)}</p>
       <ul className="mt-6 flex flex-wrap gap-2">
         {x.items.map((it) => (

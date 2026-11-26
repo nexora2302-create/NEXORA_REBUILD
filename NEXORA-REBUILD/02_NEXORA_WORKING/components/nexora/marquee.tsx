@@ -24,7 +24,7 @@ export function Marquee() {
           <div key={dup} className="flex shrink-0 items-center" aria-hidden={dup === 1}>
             {[...WORDS, ...WORDS].map((w, i) => (
               <span key={`${dup}-${i}`} className="flex items-center">
-                <span className="font-wide px-5 text-2xl font-black uppercase tracking-[-0.02em] md:text-4xl">{w}</span>
+                <span className="font-wide px-5 text-2xl font-bold uppercase tracking-[-0.01em] md:text-4xl">{w}</span>
                 <svg viewBox="0 0 40 40" className="h-4 w-4 shrink-0 text-accent md:h-6 md:w-6" aria-hidden>
                   <path d="M20 0 L24 16 L40 20 L24 24 L20 40 L16 24 L0 20 L16 16 Z" fill="currentColor" />
                 </svg>

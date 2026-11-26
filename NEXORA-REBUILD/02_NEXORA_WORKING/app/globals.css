@@ -14,7 +14,8 @@
 
 @theme inline {
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-serif: var(--font-dafoe), cursive;
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 
   --color-background: var(--background);
@@ -84,35 +85,31 @@
 
 /* Échelle typographique : 6 niveaux, pas un de plus. */
 @utility t-section {
-  font-variation-settings: 'wdth' 125;
-  font-stretch: 125%;
-  font-weight: 900;
-  font-size: clamp(2.6rem, 6vw, 6.5rem);
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5.6vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: -0.025em;
 }
 @utility t-card {
-  font-variation-settings: 'wdth' 112;
-  font-stretch: 112%;
-  font-weight: 800;
-  font-size: clamp(2.25rem, 4vw, 4rem);
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw, 3.6rem);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
 }
 @utility t-lead {
-  font-family: var(--font-instrument), ui-serif, Georgia, serif;
-  font-style: italic;
-  font-size: clamp(1.6rem, 2.2vw, 1.875rem);
-  line-height: 1.15;
+  font-family: var(--font-dafoe), cursive;
+  font-size: clamp(2.1rem, 2.9vw, 2.5rem);
+  line-height: 1.05;
 }
 
 @utility t-wordmark {
-  /* « NEXORA » mesure 5,48 em en Archivo largeur 125, graisse 900, approche -0,03 em : il remplit la largeur utile. */
+  /* « NEXORA » mesure environ 5,3 em en Unbounded 700, approche -0,01 em : il remplit la largeur utile. */
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
   font-size: calc((100vw - 2rem) / 2.95);
-  font-weight: 900;
-  font-variation-settings: 'wdth' 125;
-  font-stretch: 125%;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 0.8;
   text-transform: uppercase;
   @media (min-width: 768px) {
@@ -124,17 +121,15 @@
 }
 
 @utility t-lead-hero {
-  font-size: clamp(1.9rem, 3vw, 3.1rem);
-  font-weight: 800;
-  font-variation-settings: 'wdth' 112;
-  font-stretch: 112%;
-  line-height: 1.02;
-  letter-spacing: -0.035em;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(1.7rem, 2.7vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
 }
 
 @utility font-wide {
-  font-variation-settings: 'wdth' 125;
-  font-stretch: 125%;
+  font-family: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -228,6 +223,16 @@ body::after {
   transform: translate3d(0, 105%, 0);
   animation: letter-rise 1.2s var(--ease-out-expo) forwards;
   animation-delay: calc(var(--i) * 110ms + 250ms);
+}
+/* « Studio » du hero : écrit de gauche à droite, après l'arrivée des lettres */
+.hero-studio {
+  clip-path: inset(-0.4em 100% -0.4em -0.4em);
+  animation: studio-write 1.3s var(--ease-in-out-quint) 0.95s forwards;
+}
+@keyframes studio-write {
+  to {
+    clip-path: inset(-0.4em -0.4em -0.4em -0.4em);
+  }
 }
 @keyframes letter-rise {
   to {
@@ -655,6 +660,10 @@ details[open]::details-content {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .hero-studio {
+    animation: none;
+    clip-path: none;
   }
   .hero-line,
   .rv-word,
