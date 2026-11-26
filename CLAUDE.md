@@ -21,7 +21,7 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 26 novembre 2026.
 ## Technique
 
 - Dépôt : `nexora2302-create/NEXORA_REBUILD`. Branche de travail : `claude/nexora-rebuild-base`, poussée sur `main` uniquement sur demande.
-- Site : `NEXORA-REBUILD/02_NEXORA_WORKING` (Next.js 16, React 19, Tailwind v4, three.js). Vercel déploie depuis `main` (dossier racine ci-dessus). URL : https://nexoraa-nu.vercel.app
+- Site : `NEXORA-REBUILD/02_NEXORA_WORKING` (Next.js 16, React 19, Tailwind v4, three.js). URL : https://nexoraa-nu.vercel.app. **Déploiement (précisé le 26 nov. 2026)** : le site en ligne vient du compte Vercel personnel de l'utilisateur, relié à un dépôt GitHub personnel (pas à `nexora2302-create/NEXORA_REBUILD`). L'utilisateur recopie à la main les fichiers du dépôt de la boîte dans ce dépôt personnel, depuis un PC. Un push sur `main` ne met donc pas le site en ligne à jour. Autre voie possible : jeton Vercel enregistré sur l'environnement (hôte api.vercel.com) et `vercel deploy --prod` depuis `02_NEXORA_WORKING`.
 - Composants principaux dans `components/nexora/` : `hero.tsx` + `nx-scene.ts` (sculpture 3D du X, affiche WebP de repli, 3D seulement avec vraie carte graphique), `manifesto.tsx` (Studio), `expertises.tsx` + `stack-cards.tsx`, `work.tsx` (galerie zoom), `method.tsx` (panneaux), `header.tsx` (barre toujours visible), `contact.tsx`, page `/realisations`.
 - Reste à faire côté utilisateur : variable `NEXT_PUBLIC_FORM_ENDPOINT` dans Vercel ; activer Vercel Web Analytics ou retirer le composant.
 
@@ -88,8 +88,14 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 26 novembre 2026.
 - Logo : NEXORA en Unbounded 700 avec un **E redessiné** (fût droit : l'E de l'Unbounded a un fût pincé, l'utilisateur l'a remarqué) + « Studio » manuscrit Mr Dafoe en braise, posé à plat, sans rotation, qui recouvre le bas du mot. Tracés vectoriels générés par `NEXORA-BRAND/13-NEXORA-STUDIO/sources/gen.py` (polices téléchargées depuis Google Fonts, positions mesurées dans le navigateur). Fichiers : `nexora-studio-sombre.svg`, `-clair.svg`, `-braise.svg`, `icon.svg`.
 - Favicon : N de l'Unbounded + S manuscrit de « Studio » en braise qui traverse le N, sur carré encre (`public/icon.svg`, `public/apple-icon.png`). Image de partage `public/og.png`.
 - Site : `components/nexora/logo.tsx` (tracés), polices dans `app/layout.tsx` (Archivo pour le texte, Unbounded pour les titres via `--font-unbounded`, Mr Dafoe pour les accents via `font-serif`), utilitaires `t-section`, `t-card`, `t-lead`, `t-wordmark`, `t-lead-hero`, `font-wide` passés en Unbounded dans `app/globals.css`, graisses allégées (700). Hero : sculpture 3D du X **gardée**, E redessiné (`HeroE`), « Studio » manuscrit qui s'écrit après les lettres (`.hero-studio`). Accents (mot qui change, titres d'expertises, « Mettons-le en mouvement. ») en Mr Dafoe sans italique ; adresses e-mail en Unbounded. Nom « NEXORA Studio » dans les métadonnées, le pied de page, les aria-label, la page Réalisations.
-- Vérifié à 390, 1024, 1440, 1920 px. Pas encore sur `main`. Catalogue passé en NEXORA Studio ; projet « NEXORA Studio » de la page Réalisations refait (affiche `nexora-affiche-v2.webp`, vidéo `site-nexora-v2.mp4`). L'utilisateur valide cette DA (« on garde cette DA-là »). « nexora.studio » est pris par une agence au Kosovo (marque à vérifier).
+- Vérifié à 390, 1024, 1440, 1920 px. Poussé sur `main` le 26 nov. 2026 à la demande de l'utilisateur (commit 0f36463). Catalogue passé en NEXORA Studio ; projet « NEXORA Studio » de la page Réalisations refait (affiche `nexora-affiche-v2.webp`, vidéo `site-nexora-v2.mp4`). L'utilisateur valide cette DA (« on garde cette DA-là »). « nexora.studio » est pris par une agence au Kosovo : l'utilisateur juge que ce n'est pas grave (26 nov. 2026), ne plus insister.
 - Brand book v2 (26 nov. 2026) : `NEXORA-BRAND/01-BRAND-BOOK/NEXORA-Studio-Brand-Book-v2.pdf` (25 pages 16:9) et `.md` ; v1 dans `archive-v1/`. Sources `01-BRAND-BOOK/sources-v2/` : `assets.py` + `raster.js` (logos SVG/PNG et favicons dans `02-LOGO-BRAND-ASSETS`), `bb.py` + `bb.css` + `pdf.js` (PDF), `planches.js` (PNG dans `03-COLOR-PALETTE-TYPOGRAPHY`). Tokens v2 dans `05-DESIGN-TOKENS-SOURCE-FILES` (v1 archivée), Design System passé en v2.0. Règles clés : Unbounded 600/700 (jamais 900), Mr Dafoe un à quatre mots, une fois par composition, à plat, jamais en capitales ; sur os, « Studio » en braise profonde ; sur braise, tout en encre (Studio os seulement en grand format) ; zone libre = moitié de la hauteur des capitales ; taille min. 120 px / 30 mm, en dessous symbole N + S.
+
+## Drive (26 nov. 2026)
+
+- Dossier racine « NEXORA — BRAND IDENTITY & DESIGN SYSTEM » (id 1439xiZDyyL_XJ0e1h79ZCx19vn7u9tWJ), privé : seul le compte de l'utilisateur y a accès (vérifié le 26 nov. 2026), rien n'est partagé avec les associés.
+- Identité v2 : dossier « NEXORA Studio, identité v2 (26 nov. 2026) » (id 1C8cg7VCAvJmJ5cxA2T-Ph5rGIqTI-1tQ) : 01 Brand book (PDF + Google Doc), 02 Logos et favicons (SVG, PNG 2048, favicons), 03 Planches, 04 Design system et tokens (Google Doc + css, json, logo.tsx), 05 Catalogue. 50 fichiers déposés et confirmés par le Drive.
+- Fiche « 00 À LIRE D'ABORD : NEXORA Studio (26 nov. 2026) » (Google Doc, à la racine) : décision, stratégie de marque en bref, règles, où trouver quoi. Les dossiers v1 d'octobre (01 à 04 et NEXORA-BRAND) y sont signalés comme dépassés.
 
 ## Artefacts publiés (privés, compte de l'utilisateur)
 
@@ -107,6 +113,6 @@ Fichier de contexte pour les sessions Claude. Mis à jour le 26 novembre 2026.
 
 ## Prochaines étapes probables
 
-1. Pousser la branche de travail sur `main` (NEXORA Studio sur le site) quand l'utilisateur le valide, puis vérifier que Vercel redéploie (le push du 25 nov. n'avait pas été déployé : « Redeploy » ou reconnexion Git dans Vercel, dépôt renommé `NEXORA_REBUILD`).
-2. Vérifier la marque « Nexora Studio » (agence au Kosovo sur nexora.studio) avant tout dépôt ou achat de domaine.
+1. Mettre le site en ligne à jour : soit l'utilisateur recopie `main` dans son dépôt personnel depuis un PC, soit un jeton Vercel permet de déployer d'ici. Solution durable : relier le projet Vercel directement à `nexora2302-create/NEXORA_REBUILD` (dossier racine `NEXORA-REBUILD/02_NEXORA_WORKING`).
+2. Partager le dossier Drive avec les associés (l'utilisateur donne les adresses ou partage lui-même).
 3. Questions ouvertes : adresse e-mail générique, ADPME / Next Impact, prix définitifs du catalogue.
