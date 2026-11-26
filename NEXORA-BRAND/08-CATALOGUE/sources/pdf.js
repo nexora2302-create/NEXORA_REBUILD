@@ -16,6 +16,6 @@ const HERE = __dirname, SHOTS = process.argv[2];
     const over = await p.evaluate(() => [...document.querySelectorAll('.pg')].map((pg, i) => { const r = pg.getBoundingClientRect(); const bad = [...pg.querySelectorAll('*')].filter(e => { const q = e.getBoundingClientRect(); return q.width && (q.bottom > r.bottom - 40 || q.right > r.right - 60) && !e.closest('.cv-word') && !e.closest('.screens') && getComputedStyle(e).position !== 'absolute' }).map(e => e.className || e.tagName); return bad.length ? `p${i + 1}: ${[...new Set(bad)].slice(0, 6)}` : null }).filter(Boolean));
     console.log('débords', over);
   }
-  await p.pdf({path: path.join(HERE, '..', 'NEXORA-Catalogue-2026.pdf'), width: '1920px', height: '1080px', printBackground: true, preferCSSPageSize: true});
+  await p.pdf({path: path.join(HERE, '..', 'NEXORA-Studio-Catalogue-2026.pdf'), width: '1920px', height: '1080px', printBackground: true, preferCSSPageSize: true});
   await b.close();
 })();

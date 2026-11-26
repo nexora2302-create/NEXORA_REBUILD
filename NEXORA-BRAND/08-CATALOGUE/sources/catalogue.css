@@ -1,4 +1,4 @@
-/* Catalogue NEXORA 2026, identité « Braise » : encre, os, braise (rare), Archivo 125/900, Instrument Serif, JetBrains Mono. */
+/* Catalogue NEXORA Studio 2026 : encre, os, braise (rare) ; Unbounded pour les titres, Mr Dafoe pour les accents, Archivo pour le texte, JetBrains Mono. */
 @page { size: 1920px 1080px; margin: 0 }
 :root {
   --encre: #0D0C0B; --charbon: #161412; --os: #ECE5D8; --sable: #E2DACB; --pierre: #9A9386; --terre: #4F493F;
@@ -193,3 +193,34 @@ h2 em { font-family: 'Instrument Serif', serif; font-weight: 400; font-style: it
 .clist b { font-size: 34px; font-weight: 700; letter-spacing: -.01em }
 .contact .cv-word.end { margin-top: auto }
 .contact .nx.huge { color: var(--encre) }
+
+/* ---------- NEXORA Studio : logo en tracés, titres en Unbounded, accents manuscrits ---------- */
+h1, h2, h2.big, .duo b, .names b, .flist b, .price .prh h2, .plist b, .plist .pr, .steps b, .conds b, .cbig, .facts b, .clist b, .prin b {
+  font-family: 'Unbounded', sans-serif; font-variation-settings: normal }
+h2 { font-weight: 700; letter-spacing: -.02em }
+h2.big { font-size: 112px; font-weight: 700; letter-spacing: -.03em; line-height: .94 }
+.ct h2 { font-size: 64px; line-height: 1 }
+.case.v .ct h2 { font-size: 60px }
+.price .prh h2 { font-size: 84px; font-weight: 700; letter-spacing: -.03em }
+.duo b, .names b, .flist b, .steps b { font-weight: 700 }
+.names b { font-size: 34px }
+.flist b { font-size: 50px; letter-spacing: -.02em }
+.steps b { font-size: 32px }
+.duo b { font-size: 30px }
+.plist b { font-size: 21px; font-weight: 600; letter-spacing: -.01em }
+.plist .pr { font-size: 27px; font-weight: 700 }
+.conds b { font-size: 34px; font-weight: 700; letter-spacing: -.02em }
+.facts b { font-size: 19px; font-weight: 600; letter-spacing: -.01em }
+.clist b { font-size: 30px; font-weight: 600; letter-spacing: -.02em }
+.prin b { font-size: 18px; font-weight: 600; letter-spacing: -.01em }
+.cbig { font-size: 112px; font-weight: 700; letter-spacing: -.03em; line-height: .95 }
+.serif, h2 em, .cbig em { font-family: 'Mr Dafoe', cursive; font-style: normal; font-weight: 400; letter-spacing: 0 }
+h2 em { font-size: 1.2em; line-height: .8 }
+.cbig em { font-size: 150px; line-height: 1.05 }
+.cover .cv-lead { font-size: 70px }
+svg.nx { display: block; height: auto; overflow: visible }
+svg.nx.small { width: auto; height: 40px }
+svg.nx.huge { width: 1240px; margin-left: -4px }
+.st { fill: var(--braise) }
+.contact .st { fill: var(--os) }
+.cover .cv-lead { bottom: 470px }

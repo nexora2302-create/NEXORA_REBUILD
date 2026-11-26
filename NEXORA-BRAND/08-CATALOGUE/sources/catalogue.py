@@ -1,4 +1,4 @@
-"""Catalogue NEXORA 2026 (motion design et sites web). Génère catalogue.html, puis le PDF avec pdf.js.
+"""Catalogue NEXORA Studio 2026 (motion design et sites web). Génère catalogue.html, puis le PDF avec pdf.js.
 Sources des faits : présentation NEXORA du 17/11/2026 (Drive), fiches clients du dépôt motion-design-brain,
 politique tarifaire 1.0 (prix recommandés motion et web). Aucun client, chiffre ni projet inventé."""
 import os, sys, re
@@ -7,8 +7,12 @@ sys.path.insert(0, os.path.join(HERE, '..', '..', '07-REBRANDING', 'v4', 'source
 from typo import fr_typo
 
 IMG = '../img'
-X = '<span class="x">X</span>'
-def nx(cls='nx'): return f'<span class="{cls}">NE{X}ORA</span>'
+import json
+_L = json.load(open(os.path.join(HERE, '..', '..', '13-NEXORA-STUDIO', 'sources', 'logo.json')))
+def nx(cls='nx'):
+    # Logo NEXORA Studio en tracés (mêmes tracés que le site) : NEXORA en couleur du texte, « Studio » en braise
+    return (f'<svg class="{cls}" viewBox="{_L["viewBox"]}" role="img" aria-label="NEXORA Studio">'
+            f'<path fill="currentColor" d="{_L["word"]}"/><path class="st" d="{_L["studio"]}"/></svg>')
 def head(n, label, dark=True):
     return f'<header class="ph"><span class="lg">{nx("nx small")}</span><span class="mono">{label}</span><span class="mono pn">{n:02d} / 15</span></header>'
 
@@ -47,9 +51,9 @@ def rows(items):
 
 FLORE = ['Le consentement', 'Le harcèlement sexuel', 'Les survivantes', 'Trois gestes', 'Impliquer les hommes', 'Les 16 jours d’activisme']
 
-HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEXORA, catalogue 2026</title>
+HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEXORA Studio, catalogue 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Unbounded:wght@400;500;600;700&family=Mr+Dafoe&family=JetBrains+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="catalogue.css"></head><body>
 
 <section class="pg dark cover">
@@ -62,7 +66,7 @@ HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEX
 <section class="pg light studio">{head(2, 'Le studio')}
 <h2 class="big">Né à Cotonou,<br>pensé pour le monde.</h2>
 <div class="cols">
-<p class="lead">NEXORA est un studio créatif basé à Cotonou. Nous concevons des vidéos en motion design et des sites web pour les institutions, les entreprises et les marques qui doivent être comprises vite, et retenues longtemps.</p>
+<p class="lead">Basé à Cotonou, NEXORA Studio conçoit des vidéos en motion design et des sites web pour les institutions, les entreprises et les marques qui doivent être comprises vite, et retenues longtemps.</p>
 <ul class="prin">
 <li><b>Une idée d’abord.</b><span>Chaque projet part d’une idée tirée de votre marque, jamais d’une tendance du moment.</span></li>
 <li><b>Un seul interlocuteur.</b><span>Du script à la mise en ligne, la même équipe porte votre projet.</span></li>
@@ -116,7 +120,7 @@ HTML = f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>NEX
 </section>
 
 <section class="pg light webcase">{head(10, 'Sites web')}
-<div class="ct"><p class="mono kick">NEXORA · Notre propre site · 2026</p><h2>Un site qui bouge, et qui reste rapide.</h2>
+<div class="ct"><p class="mono kick">NEXORA Studio · Notre propre site · 2026</p><h2>Un site qui bouge, et qui reste rapide.</h2>
 <p class="what">Notre site de studio : une sculpture 3D animée en temps réel à l’ouverture, des sections qui réagissent au défilement, une version mobile pensée à part. Conçu et développé par l’équipe.</p>
 <div class="facts"><div><span class="mono">Technologie</span><b>Next.js, three.js</b></div><div><span class="mono">Écrans</span><b>mobile et bureau</b></div><div><span class="mono">En ligne</span><b>nexoraa-nu.vercel.app</b></div></div></div>
 <div class="screens"><div class="browser"><i></i><img src="{IMG}/web-nexora-1.jpg" alt=""></div><div class="browser b2"><i></i><img src="{IMG}/web-nexora-2.jpg" alt=""></div><div class="phone"><img src="{IMG}/web-nexora-mob.jpg" alt=""></div></div>
